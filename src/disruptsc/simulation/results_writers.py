@@ -164,20 +164,136 @@ class DestructionWriter(CSVResultsWriter):
     """Writer for ad-hoc analysis results."""
 
     def __init__(self, output_file: Path, parameters: "Parameters"):
-        periods = [30, 90, 180]
-        household_loss_labels = ['household_loss_' + str(period) for period in periods]
-        headers = ["sectors", "household_loss", 'country_loss'] + household_loss_labels
+        # Get periods from parameters, with default fallback
+        periods = getattr(parameters, 'destruction_periods', [30, 90, 180])
+        
+        # Define comprehensive header set for all loss metrics
+        headers = [
+            "sectors",
+            # Household loss metrics
+            "household_loss_absolute_cumulated",
+            "household_loss_relative_cumulated", 
+            # Household loss per time target (cumulated)
+            *[f"household_loss_cumulated_abs_t{period}" for period in periods],
+            *[f"household_loss_cumulated_rel_t{period}" for period in periods],
+            # Household loss instant (flow)
+            *[f"household_loss_instant_abs_t{period}" for period in periods],
+            *[f"household_loss_instant_rel_t{period}" for period in periods],
+            # Country loss metrics
+            "country_loss_absolute_cumulated",
+            "country_loss_relative_cumulated",
+            # Country loss per time target (cumulated)
+            *[f"country_loss_cumulated_abs_t{period}" for period in periods],
+            *[f"country_loss_cumulated_rel_t{period}" for period in periods],
+            # Country loss instant (flow)
+            *[f"country_loss_instant_abs_t{period}" for period in periods],
+            *[f"country_loss_instant_rel_t{period}" for period in periods]
+        ]
 
         super().__init__(output_file, headers)
         self.parameters = parameters
+        self.periods = periods
 
-    def write_destruction_results(self, disruption_identifier: list | str, household_loss: float, country_loss: float,
-                                  household_loss_per_periods: dict):
-        """Write results for a single sector combination analysis."""
+    def write_destruction_results(self, disruption_identifier: list | str, simulation: "Simulation", 
+                                  household_table, monetary_unit_in_model: str):
+        """Write comprehensive destruction results for a single analysis."""
         if isinstance(disruption_identifier, list):
             disruption_identifier = "_".join(disruption_identifier)
-        self.write_row([disruption_identifier, household_loss, country_loss] +
-                       list(household_loss_per_periods.values()))
+        
+        # Calculate all required household loss metrics
+        household_losses = {
+            # Absolute cumulated loss (default behavior)
+            'absolute_cumulated': simulation.calculate_household_loss(
+                household_table, calculation_type="stock", value_type="absolute", time_steps=None
+            ),
+            # Relative cumulated loss 
+            'relative_cumulated': simulation.calculate_household_loss(
+                household_table, calculation_type="stock", value_type="relative", time_steps=None
+            ),
+            # Per time target cumulated losses (absolute and relative)
+            'per_time_cumulated_absolute': simulation.calculate_household_loss(
+                household_table, calculation_type="stock", value_type="absolute", time_steps=self.periods
+            ),
+            'per_time_cumulated_relative': simulation.calculate_household_loss(
+                household_table, calculation_type="stock", value_type="relative", time_steps=self.periods
+            ),
+            # Instant losses (flow) at target time steps - absolute and relative
+            'instant_absolute': simulation.calculate_household_loss(
+                household_table, calculation_type="flow", value_type="absolute", time_steps=self.periods
+            ),
+            'instant_relative': simulation.calculate_household_loss(
+                household_table, calculation_type="flow", value_type="relative", time_steps=self.periods
+            )
+        }
+        
+        # Calculate all required country loss metrics
+        country_losses = {
+            # Absolute cumulated loss (default behavior)
+            'absolute_cumulated': simulation.calculate_country_loss(
+                calculation_type="stock", value_type="absolute", time_steps=None
+            ),
+            # Relative cumulated loss
+            'relative_cumulated': simulation.calculate_country_loss(
+                calculation_type="stock", value_type="relative", time_steps=None
+            ),
+            # Per time target cumulated losses (absolute and relative)
+            'per_time_cumulated_absolute': simulation.calculate_country_loss(
+                calculation_type="stock", value_type="absolute", time_steps=self.periods
+            ),
+            'per_time_cumulated_relative': simulation.calculate_country_loss(
+                calculation_type="stock", value_type="relative", time_steps=self.periods
+            ),
+            # Instant losses (flow) at target time steps - absolute and relative
+            'instant_absolute': simulation.calculate_country_loss(
+                calculation_type="flow", value_type="absolute", time_steps=self.periods
+            ),
+            'instant_relative': simulation.calculate_country_loss(
+                calculation_type="flow", value_type="relative", time_steps=self.periods
+            )
+        }
+        
+        # Build row data with all metrics
+        row_data = [disruption_identifier]
+        
+        # Add household loss metrics
+        row_data.extend([
+            household_losses['absolute_cumulated'],
+            household_losses['relative_cumulated'],
+            # Per time cumulated absolute
+            *[household_losses['per_time_cumulated_absolute'].get(period, 0.0) for period in self.periods],
+            # Per time cumulated relative  
+            *[household_losses['per_time_cumulated_relative'].get(period, 0.0) for period in self.periods],
+            # Instant absolute
+            *[household_losses['instant_absolute'].get(period, 0.0) for period in self.periods],
+            # Instant relative
+            *[household_losses['instant_relative'].get(period, 0.0) for period in self.periods]
+        ])
+        
+        # Add country loss metrics
+        row_data.extend([
+            country_losses['absolute_cumulated'],
+            country_losses['relative_cumulated'],
+            # Per time cumulated absolute
+            *[country_losses['per_time_cumulated_absolute'].get(period, 0.0) for period in self.periods],
+            # Per time cumulated relative
+            *[country_losses['per_time_cumulated_relative'].get(period, 0.0) for period in self.periods],
+            # Instant absolute
+            *[country_losses['instant_absolute'].get(period, 0.0) for period in self.periods],
+            # Instant relative
+            *[country_losses['instant_relative'].get(period, 0.0) for period in self.periods]
+        ])
+        
+        # Write the row
+        self.write_row(row_data)
+        
+        # Log summary
+        logging.info(f"Destruction results for {disruption_identifier}:")
+        logging.info(f"  Household Loss (Absolute Cumulated): {household_losses['absolute_cumulated']:,.2f} {monetary_unit_in_model}")
+        logging.info(f"  Household Loss (Relative Cumulated): {household_losses['relative_cumulated']:.4%}")
+        logging.info(f"  Country Loss (Absolute Cumulated): {country_losses['absolute_cumulated']:,.2f} {monetary_unit_in_model}")
+        logging.info(f"  Country Loss (Relative Cumulated): {country_losses['relative_cumulated']:.4%}")
+        
+        return household_losses, country_losses
 
 
 class SensitivityWriter(CSVResultsWriter):

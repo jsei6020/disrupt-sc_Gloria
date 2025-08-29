@@ -449,7 +449,6 @@ class CapitalDestruction(BaseDisruption):
                               input_units: str, model_units: str):
         units = {"USD": 1, "kUSD": 1e3, "mUSD": 1e6}
         destroyed_amount = destroyed_amount * units[input_units] / units[model_units]
-
         affected_firms = firms.select_by_properties(filters)
         total_capital = sum([firm.capital_initial for firm in affected_firms.values()])
         if destroyed_amount > total_capital:

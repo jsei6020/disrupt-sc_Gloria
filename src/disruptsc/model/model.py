@@ -706,9 +706,9 @@ class Model(object):
             # Check for order/delivery mismatches in stationary test
             self._check_stationary_equilibrium(time_step=i)
 
-        simulation.calculate_and_export_summary_result(self.sc_network, self.household_table,
-                                                       self.parameters.monetary_units_in_model,
-                                                       None)
+        simulation.log_and_export_summary_results(self.household_table,
+                                                   self.parameters.monetary_units_in_model,
+                                                   None)
         return simulation
 
     def _check_stationary_equilibrium(self, time_step: int):
@@ -809,7 +809,7 @@ class Model(object):
 
     def run_disruption(self, t_final: int):
         # Initialize the model
-        simulation = Simulation("event")
+        simulation = Simulation("disruption")
         logging.info("Simulating the initial state")
         self.run_one_time_step(time_step=0, current_simulation=simulation)
 

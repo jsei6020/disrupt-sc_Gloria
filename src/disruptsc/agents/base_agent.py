@@ -328,18 +328,23 @@ class BaseAgents(dict):
         else:
             raise ValueError(f"Output type '{output_type}' not recognized.")
 
-    def select_by_subregion_sectors(self, subregion_level: str, subregion_sectors: list[tuple]):
+    def select_by_subregion_sectors(self, subregion_level: str, subregion_sectors: list[tuple | list]):
         subregion_sector_dict = self.get_subregion_sectors(subregion_level, output_type='dict')
+        if isinstance(subregion_sectors[0], list):
+            subregion_sectors = [tuple(s) for s in subregion_sectors]
         selected_ids = [agent_id for agent_id, (subregion, sector) in subregion_sector_dict.items()
                         if (subregion, sector) in subregion_sectors]
         return self.__class__([self[agent_id] for agent_id in selected_ids])
 
-    def select_by_properties(self, filters: dict):
+    def select_by_properties(self, filters: dict | None):
         """
         Select agents where the property values match any of the given values in each filter.
         Example: filters = {'region_sector': [...], 'province': [...]}
         Supports nested subregion properties: filters = {'subregion_province': [...]}
         """
+        if (filters is None) or (len(filters) == 0):
+            return self
+
         selected_pids = set(self.keys())
         for attribute, target_values in filters.items():
             if attribute in ['province', 'canton']:

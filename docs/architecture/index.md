@@ -69,6 +69,17 @@ Core simulation engine architecture, time management, and execution control.
 - Data collection and state management
 - Performance monitoring
 
+### [Clean Architecture](clean-architecture.md)
+Modern clean architecture with separation of concerns, replacing the legacy monolithic design.
+
+**Key Topics:**
+- Architectural philosophy and principles
+- Component separation (Runner, Collector, Analyzer, Exporter, Orchestrator)
+- Data flow architecture
+- Benefits of separation (testability, reusability, extensibility)
+- Usage patterns and best practices
+- Migration from legacy architecture
+
 ## Core Concepts
 
 ### Spatial Agent-Based Modeling

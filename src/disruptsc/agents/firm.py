@@ -675,6 +675,10 @@ class Firm(BaseAgent, TransportCapable):
     def capital_destroyed(self):
         return self.finance_manager.capital_destroyed
     
+    @capital_destroyed.setter
+    def capital_destroyed(self, value):
+        self.finance_manager.capital_destroyed = value
+    
     @property
     def production_capacity_reduction(self):
         return self.production_manager.production_capacity_reduction

@@ -7,19 +7,19 @@ filepaths:
 transport_modes: ["roads", "maritime", "railways", "pipelines"] #, waterways, airways]
 monetary_units_in_model: mUSD
 monetary_units_in_data: mUSD
-time_resolution: day
-io_cutoff: 0.2
+time_resolution: week
+io_cutoff: 0.1
 cutoff_sector_demand:
   'type': 'absolute'
-  'value': 1000
+  'value': 100
   'unit': 'kUSD'
 cutoff_firm_output:
   'type': 'absolute'
-  'value': 1000
+  'value': 100
   "unit": "kUSD"
 cutoff_household_demand:
   'type': 'absolute'
-  'value': 1000
+  'value': 100
   "unit": "kUSD"
 nb_suppliers_per_input: 1  # 5
 export_files: True
@@ -99,8 +99,8 @@ logistics:  # Sources: TRACECA Corridor Studies, ADB CAREC Logistics Costing, Wo
     turkmenbashi: 100.0
 
 use_route_cache: True
-simulation_type: disruption
-mc_repetitions: 50
+simulation_type: criticality
+mc_repetitions: 0
 sensitivity:
   duration: [1,5,10,15,30,60,120,180,270,365]
   logistics.speeds.roads: [50,60]
@@ -109,37 +109,46 @@ mc_caching:
   agents: true             # Reuse agents 
   sc_network: true        # Regenerate for stochastic variation
   logistic_routes: true   # Regenerate for stochastic variation
-t_final: 365
+t_final: 4
 epsilon_stop_condition: 1e-3
-#criticality:
-#  attribute: top_flow
+criticality:
+  attribute: top_flow
 #  edges: [aktau, baku, turkmenbashi, railways-GEO, railways-AZE, railways-KAZ]
-#  duration: 1
+  duration: 1
 disruptions:
-#  - type: transport_disruption
+#  - type: transport_disruption_probability
 #    description_type: edge_attributes
 #    attribute: name
-#    values: [railways-GEO-intervention]
+#    values: [aktau]
 #    start_time: 1
-#    duration: 5
-  - type: transport_disruption_probability
+#    probability_duration_pairs: [
+#      [0.0548, 1],
+#    ]
+#    scenario_duration: 365
+  - type: transport_disruption
     description_type: edge_attributes
     attribute: name
-    values: [railways-KAZ-S1]
+    values: [aktau]
     start_time: 1
-    probability_duration_pairs: [
-      [0.1, 5],
-    ]
-    scenario_duration: 10
-  - type: transport_disruption_probability
-    description_type: edge_attributes
-    attribute: name
-    values: [railways-KAZ-N1]
-    start_time: 1
-    probability_duration_pairs: [
-      [0.05, 5],
-    ]
-    scenario_duration: 10
+    duration: 5
+#  - type: transport_disruption_probability
+#    description_type: edge_attributes
+#    attribute: name
+#    values: [railways-KAZ-S1]
+#    start_time: 1
+#    probability_duration_pairs: [
+#      [0.1, 5],
+#    ]
+#    scenario_duration: 10
+#  - type: transport_disruption_probability
+#    description_type: edge_attributes
+#    attribute: name
+#    values: [railways-KAZ-N1]
+#    start_time: 1
+#    probability_duration_pairs: [
+#      [0.05, 5],
+#    ]
+#    scenario_duration: 10
 #  - type: transport_disruption_probability
 #    description_type: edge_attributes
 #    attribute: name

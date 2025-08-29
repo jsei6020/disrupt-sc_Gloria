@@ -1,126 +1,34 @@
-import gc
+"""
+Destruction Executor for the new clean architecture.
+
+This executor handles destruction analysis across multiple targets (sectors, provinces, cantons)
+using the new batch processing architecture with distinct components for execution,
+data collection, analysis, and export.
+"""
+
+from typing import TYPE_CHECKING, List, Dict, Any
 import logging
+import gc
 from datetime import datetime
-from typing import TYPE_CHECKING, List
-from .base_executor import SimulationExecutor
+
+from .base_executor import BaseExecutor
+from ..core.interfaces import BatchProcessor
+from ..core.data_structures import BatchResult, AnalysisResults
+from ..runners.destruction_runner import DestructionRunner
+from ..collection.base_collector import StandardDataCollector
 
 if TYPE_CHECKING:
-    from disruptsc.simulation.simulation import Simulation
+    from disruptsc.model.model import Model
+    from disruptsc.parameters import Parameters
 
 
 def _get_disrupted_sector_list() -> List:
     """Get the list of sector combinations to test."""
-    # This would ideally be loaded from a config file
-    # For now, keeping the original hardcoded list
     return ['all', ['ADM'], ['ADP'], ['ALD'], ['ASO'], ['AYG'], ['BAL'], ['CAR'], ['CIN'], ['COM'], ['CON'], ['DEM'], ['EDU'], ['ELE'], ['FIN'], ['FRT'], ['FRV'], ['GAN'], ['INM'], ['LAC'], ['MAQ'], ['MIP'], ['MOL'], ['MUE'], ['PAN'], ['PES'], ['PPR'], ['QU2'], ['REF'], ['RES'], ['SAL'], ['SEG'], ['TEL'], ['TRA'], ['AGU', 'BNA'], ['AGU', 'CHO'], ['AGU', 'HIL'], ['AGU', 'MET'], ['AGU', 'SIL'], ['AGU', 'VES'], ['AZU', 'BNA'], ['AZU', 'CHO'], ['AZU', 'DOM'], ['AZU', 'HIL'], ['AZU', 'MAD'], ['AZU', 'MET'], ['AZU', 'SIL'], ['AZU', 'VES'], ['BNA', 'CAN'], ['BNA', 'CAU'], ['BNA', 'CER'], ['BNA', 'CHO'], ['BNA', 'CUE'], ['BNA', 'DOM'], ['BNA', 'FID'], ['BNA', 'HIL'], ['BNA', 'HOT'], ['BNA', 'MAD'], ['BNA', 'MAN'], ['BNA', 'MET'], ['BNA', 'PAP'], ['BNA', 'PLS'], ['BNA', 'POS'], ['BNA', 'REP'], ['BNA', 'SIL'], ['BNA', 'TAB'], ['BNA', 'VES'], ['CAN', 'CHO'], ['CAN', 'MET'], ['CAN', 'SIL'], ['CAN', 'VES'], ['CAU', 'CHO'], ['CAU', 'VES'], ['CER', 'CHO'], ['CER', 'DOM'], ['CER', 'HIL'], ['CER', 'MAD'], ['CER', 'MET'], ['CER', 'REP'], ['CER', 'SIL'], ['CER', 'VES'], ['CHO', 'CUE'], ['CHO', 'DOM'], ['CHO', 'FID'], ['CHO', 'HIL'], ['CHO', 'HOT'], ['CHO', 'MAD'], ['CHO', 'MAN'], ['CHO', 'MET'], ['CHO', 'PAP'], ['CHO', 'PLS'], ['CHO', 'POS'], ['CHO', 'REP'], ['CHO', 'SIL'], ['CHO', 'VES'], ['CUE', 'HIL'], ['CUE', 'MAD'], ['CUE', 'MET'], ['CUE', 'SIL'], ['CUE', 'VES'], ['DOM', 'HIL'], ['DOM', 'HOT'], ['DOM', 'MAD'], ['DOM', 'MET'], ['DOM', 'PAP'], ['DOM', 'REP'], ['DOM', 'SIL'], ['DOM', 'VES'], ['FID', 'VES'], ['HIL', 'HOT'], ['HIL', 'MAD'], ['HIL', 'MET'], ['HIL', 'PAP'], ['HIL', 'PLS'], ['HIL', 'REP'], ['HIL', 'SIL'], ['HIL', 'VES'], ['HOT', 'MAD'], ['HOT', 'MET'], ['HOT', 'SIL'], ['HOT', 'VES'], ['MAD', 'MET'], ['MAD', 'PAP'], ['MAD', 'REP'], ['MAD', 'SIL'], ['MAD', 'VES'], ['MAN', 'VES'], ['MET', 'PAP'], ['MET', 'PLS'], ['MET', 'REP'], ['MET', 'SIL'], ['MET', 'VES'], ['PAP', 'REP'], ['PAP', 'SIL'], ['PAP', 'VES'], ['PLS', 'SIL'], ['PLS', 'VES'], ['POS', 'SIL'], ['POS', 'VES'], ['REP', 'SIL'], ['REP', 'VES'], ['SIL', 'VES'], ['TAB', 'VES']]
 
 
-class DestructionExecutor(SimulationExecutor):
-    """Executes ad-hoc disruption analysis across multiple sectors or subregions."""
-
-    def __init__(self, model, parameters, target_types="sectors", subregion=None, results_writer=None):
-        super().__init__(model, parameters)
-        self.results_writer = results_writer
-        self.target_types = target_types
-        self.subregion = subregion
-
-    def execute(self) -> List["Simulation"]:
-        """Execute ad-hoc analysis and return list of simulations."""
-        from disruptsc.model.utils.caching import load_cached_model
-
-        # Save model state
-        suffix = round(datetime.now().timestamp() * 1000)
-        self.model.save_pickle(suffix)
-
-        # Get disrupted combinations and present values based on type
-        if self.target_types == "sector":
-            disrupted_targets_list = _get_disrupted_sector_list()
-            targets_in_model = self.model.firms.get_properties('sector', 'set')
-            logging.info(f"{len(disrupted_targets_list)} sector combinations to test")
-        elif self.target_types in ["canton", "province"]:
-            disrupted_targets_list = _get_disrupted_subregion_list(self.subregion)
-            targets_in_model = self.model.firms.get_subregions(self.subregion, 'set')
-            logging.info(f"{len(disrupted_targets_list)} {self.subregion} combinations to test")
-        elif self.target_types in ["canton_sector", "province_sector"]:
-            disrupted_targets_list = _get_disrupted_subregion_sector_list(self.subregion)
-            targets_in_model = self.model.firms.get_subregion_sectors(self.subregion, 'list')
-            logging.info(f"{len(disrupted_targets_list)} {self.subregion}-sector combinations to test")
-
-        periods = [30, 90, 180]
-        results = []
-        
-        for disrupted_targets in disrupted_targets_list:
-            # Handle existing logic for sectors and subregions
-            if disrupted_targets == 'all':
-                disrupted_targets = targets_in_model
-
-            # Skip if targets not present
-            if all([target not in targets_in_model for target in disrupted_targets]):
-                logging.info(f"No targets is present in model: {disrupted_targets}")
-                continue
-
-            disrupted_targets_not_in_model = set(disrupted_targets) - set(targets_in_model)
-            if len(disrupted_targets_not_in_model) > 0:
-                logging.info(f"Skipping {disrupted_targets_not_in_model} - not present in model")
-                disrupted_targets = list(set(disrupted_targets) & set(targets_in_model))
-
-            # Log disruption type
-            logging.info(f"")
-            logging.info(f"=============== Disrupting {self.target_types} #{disrupted_targets} ===============")
-
-            # Load fresh model state
-            model = load_cached_model(suffix)
-            
-            # Set disruption parameters based on type
-            model.parameters.disruptions[0]['filter'] = {}
-            model.parameters.disruptions[0]['filter'][self.target_types] = disrupted_targets
-            logging.info(model.parameters.disruptions[0])
-
-            # Run simulation
-            simulation = model.run_disruption(t_final=periods[-1])
-
-            # Calculate losses
-            household_loss = simulation.calculate_household_loss(model.household_table)
-            household_loss_per_periods = simulation.calculate_household_loss(
-                model.household_table, periods=periods
-            )
-            country_loss = simulation.calculate_country_loss()
-
-            logging.info(f"Simulation terminated. "
-                         f"Household loss: {household_loss_per_periods}. "
-                         f"Country loss: {int(country_loss)} {self.parameters.monetary_units_in_model}.")
-
-            # Write results if writer provided
-            if self.results_writer:
-                # Format results identifier based on disruption type
-                results_identifier = flatten_to_str(disrupted_targets)
-                    
-                self.results_writer.write_destruction_results(results_identifier, household_loss, country_loss,
-                                                              household_loss_per_periods)
-
-            # Clear simulation from memory immediately after processing
-            del simulation
-            del model
-            gc.collect()
-            
-            # Don't accumulate simulation objects to prevent memory leaks
-            # results.append(simulation)
-
-        return results
-
-
-def flatten_to_str(x):
-    if isinstance(x, str):
-        return x
-    elif isinstance(x, (list, tuple)):
-        return '_'.join(flatten_to_str(i) for i in x)
-    else:
-        return str(x)
-
-
 def _get_disrupted_subregion_list(which_subregion: str) -> List:
-    """Get the list of sector combinations to test."""
-    # For now, keeping the original hardcoded list
+    """Get the list of subregion combinations to test."""
     if which_subregion == "province":
         return [['AZUAY'], ['CAÑAR'], ['CHIMBORAZO'], ['COTOPAXI'], ['EL ORO'], ['ESMERALDAS'], ['GUAYAS'], ['LOJA'], ['LOS RIOS'], ['MANABI'], ['PICHINCHA'], ['TUNGURAHUA'], ['CARCHI', 'IMBABURA'], ['IMBABURA', 'NAPO'], ['IMBABURA', 'SUCUMBIOS'], ['ORELLANA', 'SUCUMBIOS']]
     if which_subregion == "canton":
@@ -138,4 +46,224 @@ def _get_disrupted_subregion_sector_list(which_subregion: str) -> List:
     return []
 
 
+def flatten_to_str(x):
+    """Flatten complex targets to string identifier."""
+    if isinstance(x, str):
+        return x
+    elif isinstance(x, (list, tuple)):
+        return '_'.join(flatten_to_str(i) for i in x)
+    else:
+        return str(x)
 
+
+class DestructionExecutor(BaseExecutor, BatchProcessor):
+    """
+    Executes destruction analysis across multiple targets using the new architecture.
+    
+    This replaces the old DestructionExecutor with a clean separation using:
+    - BatchProcessor interface for handling multiple scenarios
+    - DestructionRunner: Executes individual destruction simulations
+    - StandardDataCollector: Collects data across scenarios
+    - CompositeAnalyzer: Analyzes results for each scenario
+    - Results writer: Handles output (if provided)
+    
+    The batch processing handles different target types:
+    - sectors: Single sectors or combinations
+    - provinces/cantons: Geographic regions
+    - province_sectors/canton_sectors: Combined geographic-sectoral targets
+    """
+    
+    def __init__(self, model: "Model", parameters: "Parameters", 
+                 target_types: str = "sectors", subregion: str = None, 
+                 results_writer=None):
+        super().__init__(model, parameters)
+        self.target_types = target_types
+        self.subregion = subregion
+        self.results_writer = results_writer
+        self.logger = logging.getLogger(__name__)
+        
+    def execute(self) -> BatchResult:
+        """
+        Execute destruction analysis and return batch results.
+        
+        This orchestrates multiple destruction scenarios and aggregates results.
+        """
+        start_time = datetime.now()
+        self.logger.info(f"Starting destruction analysis: {self.target_types}")
+        
+        # Initialize batch result
+        batch_result = BatchResult()
+        batch_result.batch_metadata.update({
+            'batch_type': 'destruction_analysis',
+            'target_types': self.target_types,
+            'subregion': self.subregion,
+            'start_time': start_time.isoformat()
+        })
+        
+        try:
+            # Execute batch processing
+            scenario_results = self.process_batch()
+            batch_result.scenario_results = {
+                result.analysis_metadata.get('scenario_id', f'scenario_{i}'): result 
+                for i, result in enumerate(scenario_results)
+            }
+            batch_result.successful_scenarios = list(batch_result.scenario_results.keys())
+            
+            # Update batch metadata
+            end_time = datetime.now()
+            batch_result.batch_metadata.update({
+                'end_time': end_time.isoformat(),
+                'execution_time': (end_time - start_time).total_seconds(),
+                'total_scenarios': len(scenario_results)
+            })
+            
+            self.logger.info(f"✓ Destruction analysis complete: {len(scenario_results)} scenarios")
+            return batch_result
+            
+        except Exception as e:
+            self.logger.error(f"✗ Destruction analysis failed: {e}")
+            batch_result.batch_metadata['error'] = str(e)
+            raise
+    
+    def process_batch(self) -> List[AnalysisResults]:
+        """
+        Process multiple destruction scenarios.
+        
+        This implements the BatchProcessor interface.
+        """
+        from disruptsc.model.utils.caching import load_cached_model
+        
+        # Save model state for reloading
+        suffix = round(datetime.now().timestamp() * 1000)
+        self.model.save_pickle(suffix)
+        
+        # Get target combinations based on type
+        disrupted_targets_list, targets_in_model = self._get_target_combinations()
+        
+        # Get periods from parameters
+        periods = getattr(self.parameters, 'destruction_periods', [30, 90, 180])
+        results = []
+        
+        for disrupted_targets in disrupted_targets_list:
+            try:
+                # Prepare targets
+                scenario_targets = self._prepare_scenario_targets(disrupted_targets, targets_in_model)
+                if not scenario_targets:
+                    continue
+                
+                scenario_id = flatten_to_str(scenario_targets)
+                self.logger.info(f"=============== Disrupting {self.target_types} #{scenario_targets} ===============")
+                
+                # Load fresh model state
+                model = load_cached_model(suffix)
+                
+                # Configure disruption filter
+                model.parameters.disruptions[0]['filter'] = {}
+                model.parameters.disruptions[0]['filter'][self.target_types] = scenario_targets
+                
+                # Execute single destruction scenario
+                scenario_result = self._execute_single_scenario(model, scenario_id, periods)
+                results.append(scenario_result)
+                
+                # Write results if writer provided
+                if self.results_writer:
+                    self._write_scenario_results(scenario_id, scenario_result, model)
+                
+                # Clean up memory
+                del model
+                gc.collect()
+                
+            except Exception as e:
+                self.logger.error(f"Scenario failed for targets {disrupted_targets}: {e}")
+                continue
+        
+        return results
+    
+    def _get_target_combinations(self):
+        """Get target combinations and model targets based on destruction type."""
+        if self.target_types == "sectors":
+            disrupted_targets_list = _get_disrupted_sector_list()
+            targets_in_model = self.model.firms.get_properties('sector', 'set')
+            self.logger.info(f"{len(disrupted_targets_list)} sector combinations to test")
+            
+        elif self.target_types in ["canton", "province"]:
+            disrupted_targets_list = _get_disrupted_subregion_list(self.subregion)
+            targets_in_model = self.model.firms.get_subregions(self.subregion, 'set')
+            self.logger.info(f"{len(disrupted_targets_list)} {self.subregion} combinations to test")
+            
+        elif self.target_types in ["canton_sector", "province_sector"]:
+            disrupted_targets_list = _get_disrupted_subregion_sector_list(self.subregion)
+            targets_in_model = self.model.firms.get_subregion_sectors(self.subregion, 'list')
+            self.logger.info(f"{len(disrupted_targets_list)} {self.subregion}-sector combinations to test")
+            
+        else:
+            raise ValueError(f"Unknown target_types: {self.target_types}")
+            
+        return disrupted_targets_list, targets_in_model
+    
+    def _prepare_scenario_targets(self, disrupted_targets, targets_in_model):
+        """Prepare and validate targets for a scenario."""
+        # Handle 'all' targets
+        if disrupted_targets == 'all':
+            disrupted_targets = targets_in_model
+        
+        # Skip if no targets present
+        if all([target not in targets_in_model for target in disrupted_targets]):
+            self.logger.info(f"No targets present in model: {disrupted_targets}")
+            return None
+        
+        # Filter out targets not in model
+        disrupted_targets_not_in_model = set(disrupted_targets) - set(targets_in_model)
+        if len(disrupted_targets_not_in_model) > 0:
+            self.logger.info(f"Skipping {disrupted_targets_not_in_model} - not present in model")
+            disrupted_targets = list(set(disrupted_targets) & set(targets_in_model))
+        
+        return disrupted_targets
+    
+    def _execute_single_scenario(self, model, scenario_id: str, periods: List[int]) -> AnalysisResults:
+        """Execute a single destruction scenario."""
+        # Create custom executor for this scenario
+        executor = BaseExecutor(model, self.parameters)
+        executor.runner = DestructionRunner(model, self.parameters)
+        executor.collector = StandardDataCollector(self.parameters)
+        
+        # Execute the scenario
+        analysis_results = executor.execute()
+        
+        # Add scenario-specific metadata
+        analysis_results.analysis_metadata.update({
+            'scenario_id': scenario_id,
+            'target_types': self.target_types,
+            'destruction_periods': periods,
+            'simulation_type': 'destruction_scenario'
+        })
+        
+        return analysis_results
+    
+    def _write_scenario_results(self, scenario_id: str, results: AnalysisResults, model):
+        """Write results using the provided results writer."""
+        if self.results_writer and hasattr(self.results_writer, 'write_destruction_results'):
+            # Create a mock simulation object with the data needed by the writer
+            class MockSimulation:
+                def __init__(self, results: AnalysisResults):
+                    self.analysis_results = results
+                
+                def calculate_household_loss(self, household_table=None, **kwargs):
+                    return results.get_metric('household', 'losses', {}).get('absolute_cumulated', 0)
+                    
+                def calculate_country_loss(self, **kwargs):
+                    return results.get_metric('country', 'losses', {}).get('absolute_cumulated', 0)
+            
+            mock_simulation = MockSimulation(results)
+            self.results_writer.write_destruction_results(
+                scenario_id, mock_simulation, model.household_table, 
+                self.parameters.monetary_units_in_model
+            )
+    
+    def create_runner(self):
+        """Not used in batch processing - scenarios create their own runners."""
+        return DestructionRunner(self.model, self.parameters)
+        
+    def create_collector(self):
+        """Not used in batch processing - scenarios create their own collectors."""
+        return StandardDataCollector(self.parameters)

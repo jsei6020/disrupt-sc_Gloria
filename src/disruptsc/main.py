@@ -16,7 +16,7 @@ from disruptsc import paths
 from disruptsc.model.utils.caching import generate_cache_parameters_from_command_line_argument
 from disruptsc.parameters import Parameters
 from disruptsc.model.model import Model
-from disruptsc.simulation.factory import ExecutorFactory
+from disruptsc.simulation.orchestration.simulation_orchestrator import SimulationOrchestrator
 
 
 def parse_arguments():
@@ -52,8 +52,12 @@ def setup_model(parameters, cache_parameters):
     return model
 
 
-def export_results(simulation, model, parameters):
-    """Export simulation results if export_files is enabled."""
+def export_results(analysis_results, model, parameters):
+    """Export simulation results if export_files is enabled.
+    
+    Note: In the new architecture, exports are typically handled by executors.
+    This function is kept for backward compatibility and special cases.
+    """
     if not parameters.export_files:
         return
     
@@ -61,21 +65,17 @@ def export_results(simulation, model, parameters):
     if not parameters.with_output_folder:
         return
     
-    # Handle list of simulations (from Monte Carlo)
-    if isinstance(simulation, list):
-        if len(simulation) > 0:
-            simulation = simulation[-1]  # Use last simulation for export
-        else:
-            return
+    # The new architecture handles exports through the executor
+    # So this function primarily serves as a compatibility layer
+    logging.info(f"Analysis completed with {len(analysis_results.export_tables)} export tables")
     
-    simulation.export_agent_data(parameters.export_folder)
-    simulation.export_transport_network_data(model.transport_edges, parameters.export_folder)
-    simulation.calculate_and_export_summary_result(
-        model.sc_network, 
-        model.household_table,
-        parameters.monetary_units_in_model, 
-        parameters.export_folder
-    )
+    # Log summary of results for user feedback
+    if hasattr(analysis_results, 'metrics') and analysis_results.metrics:
+        logging.info(f"Metrics calculated: {list(analysis_results.metrics.keys())}")
+    
+    # If export tables are available, log what was generated
+    if analysis_results.export_tables:
+        logging.info(f"Export tables available: {list(analysis_results.export_tables.keys())}")
 
 
 def main():
@@ -116,14 +116,15 @@ def main():
         else:
             model = setup_model(parameters, cache_parameters)
         
-        # Execute simulation using appropriate executor
+        # Execute simulation using orchestrator (new architecture)
         if args.simulation_type:
             parameters.simulation_type = args.simulation_type
-        executor = ExecutorFactory.create_executor(parameters.simulation_type, model, parameters)
-        simulation = executor.execute()
+        orchestrator = SimulationOrchestrator(model, parameters)
+        results = orchestrator.execute()
         
-        # Export results
-        export_results(simulation, model, parameters)
+        # Log results (exports handled by orchestrator in new architecture)
+        if results is not None:
+            export_results(results, model, parameters)
         
         # Finish
         logging.info(f"End of simulation, running time {time.time() - t0}")

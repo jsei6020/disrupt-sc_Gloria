@@ -56,7 +56,7 @@ logistics:
 
 countries_to_include: ['AFR', 'AME', 'ASI', 'EUR', 'OCE', 'THA', 'VNM']
 simulation_type: disruption  # disruption
-mc_repetitions: 5
+mc_repetitions: 1
 capacity_constraint: "gradual"
 transport_capacity_overrides:  # tons per day
   pp_sihanoukville: 1000
@@ -64,7 +64,8 @@ transport_capacity_overrides:  # tons per day
   pp_main_port: 15000
   bavet_border_crossing: 9000
 export_files: True
-t_final: 10
+epsilon_stop_condition: False
+t_final: 30
 disruptions:
   - type: transport_disruption
     description_type: edge_attributes

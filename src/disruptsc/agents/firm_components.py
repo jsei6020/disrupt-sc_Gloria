@@ -27,6 +27,8 @@ class ProductionManager:
         self.eq_production_capacity = 0.0
         self.production_capacity = 0.0
         self.current_production_capacity = 0.0
+        self.current_actual_production_capacity = 0.0
+        self.current_spare_production_capacity = 0.0
         self.utilization_rate = 0.8
         self.product_stock = 0.0
         
@@ -56,6 +58,9 @@ class ProductionManager:
         else:
             self.production_capacity_reduction = 0
         self.current_production_capacity = self.production_capacity * (1 - self.production_capacity_reduction)
+        # We assume that, when capital is destroyed, it affects proportionally actual and spare capacities
+        self.current_actual_production_capacity = self.current_production_capacity * self.utilization_rate
+        self.current_spare_production_capacity = self.current_production_capacity - self.current_actual_production_capacity
 
     def get_spare_production_potential(self, inventory: Dict, input_mix: Dict, total_order: float):
         """Calculate spare production capacity."""
@@ -70,10 +75,10 @@ class ProductionManager:
         """Execute production and update inventory."""
         # Produce
         if len(input_mix) == 0:  # If no need for inputs
-            self.production = min([self.production_target, self.current_production_capacity])
+            self.production = min([self.production_target, self.current_actual_production_capacity])
         else:
             max_production = production_function(inventory, input_mix, mode)
-            self.production = min([max_production, self.production_target, self.current_production_capacity])
+            self.production = min([max_production, self.production_target, self.current_actual_production_capacity])
 
         # Add to stock of finished goods
         self.product_stock += self.production

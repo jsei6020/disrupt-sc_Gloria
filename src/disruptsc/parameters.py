@@ -73,6 +73,7 @@ class Parameters:
     # Simulation control parameters  
     disruptions: list
     criticality: None | dict
+    destruction_periods: list
     time_resolution: str
     epsilon_stop_condition: float
     route_optimization_weight: str
@@ -92,6 +93,7 @@ class Parameters:
     export_folder: Path | str = ""
     is_monte_carlo: bool = False
     with_output_folder: bool = True
+    simulation_name: str = ""
 
     @classmethod
     def load_default_parameters(cls, parameter_folder: Path, scope: str = "default"):
@@ -169,7 +171,17 @@ class Parameters:
     def create_export_folder(self):
         if not os.path.isdir(paths.OUTPUT_FOLDER / self.scope):
             os.mkdir(paths.OUTPUT_FOLDER / self.scope)
-        self.export_folder = paths.OUTPUT_FOLDER / self.scope / datetime.now().strftime('%Y%m%d_%H%M%S')
+        
+        # Create timestamp-based folder name
+        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+        
+        # Append simulation_name if provided
+        if self.simulation_name:
+            folder_name = f"{timestamp}_{self.simulation_name}"
+        else:
+            folder_name = timestamp
+            
+        self.export_folder = paths.OUTPUT_FOLDER / self.scope / folder_name
         os.mkdir(self.export_folder)
 
     def initialize_exports(self):
