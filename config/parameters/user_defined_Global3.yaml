@@ -1,0 +1,41 @@
+# Indicate the subfolder of the input folder that contains the input files
+filepaths:
+  "sector_table": "Network/sector_table_c.csv"
+  #"inventory_duration_targets": "Network/inventory_targets.csv"
+  "mrio": "Network/Z.csv"
+  #"region_table": "Network/region_table.geojson"
+  #"usd_per_ton": "Network/usd_per_ton.csv"
+transport_modes: [roads, maritime] #, waterways, airways]
+monetary_units_in_model: mUSD
+monetary_units_inputed: mUSD
+time_resolution: day
+io_cutoff: 0.01
+simulation_type: disruption
+export_files: True
+export_details:
+  "flows": True
+firm_data_type: "mrio"
+
+disruption_description: None
+t_final: 10
+
+disruptions:
+  - type: capital_destruction
+    start_time: 1
+#    description_type: region_sector_file
+    description_type: filter  # sectors_homogeneous
+    filter:
+      sector: ['C16']
+    destroyed_capital: 10000000000.0
+#    region_sector_filepath: "Disruption/earthquake_capital_destruction.csv"
+    unit: mUSD
+    reconstruction_market: False
+
+#disruption_description:
+#  type: compound
+#  events:
+#    - item_type: transport_edges
+#      attribute: id
+#      values: [465]
+#      start_time: 1
+#      duration: 1
