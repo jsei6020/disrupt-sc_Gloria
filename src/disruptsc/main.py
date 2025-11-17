@@ -68,8 +68,8 @@ def export_results(simulation, model, parameters):
         else:
             return
     
-    simulation.export_agent_data(parameters.export_folder)
-    simulation.export_transport_network_data(model.transport_edges, parameters.export_folder)
+    #simulation.export_agent_data(parameters.export_folder)
+    #simulation.export_transport_network_data(model.transport_edges, parameters.export_folder)
     simulation.calculate_and_export_summary_result(
         model.sc_network, 
         model.household_table,

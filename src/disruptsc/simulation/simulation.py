@@ -1,45 +1,226 @@
 import json
 import logging
 import os
+import gc
 from pathlib import Path
 import pandas as pd
 import geopandas as gpd
+import csv
 
 from disruptsc.network.sc_network import ScNetwork
+from disruptsc.parameters import Parameters
 
 
 class Simulation(object):
-    def __init__(self, simulation_type: str):
+    def __init__(self, simulation_type: str, parameters: Parameters):
         admissible_types = ["initial_state", "event", "disruption", "stationary_test", "criticality"]
         if simulation_type not in admissible_types:
             raise ValueError(f"Simulation type should be {admissible_types}")
         self.type = simulation_type
-        self.firm_data = []
-        self.country_data = []
-        self.household_data = []
-        self.sc_network_data = []
-        self.transport_network_data = []
+        self.export_folder = parameters.export_folder
 
-    def export_agent_data(self, export_folder):
-        logging.info(f'Exporting agent data to {export_folder}')
-        with open(os.path.join(export_folder, 'firm_data.json'), 'w') as jsonfile:
-            json.dump(self.firm_data, jsonfile)
-        with open(os.path.join(export_folder, 'country_data.json'), 'w') as jsonfile:
-            json.dump(self.country_data, jsonfile)
-        with open(os.path.join(export_folder, 'household_data.json'), 'w') as jsonfile:
-            json.dump(self.household_data, jsonfile)
+        # Use streaming files for disruption/event type
+        self.streaming_mode = self.type in ["event", "disruption"]
+        if self.streaming_mode and self.export_folder:
+            self._init_streaming_files(self.export_folder)
+        else:
+            self.firm_data = []
+            self.country_data = []
+            self.household_data = []
+            self.sc_network_data = []
+            self.transport_network_data = []
+    
+    def _init_streaming_files(self, export_folder):
+        # JSONL for individual agent data
+        self.firm_data_file = open(export_folder / 'firm_data.jsonl', 'w')
+        self.country_data_file = open(export_folder / 'country_data.jsonl', 'w')
+        self.household_data_file = open(export_folder / 'household_data.jsonl', 'w')
+        self.sc_network_data_file = open(export_folder / 'sc_network_data.jsonl', 'w')
+        self.transport_network_data_file = open(export_folder / 'transport_network_data.jsonl', 'w')
 
-    def export_transport_network_data(self, transport_edges: gpd.GeoDataFrame, export_folder: Path):
-        if export_folder:
-            logging.info(f'Exporting transport network data to {export_folder}')
-            flow_df = pd.DataFrame(self.transport_network_data)
-            flow_df = flow_df[flow_df['flow_total'] > 0]
-            for time_step in flow_df['time_step'].unique():
+        # CSV writers for aggregated loss
+        self.household_loss_file = open(export_folder / 'loss_per_region_time_streamed.csv', 'w', newline='')
+        self.household_loss_writer = csv.writer(self.household_loss_file)
+        self.household_loss_writer.writerow(['region', 'sector', 'time_step', 'loss'])
+
+        self.country_loss_file = open(export_folder / 'loss_per_country_streamed.csv', 'w', newline='')
+        self.country_loss_writer = csv.writer(self.country_loss_file)
+        self.country_loss_writer.writerow(['time_step', 'country', 'loss'])
+
+        # Running totals for summary
+        self.total_household_loss = 0.0
+        self.total_country_loss = 0.0
+
+    def store_agent_data(self, time_step: int, household_table: pd.DataFrame, firms, households, countries):
+        # Streaming mode
+        if self.streaming_mode and self.export_folder:
+            # Store firm data
+            for firm in firms.values():
+                record = {
+                    'time_step': time_step,
+                    'firm': firm.pid,
+                    'production': firm.production,
+                    'profit': firm.profit,
+                    'transport_cost': firm.finance['costs']['transport'],
+                    'input_cost': firm.finance['costs']['input'],
+                    'other_cost': firm.finance['costs']['other'],
+                    'inventory_duration': firm.current_inventory_duration,
+                    'generalized_transport_cost': firm.generalized_transport_cost,
+                    'usd_transported': firm.usd_transported,
+                    'tons_transported': firm.tons_transported,
+                    'tonkm_transported': firm.tonkm_transported
+                }
+                json.dump(record, self.firm_data_file)
+                self.firm_data_file.write('\n')
+
+            # Store country data and loss
+            for country in countries.values():
+                record = {
+                    'time_step': time_step,
+                    'country': country.pid,
+                    'generalized_transport_cost': country.generalized_transport_cost,
+                    'usd_transported': country.usd_transported,
+                    'tons_transported': country.tons_transported,
+                    'tonkm_transported': country.tonkm_transported,
+                    'extra_spending': country.extra_spending,
+                    'consumption_loss': country.consumption_loss,
+                    'spending': sum(list(country.qty_purchased.values()))
+                }
+                json.dump(record, self.country_data_file)
+                self.country_data_file.write('\n')
+                loss = record.get('extra_spending', 0) + record.get('consumption_loss', 0)
+                if loss > 0:
+                    self.country_loss_writer.writerow([time_step, country.pid, loss])
+                    self.total_country_loss += loss
+
+            # Store household data and aggregate losses per region-sector-timestep
+            household_losses = []
+            for household in households.values():
+                record = {
+                    'time_step': time_step,
+                    'household': household.pid,
+                    'tot_consumption': household.tot_consumption,
+                    'spending_per_retailer': household.spending_per_retailer,
+                    'consumption_per_retailer': household.consumption_per_retailer,
+                    'extra_spending_per_sector': household.extra_spending_per_sector,
+                    'consumption_loss_per_sector': household.consumption_loss_per_sector,
+                    'extra_spending': household.extra_spending,
+                    'consumption_loss': household.consumption_loss
+                }
+                json.dump(record, self.household_data_file)
+                self.household_data_file.write('\n')
+                loss = record.get('extra_spending', 0) + record.get('consumption_loss', 0)
+                if loss > 0:
+                    pid = int(household.pid.replace("hh_", ""))
+                    region = household_table.loc[household_table['id'] == pid, 'region'].iloc[0]
+                    household_losses.append({
+                        'region': region,
+                        'time_step': time_step,
+                        'loss': loss
+                    })
+            if household_losses:
+                loss_df = pd.DataFrame(household_losses)
+                for _, row in loss_df.groupby(['region', 'time_step']).sum().reset_index().iterrows():
+                    self.household_loss_writer.writerow([row['region'], row['time_step'], row['loss']])
+                    self.total_household_loss += row['loss']
+            # Flush to disk and clean memory
+            self.firm_data_file.flush()
+            self.household_data_file.flush()
+            self.country_data_file.flush()
+            self.household_loss_file.flush()
+            self.country_loss_file.flush()
+
+            gc.collect()
+        else:
+            # Fallback: store in RAM for non-streaming type (initial_state, criticality)
+            # Fallback for batch mode: retain in RAM
+            simulation.firm_data += [
+                {
+                    'time_step': time_step,
+                    'firm': firm.pid,
+                    'production': firm.production,
+                    'profit': firm.profit,
+                    'transport_cost': firm.finance['costs']['transport'],
+                    'input_cost': firm.finance['costs']['input'],
+                    'other_cost': firm.finance['costs']['other'],
+                    'inventory_duration': firm.current_inventory_duration,
+                    'generalized_transport_cost': firm.generalized_transport_cost,
+                    'usd_transported': firm.usd_transported,
+                    'tons_transported': firm.tons_transported,
+                    'tonkm_transported': firm.tonkm_transported
+                }
+                for firm in self.firms.values()
+            ]
+            simulation.country_data += [
+                {
+                    'time_step': time_step,
+                    'country': country.pid,
+                    'generalized_transport_cost': country.generalized_transport_cost,
+                    'usd_transported': country.usd_transported,
+                    'tons_transported': country.tons_transported,
+                    'tonkm_transported': country.tonkm_transported,
+                    'extra_spending': country.extra_spending,
+                    'consumption_loss': country.consumption_loss,
+                    'spending': sum(list(country.qty_purchased.values()))
+                }
+                for country in self.countries.values()
+            ]
+            simulation.household_data += [
+                {
+                    'time_step': time_step,
+                    'household': household.pid,
+                    'tot_consumption': household.tot_consumption,
+                    'spending_per_retailer': household.spending_per_retailer,
+                    'consumption_per_retailer': household.consumption_per_retailer,
+                    'extra_spending_per_sector': household.extra_spending_per_sector,
+                    'consumption_loss_per_sector': household.consumption_loss_per_sector,
+                    'extra_spending': household.extra_spending,
+                    'consumption_loss': household.consumption_loss
+                }
+                for household in self.households.values()
+            ]
+
+    def store_transport_network_data(self, time_step, transport_network, transport_edges):
+        if self.streaming_mode and self.export_folder:
+            # Compute and immediately export flows at just required timesteps
+            flow_data = transport_network.compute_flow_per_segment(time_step)
+            if flow_data:
+                for flow in flow_data:
+                    json.dump(flow, self.transport_network_data_file)
+                    self.transport_network_data_file.write('\n')
+                flow_df = pd.DataFrame(flow_data)
+                flow_df = flow_df[flow_df['flow_total'] > 0]
                 transport_edges_with_flows = pd.merge(
-                    transport_edges.drop(columns=["node_tuple"]), flow_df[flow_df['time_step'] == time_step],
+                    transport_edges.drop(columns=["node_tuple"]), flow_df,
                     how="left", on="id")
-                transport_edges_with_flows.to_file(export_folder / f"transport_edges_with_flows_{time_step}.geojson",
+                transport_edges_with_flows.to_file(self.export_folder / f"transport_edges_with_flows_{time_step}.geojson",
                                                    driver="GeoJSON", index=False)
+            self.transport_network_data_file.flush()
+            gc.collect()
+        else:
+            # RAM mode
+            self.transport_network_data.extend(transport_network.compute_flow_per_segment(time_step))
+
+    def finalize_streaming_exports(self, monetary_unit_in_model):
+        """Call after simulation ends to close and write summary"""
+        if not self.streaming_mode or not self.export_folder:
+            return
+        self.country_data_file.close()
+        self.household_data_file.close()
+        self.transport_network_data_file.close()
+        self.household_loss_file.close()
+        self.country_loss_file.close()
+
+
+        # Write summary stats
+        summary = pd.DataFrame({"households": [self.total_household_loss], "countries": [self.total_country_loss]})
+        summary.to_csv(self.export_folder / "loss_summary.csv", index=False)
+        logging.info(f"Cumulated household loss: {self.total_household_loss:,.2f} {monetary_unit_in_model}")
+        logging.info(f"Cumulated country loss: {self.total_country_loss:,.2f} {monetary_unit_in_model}")
+
+    # The rest of your methods are left as in your code, except:
+    # - `export_agent_data`, `export_transport_network_data`, `calculate_and_export_summary_result`
+    #   now only operate on RAM mode (initial_state/etc), since streaming mode writes incrementally
 
     def calculate_and_export_summary_result(self, sc_network: ScNetwork, household_table: pd.DataFrame,
                                             monetary_unit_in_model: str, export_folder: Path):
@@ -52,7 +233,11 @@ class Simulation(object):
 
         else:# self.type == "event" or other disruption types:
             # export loss time series for households
-            household_result_table = pd.DataFrame(self.household_data)
+            household_result_table = pd.read_json(
+                self.export_folder / 'household_data.jsonl', 
+                lines=True
+            )
+            #household_result_table = pd.DataFrame(self.household_data)
             loss_per_region_sector_time = household_result_table.groupby('household').apply(
                 self.summarize_results_one_household).reset_index().drop(columns=['level_1'])
             household_table['id'] = 'hh_' + household_table['id'].astype(str)
@@ -64,16 +249,24 @@ class Simulation(object):
                 logging.info(f'Exporting loss time series of households per region sector to {export_folder}')
                 loss_per_region_sector_time.to_csv(export_folder / "loss_per_region_sector_time.csv", index=False)
             household_loss = loss_per_region_sector_time['loss'].sum()
-            # export loss time series for countries
-            country_result_table = pd.DataFrame(self.country_data)
-            country_result_table['loss'] = country_result_table['extra_spending'] \
-                                           + country_result_table['consumption_loss']
-            country_result_table = country_result_table[['time_step', 'country', 'loss']]
-            country_loss = country_result_table['loss'].sum()
-            if export_folder:
-                logging.info(f'Exporting loss time series of countries to {export_folder}')
-                country_result_table.to_csv(export_folder / "loss_per_country.csv", index=False)
             logging.info(f"Cumulated household loss: {household_loss:,.2f} {monetary_unit_in_model}")
+
+            # export loss time series for countries
+            country_result_table = pd.read_json(
+                self.export_folder / 'country_data.jsonl', 
+                lines=True
+            )
+            if (country_result_table["consumption_loss"].any()):
+                country_result_table['loss'] = country_result_table['extra_spending'] \
+                                            + country_result_table['consumption_loss']
+                country_result_table = country_result_table[['time_step', 'country', 'loss']]
+                country_loss = country_result_table['loss'].sum()
+                print(country_loss)
+                if export_folder:
+                    logging.info(f'Exporting loss time series of countries to {export_folder}')
+                    country_result_table.to_csv(export_folder / "loss_per_country.csv", index=False)
+            else:
+                country_loss = 0
             logging.info(f"Cumulated country loss: {country_loss:,.2f} {monetary_unit_in_model}")
             # Export summary
             total_loss = pd.DataFrame({"households": household_loss, "countries": country_loss}, index=[0])

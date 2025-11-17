@@ -4,6 +4,7 @@ from typing import TYPE_CHECKING
 import networkx as nx
 import numpy as np
 import logging
+import json
 
 import pandas as pd
 from tqdm import tqdm
@@ -306,7 +307,6 @@ class Model(object):
             sectors_to_exclude=self.parameters.sectors_to_exclude,
             monetary_units_in_data=self.parameters.monetary_units_in_data
         )
-
         # Log filtering results
         output_selected = self.mrio.get_total_output_per_region_sectors(filtered_industries).sum()
         output_total = self.mrio.get_total_output_per_region_sectors().sum()
@@ -316,7 +316,7 @@ class Model(object):
         logging.info(f"{len(filtered_industries)} sectors selected over {len(self.mrio.region_sectors)} "
                      f"covering {output_selected / output_total:.0%} of total output "
                      f"& {final_demand_selected / final_demand_total:.0%} of final demand")
-        logging.info(f'The filtered sectors are: {filtered_industries}')
+        #logging.info(f'The filtered sectors are: {filtered_industries}')
 
         return filtered_industries
 
@@ -356,6 +356,7 @@ class Model(object):
             self.sc_network = ScNetwork()
 
             logging.info('Households are selecting their retailers (domestic B2C flows and import B2C flows)')
+
             for household in tqdm(self.households.values(), total=len(self.households)):
                 household.select_suppliers(self.sc_network, self.firms, self.countries,
                                            self.parameters.weight_localization_household,
@@ -568,7 +569,7 @@ class Model(object):
             # graph.subgraph(list(graph.nodes)[:-1]),
             weight='weight',
             nodelist=self.firms.values()
-        ).todense()
+        )#.todense()
         # Imports are considered as "a sector". We get the weight per firm for these inputs.
         # TODO !!! aren't I computing the same thing as the IMP tech coef? To check
         import_weight_per_firm = [
@@ -581,16 +582,23 @@ class Model(object):
         ]
         transport_input_share_per_firm = self.firms.get_properties('transport_share', "list")
         n = len(self.firms)
-
         # Build final demand vector per firm, of length n
         # Exports are considered as final demand
         final_demand_vector = self.build_final_demand_vector(self.households, self.countries, self.firms)
 
         # Solve the input--output equation
-        eq_production_vector = np.linalg.solve(
-            np.eye(n) - firm_connectivity_matrix,
-            final_demand_vector  # + 0.01
-        )
+        #eq_production_vector = np.linalg.solve(
+        #    np.eye(n) - firm_connectivity_matrix,
+        #    final_demand_vector  # + 0.01
+        #)
+        from scipy.sparse import identity
+        from scipy.sparse.linalg import spsolve
+
+        n = firm_connectivity_matrix.shape[0]
+        I_sparse = identity(n, format='csr')
+        system_matrix = I_sparse - firm_connectivity_matrix
+
+        eq_production_vector = spsolve(system_matrix, final_demand_vector)
 
         # Initialize households variables
         for household in self.households.values():
@@ -598,38 +606,39 @@ class Model(object):
 
         # Compute costs
         # 1. Input costs
-        domestic_input_cost_vector = np.multiply(
-            firm_connectivity_matrix.sum(axis=0).reshape((n, 1)),
-            eq_production_vector
-        )
-        import_input_cost_vector = np.multiply(
-            np.array(import_weight_per_firm).reshape((n, 1)),
-            eq_production_vector
-        )
-        input_cost_vector = domestic_input_cost_vector + import_input_cost_vector
-        # 2. Transport costs
-        # proportion_of_transport_cost_vector = 0.2 * np.ones((n, 1))
-        proportion_of_transport_cost_vector = np.array(transport_input_share_per_firm).reshape((n, 1))
-        transport_cost_vector = np.multiply(eq_production_vector, proportion_of_transport_cost_vector)
-        # 3. Compute other costs based on margin
-        margin = np.array([firm.target_margin for firm in self.firms.values()]).reshape((n, 1))
-        other_cost_vector = np.multiply(eq_production_vector, (1 - margin)) - input_cost_vector - transport_cost_vector
+        a = firm_connectivity_matrix.sum(axis=0)      # shape (n,)
+        b = eq_production_vector                      # shape (n,)
+        domestic_input_cost_vector = a * b            # shape (n,)
 
-        # Based on these calculus, update agents variables
+        import_input_cost_vector = np.array(import_weight_per_firm) * eq_production_vector
+
+        input_cost_vector = domestic_input_cost_vector + import_input_cost_vector
+
+        # 2. Transport costs
+        proportion_of_transport_cost_vector = np.array(transport_input_share_per_firm)  # shape (n,)
+        transport_cost_vector = eq_production_vector * proportion_of_transport_cost_vector  # shape (n,)
+
+        # 3. Other costs
+        margin = np.array([firm.target_margin for firm in self.firms.values()])  # shape (n,)
+        other_cost_vector = eq_production_vector * (1 - margin) - input_cost_vector - transport_cost_vector  # shape (n,)
+
+        # Create firm ID to position mapping
         firm_id_to_position_mapping = {firm_id: i for i, firm_id in enumerate(self.firms.get_properties("pid"))}
+
         # 1. Firm operational variables
-        for firm in self.firms.values():  # TODO make it a FirmCollection method
+        for firm in self.firms.values():
             firm.initialize_operational_variables(
-                eq_production=eq_production_vector[(firm_id_to_position_mapping[firm.pid], 0)],
+                eq_production=eq_production_vector[firm_id_to_position_mapping[firm.pid]],  # FIXED: removed , 0
                 time_resolution=self.parameters.time_resolution
             )
+
         # 2. Firm financial variables
         for firm in self.firms.values():
             firm.initialize_financial_variables(
-                eq_production=eq_production_vector[(firm_id_to_position_mapping[firm.pid], 0)],
-                eq_input_cost=input_cost_vector[(firm_id_to_position_mapping[firm.pid], 0)],
-                eq_transport_cost=transport_cost_vector[(firm_id_to_position_mapping[firm.pid], 0)],
-                eq_other_cost=other_cost_vector[(firm_id_to_position_mapping[firm.pid], 0)]
+                eq_production=eq_production_vector[firm_id_to_position_mapping[firm.pid]],  # FIXED
+                eq_input_cost=input_cost_vector[firm_id_to_position_mapping[firm.pid]],    # FIXED
+                eq_transport_cost=transport_cost_vector[firm_id_to_position_mapping[firm.pid]],  # FIXED
+                eq_other_cost=other_cost_vector[firm_id_to_position_mapping[firm.pid]]    # FIXED
             )
         # 3. Commercial links: agents set their order
         for household in self.households.values():
@@ -648,7 +657,6 @@ class Model(object):
             firm.aggregate_orders(log_info=True)
             firm.eq_total_order = firm.total_order
             firm.calculate_client_share_in_sales()
-
         # Set price to 1
         self.reset_prices()
 
@@ -687,14 +695,14 @@ class Model(object):
         return final_demand_vector
 
     def run_static(self):
-        simulation = Simulation("initial_state")
-        logging.info("Simulating the initial state")
+        simulation = Simulation("initial_state", self.parameters)
+        logging.info("Simulating the initial state", self.parameters)
         # print("self.production_capacity", self.firms[0].production_capacity)
         self.run_one_time_step(time_step=0, current_simulation=simulation)
         return simulation
 
     def run_stationary_test(self):
-        simulation = Simulation("stationary_test")
+        simulation = Simulation("stationary_test", self.parameters)
         nb_time_steps = 5
         logging.info(f"Simulating {nb_time_steps} time steps without disruption")
 
@@ -781,7 +789,7 @@ class Model(object):
 
     def run_criticality_disruption(self, disrupted_edge, duration):
         # Initialize the model
-        simulation = Simulation("criticality")
+        simulation = Simulation("criticality", self.parameters)
         logging.info("Simulating the initial state")
         self.run_one_time_step(time_step=0, current_simulation=simulation)
 
@@ -811,7 +819,8 @@ class Model(object):
 
     def run_disruption(self, t_final: int):
         # Initialize the model
-        simulation = Simulation("event")
+
+        simulation = Simulation("event", self.parameters)
         logging.info("Simulating the initial state")
         self.run_one_time_step(time_step=0, current_simulation=simulation)
 
@@ -839,6 +848,8 @@ class Model(object):
         # simulation.calculate_and_export_summary_result(self.sc_network, self.household_table,
         #                                                self.parameters.monetary_units_in_model,
         #                                                None)
+        simulation.finalize_streaming_exports(self.parameters.monetary_units_in_model)
+
         return simulation
 
     def debug_print(self):
@@ -850,6 +861,7 @@ class Model(object):
                       sum([shipment['quantity'] for shipment in edge_data['shipments'].values()]))
 
     def run_one_time_step(self, time_step: int, current_simulation: Simulation):
+
         logging.info(f"Running time step {time_step}")
         
         # # Reset commercial link variables for new time step
@@ -921,9 +933,13 @@ class Model(object):
         #     for country in countries:
         #         country.add_congestion_malus2(sc_network, transport_network)
         #
-        if (current_simulation.type not in ['criticality']) and (time_step in [0, 1]):
-            current_simulation.transport_network_data += self.transport_network.compute_flow_per_segment(time_step)
-
+        #if (current_simulation.type not in ['criticality']) and (time_step in [0, 1]):
+        #    current_simulation.transport_network_data += self.transport_network.compute_flow_per_segment(time_step)
+        current_simulation.store_transport_network_data(
+                    time_step,
+                    self.transport_network,
+                    self.transport_edges
+                )
         # if (time_step == 0) and (
         # export_sc_flow_analysis):  # should be done at this stage, while the goods are on their way
         #     analyzeSupplyChainFlows(sc_network, firms, export_folder)
@@ -943,11 +959,18 @@ class Model(object):
 
         self.transport_network.update_road_disruption_state()
         self.firms.update_disrupted_production_capacity()
+        compare_production_purchase_plans(self.firms, self.countries, self.households)
 
-        self.store_agent_data(time_step, current_simulation)
+        # --- Streaming data export ---
         self.store_sc_network_data(time_step, current_simulation)
 
-        compare_production_purchase_plans(self.firms, self.countries, self.households)
+        current_simulation.store_agent_data(
+            time_step,
+            self.household_table,
+            self.firms,
+            self.households,
+            self.countries
+        )
 
     def apply_disruption(self, time_step: int):
         disruptions_starting_now = self.disruption_list.filter_start_time(time_step)
@@ -982,56 +1005,9 @@ class Model(object):
         else:
             return False
 
-    def store_agent_data(self, time_step: int, simulation: Simulation):
-        # TODO: could create agent-level method to export stuff
-        simulation.firm_data += [
-            {
-                'time_step': time_step,
-                'firm': firm.pid,
-                'production': firm.production,
-                'profit': firm.profit,
-                'transport_cost': firm.finance['costs']['transport'],
-                'input_cost': firm.finance['costs']['input'],
-                'other_cost': firm.finance['costs']['other'],
-                'inventory_duration': firm.current_inventory_duration,
-                'generalized_transport_cost': firm.generalized_transport_cost,
-                'usd_transported': firm.usd_transported,
-                'tons_transported': firm.tons_transported,
-                'tonkm_transported': firm.tonkm_transported
-            }
-            for firm in self.firms.values()
-        ]
-        simulation.country_data += [
-            {
-                'time_step': time_step,
-                'country': country.pid,
-                'generalized_transport_cost': country.generalized_transport_cost,
-                'usd_transported': country.usd_transported,
-                'tons_transported': country.tons_transported,
-                'tonkm_transported': country.tonkm_transported,
-                'extra_spending': country.extra_spending,
-                'consumption_loss': country.consumption_loss,
-                'spending': sum(list(country.qty_purchased.values()))
-            }
-            for country in self.countries.values()
-        ]
-        simulation.household_data += [
-            {
-                'time_step': time_step,
-                'household': household.pid,
-                'tot_consumption': household.tot_consumption,
-                'spending_per_retailer': household.spending_per_retailer,
-                'consumption_per_retailer': household.consumption_per_retailer,
-                'extra_spending_per_sector': household.extra_spending_per_sector,
-                'consumption_loss_per_sector': household.consumption_loss_per_sector,
-                'extra_spending': household.extra_spending,
-                'consumption_loss': household.consumption_loss
-            }
-            for household in self.households.values()
-        ]
 
     def store_sc_network_data(self, time_step: int, simulation: Simulation):
-        simulation.sc_network_data += [
+        rows = [
             {
                 'time_step': time_step,
                 'pid': link.pid,
@@ -1044,6 +1020,13 @@ class Model(object):
             for link in list(nx.get_edge_attributes(self.sc_network, "object").values())
             if link.status != "ok"
         ]
+        if simulation.streaming_mode and simulation.export_folder:
+            for record in rows:
+                json.dump(record, simulation.sc_network_data_file)
+                simulation.sc_network_data_file.write('\n')
+            simulation.sc_network_data_file.flush()
+        else:
+            simulation.sc_network_data += rows  # legacy mode
 
     def export_transport_nodes_edges(self):
         self.transport_nodes[['geometry', 'geometry_wkt', 'id', 'long', 'lat']].to_file(

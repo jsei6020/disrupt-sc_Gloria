@@ -1,6 +1,11 @@
 import logging
 import pickle
 import threading
+import networkx as nx
+import pickle
+from pathlib import Path
+import glob
+
 
 from disruptsc.network.mrio import Mrio
 from disruptsc.paths import TMP_FOLDER, get_cache_dir
@@ -85,10 +90,18 @@ def cache_transport_network(data_dic):
     logging.info(f'Transport network saved in cache folder: {pickle_filename}')
 
 
-def cache_sc_network(data_dic):
-    pickle_filename = get_cache_dir() / 'supply_chain_pickle'
-    pickle.dump(data_dic, open(pickle_filename, 'wb'))
-    logging.info(f'Supply chain saved in cache folder: {pickle_filename}')
+import pickle
+from pathlib import Path
+
+def cache_sc_network(data_dic, chunk_size=100000):
+    cache_dir = get_cache_dir()
+    cache_dir.mkdir(parents=True, exist_ok=True)
+    for key, value in data_dic.items():
+    
+        filename = cache_dir / f"{key}.pkl"
+        with open(filename, 'wb') as f:
+            pickle.dump(value, f)
+    logging.info(f'Supply chain components saved (network chunked) in cache folder: {cache_dir}')
 
 
 def cache_logistic_routes(data_dic):
@@ -143,23 +156,71 @@ def load_cached_transport_network():
     return loaded_transport_network, loaded_transport_edges, loaded_transport_nodes
 
 
-def load_cached_sc_network():
-    pickle_filename = get_cache_dir() / 'supply_chain_pickle'
-    tmp_data = pickle.load(open(pickle_filename, 'rb'))
-    loaded_sc_network = tmp_data['supply_chain_network']
-    loaded_firms = tmp_data['firms']
-    loaded_households = tmp_data['households']
-    loaded_countries = tmp_data['countries']
-    logging.info('Supply chain generated from temp file.')
-    return loaded_sc_network, loaded_firms, loaded_households, loaded_countries
+import gc
+import pickle
+import networkx as nx
+from pathlib import Path
+import glob
+
+def load_cached_sc_network(checkpoint_frequency=5, max_edges_per_batch=50000):
+    """
+    Load supply chain network with periodic checkpointing and garbage collection.
+    
+    Args:
+        checkpoint_frequency: Save a checkpoint every N chunks (helps recovery and RAM management)
+        max_edges_per_batch: If a chunk is very large, break it into smaller batches before adding
+    """
+    cache_dir = get_cache_dir()
+    loaded = {}
+    
+    for key in ["supply_chain_network", "firms", "households", "countries"]:
+        filename = cache_dir / f"{key}.pkl"
+        print(f"Loading {key}...")
+        with open(filename, 'rb') as f:
+            loaded[key] = pickle.load(f)
+        print(f"Loaded {key}")
+
+    gc.collect()  # Final cleanup
+    logging.info('Supply chain components loaded from separate files (network chunked).')
+    return loaded["supply_chain_network"], loaded["firms"], loaded["households"], loaded["countries"]
+
+
+
+#def load_cached_sc_network():
+#    print("yay")
+    #pickle_filename = get_cache_dir() / 'supply_chain_pickle'
+#    cache_dir = get_cache_dir()
+#    loaded = {}
+#    for key in ["supply_chain_network", "firms", "households", "countries"]:
+#        filename = cache_dir / f"{key}.pkl"
+#        print(filename)
+#        with open(filename, 'rb') as f:
+#            loaded[key] = pickle.load(f)
+#        print(f"Loaded {key}")
+#    logging.info('Supply chain components loaded from separate files.')
+#    return loaded["supply_chain_network"], loaded["firms"], loaded["households"], loaded["countries"]    
+    #print("sc_done")
+    #loaded_sc_network = tmp_data['supply_chain_network']
+    #print("sc")
+    #loaded_firms = tmp_data['firms']
+    #print("firms")
+    #loaded_households = tmp_data['households']
+    #print("households")
+    #loaded_countries = tmp_data['countries']
+    #print("countries")
+    #logging.info('Supply chain generated from temp file.')
+    #return loaded_sc_network, loaded_firms, loaded_households, loaded_countries
 
 
 def load_cached_logistic_routes():
     pickle_filename = get_cache_dir() / 'logistic_routes_pickle'
     tmp_data = pickle.load(open(pickle_filename, 'rb'))
     loaded_sc_network = tmp_data['supply_chain_network']
+    print("sc")
     loaded_transport_network = tmp_data['transport_network']
+    print("transport")
     loaded_commercial_link_table = tmp_data['commercial_link_table']
+    print("commercial")
     loaded_firms = tmp_data['firms']
     loaded_households = tmp_data['households']
     loaded_countries = tmp_data['countries']

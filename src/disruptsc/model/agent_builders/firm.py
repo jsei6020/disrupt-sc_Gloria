@@ -477,7 +477,8 @@ def define_firms_from_mrio(mrio: Mrio, sector_table: pd.DataFrame, households_sp
         firm_table = _integrate_disaggregated_data(firm_table, firms_spatial, mrio)
     
     # 3. Handle internal flows (duplicate firms where needed)
-    firm_table = _handle_internal_flows(firm_table, mrio, io_cutoff)
+    #No internal flows in global model for now, overworks memory
+    #firm_table = _handle_internal_flows(firm_table, mrio, io_cutoff)
     
     # 4. Filter out small firms based on output thresholds
     firm_table = _filter_small_firms(firm_table, mrio, cutoff_firm_output, monetary_units_in_data)
@@ -549,7 +550,6 @@ def load_mrio_tech_coefs(
     # Load tech coef
     region_sector_present = list(firms.get_properties('region_sector', output_type="set"))
     tech_coef_dict = mrio.get_tech_coef_dict(threshold=io_cutoff, selected_region_sectors=region_sector_present)
-
     # Inject into firms
     for firm in firms.values():
         if firm.region_sector in tech_coef_dict.keys():

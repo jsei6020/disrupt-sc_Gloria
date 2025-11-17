@@ -29,8 +29,8 @@ class Country(BaseAgent, TransportCapable):
             long=long,
             lat=lat
         )
-        self.sector = import_label
-        self.region_sector = pid + "_" + import_label  # actually, we could specify the country...
+        self.sector = "imports" #import_label
+        self.region_sector = pid + "_" + "imports" #import_label  # actually, we could specify the country...
 
         # Parameter based on data
         self.usd_per_ton = usd_per_ton

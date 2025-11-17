@@ -152,8 +152,9 @@ class BaseAgent:
                 weights: list of weights for each supplier
                 distances: list of distances to each supplier (for firms) or None (for countries)
         """
-        if import_label in region_sector:
-            return "country", [region_sector.split('_')[0]], [1], None
+        if import_label:
+            if any(label in region_sector for label in import_label):
+                return "country", [region_sector.split('_')[0]], [1], None
 
         # Firm selection using O(1) index lookup instead of O(N) search
         potential_suppliers = firms.get_firms_by_region_sector(region_sector)

@@ -172,9 +172,13 @@ def _prepare_final_demand_data(
     pd.DataFrame
         Rescaled final demand data
     """
+
     present_import_countries = [(country + '_' + mrio.import_label) 
                                for country in mrio.external_selling_countries]
-    final_demand = mrio.get_final_demand(present_region_sectors + present_import_countries)
+    for country in present_import_countries:
+        present_region_sectors.append(country[0])
+
+    final_demand = mrio.get_final_demand(present_region_sectors)
     
     final_demand = rescale_monetary_values(
         final_demand,

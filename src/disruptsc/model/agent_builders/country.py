@@ -67,35 +67,38 @@ def _extract_trade_matrices(mrio: Mrio, time_resolution: str, target_units: str,
 def _prepare_country_spatial_data(filepath_countries_spatial: Path, usd_per_ton: dict,
                                   country_list: List[str], transport_nodes: gpd.GeoDataFrame) -> gpd.GeoDataFrame:
     """Load and prepare country spatial data."""
-    # Load spatial data
-    country_table = gpd.read_file(filepath_countries_spatial).set_index('region')
-    
-    # Validate data
-    _validate_country_data(country_list, country_table)
-    country_table = country_table.loc[country_list]
-    
-    # Find nearest transport nodes
-    admissible_node_modes = ['roads', 'railways', 'maritime']
-    potential_nodes = transport_nodes[transport_nodes['type'].isin(admissible_node_modes)]
-    country_table['od_point'] = find_nearest_node_id(potential_nodes, country_table)
-    
-    # Add coordinate columns
-    country_table['long'] = country_table["geometry"].x
-    country_table['lat'] = country_table["geometry"].y
-    
-    # Add USD per ton data
-    # sector_data = pd.read_csv(filepath_sectors).set_index("sector")
-    # import_index = sector_data.index[sector_data.index.str.contains('imp', case=False)]
-    # if len(import_index) == 0:
-    #     raise ValueError("Imports not found in sector table")
-    # elif len(import_index) > 1:
-    #     raise ValueError(f"Multiple imports row found in sector table: {import_index}")
-    # import_index = import_index[0]
-    import_keys = [key for key in usd_per_ton.keys() if ('imp' in key[0] + key[1]) or ('RoW' in key[0] + key[1])]
-    if len(import_keys) > 0:
-        country_table['country_usd_per_ton'] = sum([usd_per_ton[key] for key in import_keys]) / len(import_keys)
+    if any(country_list):
+        # Load spatial data
+        country_table = gpd.read_file(filepath_countries_spatial).set_index('region')
+        
+        # Validate data
+        _validate_country_data(country_list, country_table)
+        country_table = country_table.loc[country_list]
+        
+        # Find nearest transport nodes
+        admissible_node_modes = ['roads', 'railways', 'maritime']
+        potential_nodes = transport_nodes[transport_nodes['type'].isin(admissible_node_modes)]
+        country_table['od_point'] = find_nearest_node_id(potential_nodes, country_table)
+        
+        # Add coordinate columns
+        country_table['long'] = country_table["geometry"].x
+        country_table['lat'] = country_table["geometry"].y
+        
+        # Add USD per ton data
+        # sector_data = pd.read_csv(filepath_sectors).set_index("sector")
+        # import_index = sector_data.index[sector_data.index.str.contains('imp', case=False)]
+        # if len(import_index) == 0:
+        #     raise ValueError("Imports not found in sector table")
+        # elif len(import_index) > 1:
+        #     raise ValueError(f"Multiple imports row found in sector table: {import_index}")
+        # import_index = import_index[0]
+        import_keys = [key for key in usd_per_ton.keys() if ('imp' in key[0] + key[1]) or ('RoW' in key[0] + key[1])]
+        if len(import_keys) > 0:
+            country_table['country_usd_per_ton'] = sum([usd_per_ton[key] for key in import_keys]) / len(import_keys)
+        else:
+            raise KeyError("No entry found for imports in usd_per_ton")
     else:
-        raise KeyError("No entry found for imports in usd_per_ton")
+        country_table = []
     return country_table
 
 

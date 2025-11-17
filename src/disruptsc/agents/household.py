@@ -111,9 +111,9 @@ class Household(BaseAgent):
         self.extra_spending_per_sector = {sector: 0 for sector in self.purchase_plan.keys()}
 
     def select_suppliers(self, sc_network: "ScNetwork", firms: "Firms", countries: "Countries",
-                         weight_localization: float, nb_suppliers_per_input: int,
-                         sector_types_to_shipment_methods: dict, import_label: str, transport_network=None):
-        
+                            weight_localization: float, nb_suppliers_per_input: int,
+                            sector_types_to_shipment_methods: dict, import_label: str, transport_network=None):
+            
         # Batch data collection phase - collect all supplier data before network operations
         all_edges_to_add = []  # For batched NetworkX operations
         all_purchase_plan_updates = {}  # For vectorized dictionary updates
@@ -122,14 +122,13 @@ class Household(BaseAgent):
         
         for region_sector, amount in self.sector_consumption.items():
             supplier_type, retailers, retailer_weights, distances = self.identify_suppliers(region_sector, firms,
-                                                                                 nb_suppliers_per_input,
-                                                                                 weight_localization,
-                                                                                 import_label,
-                                                                                 transport_network)
+                                                                                    nb_suppliers_per_input,
+                                                                                    weight_localization,
+                                                                                    import_label,
+                                                                                    transport_network)
             
             # Prepare data for batch operations
             distance_iter = iter(distances) if distances is not None else iter([None] * len(retailers))
-            
             for retailer_id, weight in zip(retailers, retailer_weights):
                 # Retrieve the appropriate supplier object from the id
                 if supplier_type == "country":
@@ -185,6 +184,8 @@ class Household(BaseAgent):
         # Batch update supplier client dictionaries
         for supplier_object, client_updates in all_client_updates.items():
             supplier_object.clients.update(client_updates)
+
+    
 
     def send_purchase_orders(self, graph):
         for edge in graph.in_edges(self):

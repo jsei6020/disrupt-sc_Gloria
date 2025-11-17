@@ -16,22 +16,24 @@ export_details:
   "flows": True
 firm_data_type: "mrio"
 
+with_transport: False
+
 disruption_description: None
-t_final: 10
+t_final: 4
 
 disruptions:
-#  - type: capital_destruction
-#    start_time: 1
-#    description_type: region_sector_file
-#    description_type: filter  # sectors_homogeneous
-#    filter:
-#      sector: ['C16']
-#    destroyed_capital: 10000000000.0
-#    unit: mUSD
-#    reconstruction_market: False
-  - type: transport_disruption
-    description_type: edge_attributes
-    attribute: id
-    values: [13216, 15827, 12055]
+  - type: capital_destruction
     start_time: 1
-    duration: 7
+    description_type: region_sector_file
+    description_type: filter  # sectors_homogeneous
+    filter:
+      sector: ['C16']
+    destroyed_capital: 332198.0
+    unit: mUSD
+    reconstruction_market: False
+#  - type: transport_disruption
+#    description_type: edge_attributes
+#    attribute: id
+#    values: [13216, 15827, 12055]
+#    start_time: 1
+#    duration: 7
