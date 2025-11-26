@@ -6,6 +6,8 @@ from pathlib import Path
 import pandas as pd
 import geopandas as gpd
 import csv
+import networkx as nx
+
 
 from disruptsc.network.sc_network import ScNetwork
 from disruptsc.parameters import Parameters
