@@ -41,6 +41,8 @@ class Firm(BaseAgent, TransportCapable):
             long=long,
             lat=lat
         )
+        self.controlled = False # if controlled by an export stop
+
         # Parameters depending on data
         self.usd_per_ton = usd_per_ton
         self.geometry = geometry
@@ -359,6 +361,7 @@ class Firm(BaseAgent, TransportCapable):
             0
 
         """
+
         for sector_id, sector_weight in self.input_mix.items():
 
             # If it is imports, identify international suppliers and calculate
@@ -367,9 +370,7 @@ class Firm(BaseAgent, TransportCapable):
                                                                                              nb_suppliers_per_input,
                                                                                              weight_localization,
                                                                                              import_label,
-                                                                                             transport_network)
-
-            # For each new supplier, create a new CommercialLink in the supply chain network.
+                                                                                             transport_network)            # For each new supplier, create a new CommercialLink in the supply chain network.
             # print(f"{self.id_str()}: for input {sector_id} I selected {len(selected_supplier_ids)} suppliers")
             for supplier_id in selected_supplier_ids:
                 # Retrieve the appropriate supplier object from the id
@@ -481,6 +482,10 @@ class Firm(BaseAgent, TransportCapable):
         """Apply capital destruction."""
         self.finance_manager.incur_capital_destruction(amount)
 
+    def implement_export_stop(self, model, controlled_region):
+        #reduce purchasing orders of controlled firms to 0
+        print(self.pid)
+
     def get_spare_production_potential(self):
         """Calculate spare production capacity."""
         return self.production_manager.get_spare_production_potential(
@@ -580,14 +585,17 @@ class Firm(BaseAgent, TransportCapable):
         for _, buyer in sc_network.out_edges(self):
             commercial_link = sc_network[self][buyer]['object']
             quantity_to_deliver = quantities_to_deliver[buyer.pid]
+            #Export stop disruption: if I am export controlled, set delivery to foreign client to 0
+            if self.controlled and buyer.region != self.region:
+                quantity_to_deliver = 0
             if quantity_to_deliver == 0:
                 if commercial_link.order == 0:
                     logging.debug(f"{self.id_str()} - this client did not order: {buyer.id_str()}")
-                continue
+                    continue  
             commercial_link.delivery = quantity_to_deliver
             commercial_link.delivery_in_tons = self.transformUSD_to_tons(quantity_to_deliver, monetary_units_in_model,
                                                                          self.usd_per_ton)
-
+            
             # If the client is B2C (applied only we had one single representative agent for all households)
             cases_no_transport = (buyer.pid == -1) or (self.sector_type in sectors_no_transport_network) \
                                  or ((not transport_to_households) and (buyer.agent_type == "household"))
@@ -769,6 +777,7 @@ class Firms(BaseAgents):
         Returns:
             list: List of firm IDs that produce in the given region_sector
         """
+
         if not self._index_built:
             self._build_region_sector_index()
         return self._region_sector_index.get(region_sector, [])
@@ -797,7 +806,7 @@ class Firms(BaseAgents):
                                                   'import_B2C', 'export', 'total']
         logging.info(f'Firm_list created, size is: {len(self)}')
         logging.info(f'Number of sectors: {len(present_sectors)}')
-        logging.info(f'Sectors present are: {present_sectors}')
+        #logging.info(f'Sectors present are: {present_sectors}')
         logging.info(f'Number of region sectors: {len(present_region_sectors)}')
         return present_sectors, present_region_sectors, flow_types_to_export
 

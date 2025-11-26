@@ -155,14 +155,14 @@ class BaseAgent:
         if import_label:
             if any(label in region_sector for label in import_label):
                 return "country", [region_sector.split('_')[0]], [1], None
-
         # Firm selection using O(1) index lookup instead of O(N) search
         potential_suppliers = firms.get_firms_by_region_sector(region_sector)
-        if region_sector == self.region_sector and self.pid in potential_suppliers:
-            potential_suppliers = [pid for pid in potential_suppliers if pid != self.pid]  # Remove self if needed
-
+        if len(potential_suppliers) > 1: # only remove yourself, when there are other suppliers
+            if region_sector == self.region_sector and self.pid in potential_suppliers:
+                potential_suppliers = [pid for pid in potential_suppliers if pid != self.pid]  # Remove self if needed
         if not potential_suppliers:
             raise ValueError(f"{self.id_str().capitalize()}: No supplier for {region_sector}")
+        
 
         # Vectorized computation using NumPy arrays for performance
         num_suppliers = len(potential_suppliers)

@@ -2,8 +2,11 @@ from typing import TYPE_CHECKING
 
 import logging
 import os
+import gc
 
 import pandas as pd
+import numpy as np
+
 
 from disruptsc.model.utils.functions import rescale_monetary_values
 
@@ -100,16 +103,21 @@ class Mrio(pd.DataFrame):
     def get_margin_per_industry(self, selected_industries=None):
         if not isinstance(selected_industries, list):
             selected_industries = self.region_sectors
-        if not self.value_added_label.any():
-            logging.warning("No value added in MRIO, defaulting to uniform 20% value added per industry")
-            return {industry: 0.2 for industry in selected_industries}
-        else:
-            va = self.loc[(slice(None), list(self.value_added_label) + list(self.tax_label)), selected_industries]
-            va = va.sum()
-            output = self.loc[selected_industries].sum(axis=1)
-            va_to_output_ratios = va / output
-            #va_to_output_ratios.to_csv("/home/user/Documents/University/Master Thesis/disrupt-sc/data/Global4/Network/margins.csv")
-            return va_to_output_ratios.to_dict()
+        if isinstance(self.value_added_label, str):
+            if self.value_added_label == "":
+                logging.warning("No value added in MRIO, defaulting to uniform 20% value added per industry")
+                return {industry: 0.2 for industry in selected_industries}
+        else: 
+            if not self.value_added_label.any():
+                logging.warning("No value added in MRIO, defaulting to uniform 20% value added per industry")
+                return {industry: 0.2 for industry in selected_industries}
+            else:
+                va = self.loc[(slice(None), list(self.value_added_label) + list(self.tax_label)), selected_industries]
+                va = va.sum()
+                output = self.loc[selected_industries].sum(axis=1)
+                va_to_output_ratios = va / output
+                #va_to_output_ratios.to_csv("/home/user/Documents/University/Master Thesis/disrupt-sc/data/Global4/Network/margins.csv")
+                return va_to_output_ratios.to_dict()
 
     def get_transport_input_share_per_industry(self, sector_types: pd.Series | dict, selected_industries=None):
         if not isinstance(selected_industries, list):
@@ -133,7 +141,7 @@ class Mrio(pd.DataFrame):
         return [tup for tup in self.region_sectors if tech_coef_matrix.loc[tup, tup] > threshold]
 
     def get_final_demand(self, selected_region_sectors=None):
-        print(selected_region_sectors)
+        #print(selected_region_sectors)
         if selected_region_sectors:
             if isinstance(selected_region_sectors[0], str):
                 selected_region_sectors = [tuple(region_sector.split('_', 1))
@@ -182,9 +190,6 @@ class Mrio(pd.DataFrame):
                 #print(self.get_total_output_per_region_sectors()[region_sector])
     
     def filtered_tech_coefficients(self, tech_coef_matrix, selected_region_sectors, threshold):
-        import gc
-        import numpy as np
-
         # Assume tech_coef_matrix.columns is a MultiIndex of tuples (country, sector)
         supplier_tuples = [tuple(col) for col in tech_coef_matrix.columns]
         is_domestic = np.array([tup in selected_region_sectors for tup in supplier_tuples])  # 1D array, shape (num_columns,)
@@ -196,7 +201,7 @@ class Mrio(pd.DataFrame):
         filtered_dict = {}
         chunk_size = 4000
         for start in range(0, len(buyer_tuples), chunk_size):
-            print(start)
+            #print(start)
             end = start + chunk_size
             buyers_chunk = buyer_tuples[start:end]
             # Create a buyer mask for just this chunk
@@ -219,7 +224,6 @@ class Mrio(pd.DataFrame):
         tot_outputs = tot_outputs.astype('float32')
         matrix_output = matrix_output.astype('float32')
         #tech_coef_matrix = self[self.region_sectors] / matrix_output
-        import gc
         chunk_size = 1312  # set based on memory ceiling
         results = []
         for start in range(0, len(self.index), chunk_size):
@@ -240,7 +244,14 @@ class Mrio(pd.DataFrame):
             else:
                 raise ValueError('selected_region_sectors should be a list of tuples or strings')
             result = dict(self.filtered_tech_coefficients(tech_coef_matrix, selected_region_sectors, threshold))
-            return result
+            processed = {
+                '_'.join(str(x) for x in buying_region_sector_tuple): {
+                    '_'.join(str(y) for y in supplying_region_sector_tuple): val
+                    for supplying_region_sector_tuple, val in sublist.items()
+                }
+                for buying_region_sector_tuple, sublist in result.items()
+            }
+            return processed
         else:
             return {
                 '_'.join(region_sector_tuple): {

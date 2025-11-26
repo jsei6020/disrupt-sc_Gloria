@@ -193,17 +193,45 @@ def _create_transport_disruption_probability(config: Dict[str, Any], context: Di
     else:
         raise ValueError(f"Unknown description_type for transport_disruption_probability: {description_type}")
 
+def _create_export_stop(config: Dict[str, Any], context: DisruptionContext) -> "ExportStop":
+    """Create export stop disruption from config."""
+    description_type = config.get('description_type')
+    
+    if description_type == "filter":
+        disruption = ExportStop.from_firms_attributes(
+            #config['destroyed_capital'],
+            config['filter'],
+            context.firm_list,
+            #config['unit'],
+            #context.model_unit
+        )
+    else:
+        raise ValueError(f"Unknown description_type for export_stop: {description_type}")
+    
+    # Set common attributes
+    disruption.start_time = config["start_time"]
+    if "reconstruction_market" in config:
+        disruption.reconstruction_market = config["reconstruction_market"]
+    if "reconstruction_target_time" in config:
+        disruption.reconstruction_target_time = config["reconstruction_target_time"]
+    if "capital_input_mix" in config:
+        disruption.capital_input_mix = config["capital_input_mix"]
+    
+    return disruption
+
 
 # Register disruption types and handlers
 DisruptionFactory.register_disruption_type("capital_destruction", "CapitalDestruction")
 DisruptionFactory.register_disruption_type("productivity_shock", "ProductivityShock") 
 DisruptionFactory.register_disruption_type("transport_disruption", "TransportDisruption")
 DisruptionFactory.register_disruption_type("transport_disruption_probability", "TransportDisruption")
+DisruptionFactory.register_disruption_type("export_stop", "ExportStop")
 
 DisruptionFactory.register_config_handler("capital_destruction", _create_capital_destruction)
 DisruptionFactory.register_config_handler("productivity_shock", _create_productivity_shock)
 DisruptionFactory.register_config_handler("transport_disruption", _create_transport_disruption)
 DisruptionFactory.register_config_handler("transport_disruption_probability", _create_transport_disruption_probability)
+DisruptionFactory.register_config_handler("export_stop", _create_export_stop)
 
 
 class ReconstructionMarket:
@@ -530,6 +558,52 @@ class ProductivityShock(BaseDisruption):
                 firms[firm_id].apply_productivity_shock(reduction_factor, self.recovery)
             else:
                 logging.warning(f"Firm {firm_id} does not support productivity shocks")
+
+class ExportStop(BaseDisruption):
+    def __init__(self, description: dict, filters: dict, recovery: Recovery = None, start_time: int = 1,
+                 reconstruction_market: bool = False, reconstruction_target_time: int = 30,
+                 capital_input_mix: dict = None):
+        self.filters = filters
+        self.reconstruction_market = reconstruction_market
+        self.reconstruction_target_time = reconstruction_target_time
+        self.capital_input_mix = capital_input_mix or {"CON": 0.7, "MAN": 0.2, "IMP": 0.1}
+        super().__init__(description, recovery, start_time)
+
+    def _validate_description(self):
+        """Validate export stop description."""
+        for i in range(len(self)):
+            if not isinstance(self[i], int):
+                raise KeyError("Members must be an int: the id of the firm")
+    #        if not isinstance(value, (int, float)):
+    #            raise ValueError("Value must be a number: the amount of destroyed capital")
+    #        if value < 0:
+    #            raise ValueError("Destroyed capital must be non-negative")
+
+    def __repr__(self):
+        return f"ExportStop(start_time={self.start_time}, firms={len(self.description)}, reconstruction={self.reconstruction_market})"
+
+    @classmethod
+    def from_firms_attributes(cls, filters: dict, firms: "Firms"):
+        affected_firms = firms.select_by_properties(filters)
+        description = [firm_id for firm_id, firm in affected_firms.items()]
+        return cls(description=description, filters=filters, recovery=None)
+
+    def implement(self, model: "Model"):
+        """Implement export stop."""
+        #Can only do one country deciding to stop exporting at a time -> TODO make a loop for affected regions
+        #Identify suppliers with new rules.
+        controlled_region = model.firms[self[0]].region
+        controlled_pids = [self[i] for i in range(len(self))]
+        for firm_id in controlled_pids:
+            #model.firms[firm_id].implement_export_stop(model, controlled_region)
+            firm = model.firms[firm_id]
+            firm.controlled = True
+        if self.reconstruction_market:
+            model.reconstruction_market = ReconstructionMarket(
+                reconstruction_target_time=self.reconstruction_target_time,
+                capital_input_mix=self.capital_input_mix
+            )
+    #include produce so that controlled firms produce less and feel disruption that way
 
 
 class DisruptionList(UserList):

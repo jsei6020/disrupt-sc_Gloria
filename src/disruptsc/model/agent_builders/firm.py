@@ -416,7 +416,10 @@ def _enrich_sector_metadata(firm_table: pd.DataFrame, sector_table: pd.DataFrame
         Enriched firm table with sector metadata
     """
     # Add sector type
-    firm_table['sector_type'] = firm_table['sector'].map(sector_table.set_index('sector')['type'])
+    if 'region_sector' in sector_table.columns:
+        firm_table['sector_type'] = firm_table['region_sector'].map(sector_table.set_index('region_sector')['type'])
+    else:
+        firm_table['sector_type'] = firm_table['sector'].map(sector_table.set_index('sector')['type'])
     check_successful_extraction(firm_table, "sector_type")
 
     # Add usd per ton

@@ -10,7 +10,6 @@ import csv
 from disruptsc.network.sc_network import ScNetwork
 from disruptsc.parameters import Parameters
 
-
 class Simulation(object):
     def __init__(self, simulation_type: str, parameters: Parameters):
         admissible_types = ["initial_state", "event", "disruption", "stationary_test", "criticality"]
@@ -134,7 +133,7 @@ class Simulation(object):
         else:
             # Fallback: store in RAM for non-streaming type (initial_state, criticality)
             # Fallback for batch mode: retain in RAM
-            simulation.firm_data += [
+            self.firm_data += [
                 {
                     'time_step': time_step,
                     'firm': firm.pid,
@@ -149,9 +148,9 @@ class Simulation(object):
                     'tons_transported': firm.tons_transported,
                     'tonkm_transported': firm.tonkm_transported
                 }
-                for firm in self.firms.values()
+                for firm in firms.values()
             ]
-            simulation.country_data += [
+            self.country_data += [
                 {
                     'time_step': time_step,
                     'country': country.pid,
@@ -163,9 +162,9 @@ class Simulation(object):
                     'consumption_loss': country.consumption_loss,
                     'spending': sum(list(country.qty_purchased.values()))
                 }
-                for country in self.countries.values()
+                for country in countries.values()
             ]
-            simulation.household_data += [
+            self.household_data += [
                 {
                     'time_step': time_step,
                     'household': household.pid,
@@ -177,8 +176,29 @@ class Simulation(object):
                     'extra_spending': household.extra_spending,
                     'consumption_loss': household.consumption_loss
                 }
-                for household in self.households.values()
+                for household in households.values()
             ]
+    def store_sc_network_data(self, time_step: int, model):
+            rows = [
+                {
+                    'time_step': time_step,
+                    'pid': link.pid,
+                    'status': link.status,
+                    'price': link.price,
+                    'order': link.order,
+                    'delivery': link.delivery,
+                    "fulfilment_rate": link.fulfilment_rate
+                }
+                for link in list(nx.get_edge_attributes(model.sc_network, "object").values())
+                if link.status != "ok"
+            ]
+            if self.streaming_mode and self.export_folder:
+                for record in rows:
+                    json.dump(record, self.sc_network_data_file)
+                    self.sc_network_data_file.write('\n')
+                self.sc_network_data_file.flush()
+            else:
+                self.sc_network_data += rows  # legacy mode
 
     def store_transport_network_data(self, time_step, transport_network, transport_edges):
         if self.streaming_mode and self.export_folder:
@@ -215,8 +235,8 @@ class Simulation(object):
         # Write summary stats
         summary = pd.DataFrame({"households": [self.total_household_loss], "countries": [self.total_country_loss]})
         summary.to_csv(self.export_folder / "loss_summary.csv", index=False)
-        logging.info(f"Cumulated household loss: {self.total_household_loss:,.2f} {monetary_unit_in_model}")
-        logging.info(f"Cumulated country loss: {self.total_country_loss:,.2f} {monetary_unit_in_model}")
+        #logging.info(f"Cumulated household losss: {self.total_household_loss:,.2f} {monetary_unit_in_model}")
+        #logging.info(f"Cumulated country losss: {self.total_country_loss:,.2f} {monetary_unit_in_model}")
 
     # The rest of your methods are left as in your code, except:
     # - `export_agent_data`, `export_transport_network_data`, `calculate_and_export_summary_result`
@@ -261,7 +281,7 @@ class Simulation(object):
                                             + country_result_table['consumption_loss']
                 country_result_table = country_result_table[['time_step', 'country', 'loss']]
                 country_loss = country_result_table['loss'].sum()
-                print(country_loss)
+                #print(country_loss)
                 if export_folder:
                     logging.info(f'Exporting loss time series of countries to {export_folder}')
                     country_result_table.to_csv(export_folder / "loss_per_country.csv", index=False)

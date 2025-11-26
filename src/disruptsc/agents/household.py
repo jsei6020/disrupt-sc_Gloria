@@ -185,8 +185,6 @@ class Household(BaseAgent):
         for supplier_object, client_updates in all_client_updates.items():
             supplier_object.clients.update(client_updates)
 
-    
-
     def send_purchase_orders(self, graph):
         for edge in graph.in_edges(self):
             try:

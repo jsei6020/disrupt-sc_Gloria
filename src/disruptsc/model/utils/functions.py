@@ -44,7 +44,6 @@ def rescale_monetary_values(
     """
     # Rescale according to the time period chosen
     periods = {'day': 365, 'week': 52, 'month': 12, 'year': 1}
-
     values = values * periods[input_time_resolution] / periods[target_time_resolution]
 
     # Change units

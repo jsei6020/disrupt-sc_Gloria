@@ -15,6 +15,8 @@ export_files: True
 export_details:
   "flows": True
 firm_data_type: "mrio"
+nb_suppliers_per_input: 1
+#adapt_weight_based_on_satisfaction: True
 
 with_transport: False
 
@@ -22,14 +24,15 @@ disruption_description: None
 t_final: 4
 
 disruptions:
-  - type: capital_destruction
+  - type: export_stop
     start_time: 1
-    description_type: region_sector_file
+    #description_type: region_sector_file
     description_type: filter  # sectors_homogeneous
     filter:
-      sector: ['C16']
-    destroyed_capital: 332198.0
-    unit: mUSD
+      region_sector: ['AT_C26']
+      #sector: ['A02, C16']
+    #destroyed_capital: 332198.0
+    #unit: mUSD
     reconstruction_market: False
 #  - type: transport_disruption
 #    description_type: edge_attributes

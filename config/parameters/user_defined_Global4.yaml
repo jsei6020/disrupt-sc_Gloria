@@ -24,16 +24,16 @@ disruption_description: None
 t_final: 5
 
 disruptions:
-  - type: capital_destruction
+  - type: export_stop
     start_time: 1
 #    description_type: region_sector_file
     description_type: filter  # sectors_homogeneous
     filter:
-      sector: ['Nickel ores']
-      region: ['IDN']
-    destroyed_capital: 4.0
+      region_sector: ['IDN_Nickel ores']
+      #region: ['']
+    #destroyed_capital: 4.0
 #    region_sector_filepath: "Disruption/earthquake_capital_destruction.csv"
-    unit: mUSD
+    #unit: mUSD
     reconstruction_market: False
 
 #disruption_description:

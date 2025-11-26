@@ -27,7 +27,7 @@ from .agent_builders.firm import \
 from .agent_builders.household import define_households_from_mrio, create_households
 from .network_builders.transport import create_transport_network
 from disruptsc.parameters import Parameters
-from disruptsc.disruption.disruption import DisruptionList, TransportDisruption, CapitalDestruction, Recovery
+from disruptsc.disruption.disruption import DisruptionList, TransportDisruption, CapitalDestruction, ExportStop, Recovery
 from disruptsc.simulation.simulation import Simulation
 from disruptsc.network.sc_network import ScNetwork
 from disruptsc.network.mrio import Mrio
@@ -394,11 +394,13 @@ class Model(object):
                                           transport_network=self.transport_network)
 
             unconnected_nodes = self.sc_network.identify_disconnected_nodes(self.firms, self.countries, self.households)
+            total_removed = 0
             if len(unconnected_nodes) > 0:
                 for agent_type, unconnected_node_ids in unconnected_nodes.items():
                     logging.warning(f"{len(unconnected_node_ids)} {agent_type} are not in the sc network: "
                                     f"they have no suppliers, no clients. We remove them.")
                     if agent_type == "firms":
+                        total_removed += len(unconnected_node_ids)
                         for unconnected_firm_id in unconnected_node_ids:
                             # self.sc_network.add_node(self.firms[unconnected_firm_id])
                             del self.firms[unconnected_firm_id]
@@ -410,7 +412,6 @@ class Model(object):
                             del self.households[unconnected_household_id]
 
             # Iteratively remove firms without clients until convergence
-            total_removed = 0
             max_iterations = 10
             for iteration in range(max_iterations):
                 removed_count = self.sc_network.remove_useless_commercial_links()
@@ -418,7 +419,6 @@ class Model(object):
                     logging.info(f"Converged after {iteration + 1} iterations")
                     break
                 total_removed += removed_count
-
                 # Remove firms from model collections that were removed from sc_network
                 current_firm_pids_in_network = {node.pid for node in self.sc_network.nodes()
                                                 if hasattr(node, 'agent_type') and node.agent_type == "firm"}
@@ -874,6 +874,7 @@ class Model(object):
         available_transport_network = self.transport_network
         if self.disruption_list:
             available_transport_network = self.apply_disruption(time_step)
+            #in the disruption case of an Export stop change the suppliers per firm here
 
         self.firms.retrieve_orders(self.sc_network)
         if self.reconstruction_market:
@@ -962,7 +963,7 @@ class Model(object):
         compare_production_purchase_plans(self.firms, self.countries, self.households)
 
         # --- Streaming data export ---
-        self.store_sc_network_data(time_step, current_simulation)
+        current_simulation.store_sc_network_data(time_step, self)
 
         current_simulation.store_agent_data(
             time_step,
@@ -978,6 +979,8 @@ class Model(object):
             if isinstance(disruption, TransportDisruption):
                 disruption.implement(self.transport_network)
             if isinstance(disruption, CapitalDestruction):
+                disruption.implement(self)
+            if isinstance(disruption, ExportStop):
                 disruption.implement(self)
         return self.transport_network.get_undisrupted_network()
         # edge_disruptions_starting_now = disruptions_starting_now.filter_type('transport_edge')
@@ -1005,28 +1008,6 @@ class Model(object):
         else:
             return False
 
-
-    def store_sc_network_data(self, time_step: int, simulation: Simulation):
-        rows = [
-            {
-                'time_step': time_step,
-                'pid': link.pid,
-                'status': link.status,
-                'price': link.price,
-                'order': link.order,
-                'delivery': link.delivery,
-                "fulfilment_rate": link.fulfilment_rate
-            }
-            for link in list(nx.get_edge_attributes(self.sc_network, "object").values())
-            if link.status != "ok"
-        ]
-        if simulation.streaming_mode and simulation.export_folder:
-            for record in rows:
-                json.dump(record, simulation.sc_network_data_file)
-                simulation.sc_network_data_file.write('\n')
-            simulation.sc_network_data_file.flush()
-        else:
-            simulation.sc_network_data += rows  # legacy mode
 
     def export_transport_nodes_edges(self):
         self.transport_nodes[['geometry', 'geometry_wkt', 'id', 'long', 'lat']].to_file(

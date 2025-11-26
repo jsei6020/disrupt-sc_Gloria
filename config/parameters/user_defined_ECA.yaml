@@ -3,6 +3,7 @@ filepaths:
   "sector_table": "Economic/sector_table.csv"
 #  "inventory_duration_targets": "Network/inventory_targets.csv"
   "mrio": "Economic/mrio_BS_MC.csv"
+  "usd_per_ton": "Economic/usd_per_ton.csv"
   "railways_edges": "Transport/railways_edges_2030.geojson"
 transport_modes: ["roads", "maritime", "railways", "pipelines"] #, waterways, airways]
 monetary_units_in_model: mUSD
@@ -100,7 +101,7 @@ logistics:  # Sources: TRACECA Corridor Studies, ADB CAREC Logistics Costing, Wo
 
 use_route_cache: True
 simulation_type: disruption
-mc_repetitions: 50
+#mc_repetitions: 50
 sensitivity:
   duration: [1,5,10,15,30,60,120,180,270,365]
   logistics.speeds.roads: [50,60]

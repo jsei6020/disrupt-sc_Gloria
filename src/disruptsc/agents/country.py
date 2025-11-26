@@ -162,6 +162,7 @@ class Country(BaseAgent, TransportCapable):
                     'amount': self.qty_purchased[region_sectors] * weight
                 }
                 self.purchase_plan[supplier_id] = self.qty_purchased[region_sectors] * weight
+
                 # The supplier saves the fact that it exports to this country.
                 # The share of sales cannot be calculated now, we put 0 for the moment
                 distance = calculate_distance_between_agents(self, firms[supplier_id])
