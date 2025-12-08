@@ -55,7 +55,7 @@ class ProductionManager:
         else:
             self.production_capacity_reduction = 0
         self.current_production_capacity = self.production_capacity * (1 - self.production_capacity_reduction)
-
+        
     def get_spare_production_potential(self, inventory: Dict, input_mix: Dict, total_order: float):
         """Calculate spare production capacity."""
         if len(input_mix) == 0:  # If no need for inputs

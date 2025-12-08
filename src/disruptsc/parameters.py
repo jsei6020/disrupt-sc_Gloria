@@ -89,6 +89,7 @@ class Parameters:
     logistics: dict
 
     # Parameters with defaults (must come last)
+    stream_mode: str = "None"
     export_folder: Path | str = ""
     is_monte_carlo: bool = False
     with_output_folder: bool = True

@@ -8,7 +8,7 @@ filepaths:
 transport_modes: [roads, maritime] #, waterways, airways]
 monetary_units_in_model: mUSD
 monetary_units_inputed: mUSD
-time_resolution: day
+time_resolution: week
 io_cutoff: 0.01
 simulation_type: disruption
 export_files: True
@@ -17,12 +17,22 @@ export_details:
 firm_data_type: "mrio"
 nb_suppliers_per_input: 1
 #adapt_weight_based_on_satisfaction: True
+stream_mode: "loss_only"
 
 with_transport: False
 
 disruption_description: None
-t_final: 4
-
+t_final: 10
+#disruptions:
+#- attribute: id
+#  description_type: edge_attributes
+#  duration: 7
+#  start_time: 1
+#  type: transport_disruption
+#  values:
+#  - 13216
+#  - 15827
+#  - 12055
 disruptions:
   - type: export_stop
     start_time: 1
@@ -30,9 +40,9 @@ disruptions:
     description_type: filter  # sectors_homogeneous
     filter:
       region_sector: ['AT_C26']
-      #sector: ['A02, C16']
-    #destroyed_capital: 332198.0
-    #unit: mUSD
+#      sector: ['C16']
+#    destroyed_capital: 3321980.0
+#    unit: mUSD
     reconstruction_market: False
 #  - type: transport_disruption
 #    description_type: edge_attributes
