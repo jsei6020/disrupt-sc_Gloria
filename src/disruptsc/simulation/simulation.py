@@ -41,7 +41,6 @@ class Simulation(object):
         self.type = simulation_type
         self.export_folder = parameters.export_folder
         self.stream_mode = parameters.stream_mode
-        print(parameters.disruptions[0])
         self.disruption_steps = parameters.disruptions[0]["start_time"] # adapt to take several disruptions
 
         # Determine if we stream at all
