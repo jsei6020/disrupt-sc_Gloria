@@ -587,12 +587,12 @@ class Firm(BaseAgent, TransportCapable):
             quantity_to_deliver = quantities_to_deliver[buyer.pid]
             #Export stop disruption: if I am export controlled, set delivery to foreign client to 0
             if self.controlled and buyer.region != self.region:
+                if buyer.agent_type == "firm":
+                    print(buyer.agent_type, buyer.sector, buyer.region)
+                else: print(buyer.agent_type, buyer.region)
+                print(quantity_to_deliver)
                 quantity_to_deliver = 0
             commercial_link.delivery = quantity_to_deliver
-            if buyer.agent_type == "firm":
-                print(buyer.agent_type, buyer.sector, buyer.region)
-            else: print(buyer.agent_type, buyer.region)
-            print(quantity_to_deliver)
             if quantity_to_deliver == 0:
                 if commercial_link.order == 0:
                     logging.debug(f"{self.id_str()} - this client did not order: {buyer.id_str()}")
