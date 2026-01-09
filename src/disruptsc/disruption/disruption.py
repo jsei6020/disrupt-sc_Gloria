@@ -210,13 +210,11 @@ def _create_export_stop(config: Dict[str, Any], context: DisruptionContext) -> "
     
     # Set common attributes
     disruption.start_time = config["start_time"]
-    if "reconstruction_market" in config:
-        disruption.reconstruction_market = config["reconstruction_market"]
-    if "reconstruction_target_time" in config:
-        disruption.reconstruction_target_time = config["reconstruction_target_time"]
-    if "capital_input_mix" in config:
-        disruption.capital_input_mix = config["capital_input_mix"]
-    
+    if "duration" in config:
+        shape = config.get("recovery_shape", "threshold")
+        rate = config.get("recovery_rate", 1.0)
+        disruption.recovery = Recovery(duration=config["duration"])
+
     return disruption
 
 
@@ -564,10 +562,9 @@ class ExportStop(BaseDisruption):
                  reconstruction_market: bool = False, reconstruction_target_time: int = 30,
                  capital_input_mix: dict = None):
         self.filters = filters
-        self.reconstruction_market = reconstruction_market
-        self.reconstruction_target_time = reconstruction_target_time
-        self.capital_input_mix = capital_input_mix or {"CON": 0.7, "MAN": 0.2, "IMP": 0.1}
         super().__init__(description, recovery, start_time)
+        #print(self.recovery.duration)
+
 
     def _validate_description(self):
         """Validate export stop description."""
@@ -586,7 +583,7 @@ class ExportStop(BaseDisruption):
     def from_firms_attributes(cls, filters: dict, firms: "Firms"):
         affected_firms = firms.select_by_properties(filters)
         description = [firm_id for firm_id, firm in affected_firms.items()]
-        return cls(description=description, filters=filters, recovery=None)
+        return cls(description=description, filters=filters)
 
     def implement(self, model: "Model"):
         """Implement export stop."""
@@ -598,11 +595,8 @@ class ExportStop(BaseDisruption):
             #model.firms[firm_id].implement_export_stop(model, controlled_region)
             firm = model.firms[firm_id]
             firm.controlled = True
-        if self.reconstruction_market:
-            model.reconstruction_market = ReconstructionMarket(
-                reconstruction_target_time=self.reconstruction_target_time,
-                capital_input_mix=self.capital_input_mix
-            )
+            firm.disruption_duration = self.recovery.duration if self.recovery else float('inf')
+            #transport_network.disrupt_one_edge(edge, self[edge_id], duration)
     #include produce so that controlled firms produce less and feel disruption that way
 
 

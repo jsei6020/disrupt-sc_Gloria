@@ -42,6 +42,7 @@ class Firm(BaseAgent, TransportCapable):
             lat=lat
         )
         self.controlled = False # if controlled by an export stop
+        self.disruption_duration = 0 # duration of the export stop
 
         # Parameters depending on data
         self.usd_per_ton = usd_per_ton
@@ -587,10 +588,10 @@ class Firm(BaseAgent, TransportCapable):
             quantity_to_deliver = quantities_to_deliver[buyer.pid]
             #Export stop disruption: if I am export controlled, set delivery to foreign client to 0
             if self.controlled and buyer.region != self.region:
-                if buyer.agent_type == "firm":
-                    print(buyer.agent_type, buyer.sector, buyer.region)
-                else: print(buyer.agent_type, buyer.region)
-                print(quantity_to_deliver)
+                #if buyer.agent_type == "firm":
+                #    print(buyer.agent_type, buyer.sector, buyer.region)
+                #else: print(buyer.agent_type, buyer.region)
+                #print(quantity_to_deliver)
                 quantity_to_deliver = 0
             commercial_link.delivery = quantity_to_deliver
             if quantity_to_deliver == 0:
@@ -885,6 +886,12 @@ class Firms(BaseAgents):
                     firm_id_duration_reduction_dict[firm.pid]['duration'],
                     firm_id_duration_reduction_dict[firm.pid]['reduction']
                 )
+    def update_firm_disruption_state(self):
+        for firm in self.values():
+            if firm.disruption_duration > 0:
+                firm.disruption_duration -= 1
+            if firm.disruption_duration == 0:
+                firm.controlled = False
 
 
 # These functions are now imported from firm_components

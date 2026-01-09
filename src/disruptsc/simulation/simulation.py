@@ -396,12 +396,11 @@ class Simulation(object):
         if self.stream_losses:
             if hasattr(self, 'loss_stream_file'):
                 self.loss_stream_file.close()
-            if hasattr(self, 'loss_sorted_file'):
-                self.loss_sorted_file.close()
             if hasattr(self, 'country_loss_file'):
                 self.country_loss_file.close()
             # build main ordered loss file from streamed CSV
             self._finalize_loss_per_region_sector_time()
+
 
 
         if hasattr(self, 'transport_network_data_file'):
@@ -584,3 +583,6 @@ class Simulation(object):
 
         # write main output
         grouped.to_csv(self.export_folder / 'loss_per_region_sector_time.csv', index=False)
+
+        #delete unsorted file for storage efficiency
+        path.unlink()

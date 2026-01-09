@@ -9,7 +9,49 @@ transport_modes: [roads, maritime] #, waterways, airways]
 monetary_units_in_model: mUSD
 monetary_units_inputed: mUSD
 time_resolution: week
-io_cutoff: 0.01
+
+io_cutoff: 0.0001
+
+# Filter out sectors whose output is below that cutoff value
+# - if 'type' is 'percentage', test cutoff against the sector's relative output
+# - if 'type' is 'absolute', test cutoff against the sector's absolute output
+# - if 'type' is 'relative_to_average', the cutoff is (cutoff value) * (country's total output) / (nb sectors)
+cutoff_sector_output:
+  'type': 'absolute'
+  'value': 1.0
+  'unit': 'mUSD'
+
+cutoff_sector_demand:
+  'type': 'absolute'
+  'value': 1.0
+  'unit': 'mUSD'
+
+# Filter out sectors firms output is below that cutoff value
+cutoff_firm_output:
+  'type': 'absolute'
+  'value': 10
+  "unit": "kUSD"
+
+# Filter out region_sector to households links if purchase is below that cutoff value
+cutoff_household_demand:
+  'type': 'absolute'  # only absolute works
+  'value': 10
+  "unit": "kUSD"
+
+inventory_duration_targets:
+  definition: per_input_type  # inputed
+  values:
+    default: 30
+    food: 5
+    mining: 30
+    utility: 3
+    agriculture: 15
+    manufacturing: 30
+    service: 90
+    trade: 30
+    transport: 5
+  unit: day
+
 simulation_type: disruption
 export_files: True
 export_details:
@@ -21,15 +63,16 @@ with_transport: False
 stream_mode: "loss_only"
 
 disruption_description: None
-t_final: 10
+t_final: 26
 
 disruptions:
   - type: export_stop
     start_time: 1
+    duration: 12
 #    description_type: region_sector_file
     description_type: filter  # sectors_homogeneous
     filter:
-      region_sector: ['IDN_Nickel ores']
+      region_sector: ['IDN_Nickel ores', 'IDN_Basic nickel']
       #region: ['']
     #destroyed_capital: 4.0
 #    region_sector_filepath: "Disruption/earthquake_capital_destruction.csv"

@@ -644,7 +644,7 @@ def load_inventories(firms: Firms, inventory_duration_targets: dict, model_time_
         default = values['default']
         for firm in firms.values():
             firm.inventory_manager.inventory_duration_target = \
-                {input_sector: max(1.0, time_adjustment * values.get(input_sector_to_type.get(input_sector), default))
+                {input_sector: max(1.0, time_adjustment * values.get(input_sector_to_type.get(input_sector), default)) #adjust this to read Exiobase types
                  for input_sector in firm.input_mix.keys()}
 
     elif inventory_duration_targets['definition'] == 'inputed':

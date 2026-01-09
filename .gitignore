@@ -4,6 +4,7 @@ output/*
 tmp/*
 !tmp/.gitkeep
 research/dataprep/
+*.sh
 
 # Exclude input folder - data is now in separate repository
 input/*

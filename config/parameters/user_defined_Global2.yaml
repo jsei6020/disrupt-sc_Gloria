@@ -19,10 +19,24 @@ nb_suppliers_per_input: 1
 #adapt_weight_based_on_satisfaction: True
 stream_mode: "loss_only"
 
+inventory_duration_targets:
+  definition: per_input_type  # inputed
+  values:
+    default: 30
+    food: 5
+    mining: 30
+    utility: 3
+    agriculture: 15
+    manufacturing: 30
+    service: 90
+    trade: 30
+    transport: 5
+  unit: day
+
 with_transport: False
 
 disruption_description: None
-t_final: 10
+t_final: 26
 #disruptions:
 #- attribute: id
 #  description_type: edge_attributes
@@ -36,10 +50,11 @@ t_final: 10
 disruptions:
   - type: export_stop
     start_time: 1
+    duration: 8
     #description_type: region_sector_file
     description_type: filter  # sectors_homogeneous
     filter:
-      region_sector: ['AT_C26']
+      region_sector: ['CN_C26', 'CN_C27', 'CN_C28']
 #      sector: ['C16']
 #    destroyed_capital: 3321980.0
 #    unit: mUSD

@@ -960,6 +960,7 @@ class Model(object):
 
         self.transport_network.update_road_disruption_state()
         self.firms.update_disrupted_production_capacity()
+        self.firms.update_firm_disruption_state()
         compare_production_purchase_plans(self.firms, self.countries, self.households)
 
         # --- Streaming data export ---
