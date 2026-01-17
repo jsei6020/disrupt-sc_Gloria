@@ -2,8 +2,8 @@ import pandas as pd
 import numpy as np
 
 filepath = "/home/user/Documents/University/Master Thesis/Databases/Gloria/"
-W = filepath + "GLORIA_MRIOs_59_2023/20240419_120secMother_AllCountries_002_V-Results_2023_059_Markup001(full).csv"
-Y = filepath + "GLORIA_MRIOs_59_2023/20240111_120secMother_AllCountries_002_Y-Results_2023_059_Markup001(full).csv"
+W = filepath + "GLORIA_MRIOs_59_2022/20240419_120secMother_AllCountries_002_V-Results_2022_059_Markup001(full).csv"
+Y = filepath + "GLORIA_MRIOs_59_2022/20240110_120secMother_AllCountries_002_Y-Results_2022_059_Markup001(full).csv"
 
 REGIONS_FILE = filepath + "IO-Table/regions_table.csv"
 SECTORS_FILE = filepath + "IO-Table/sector_table_g.csv"

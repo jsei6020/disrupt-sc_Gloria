@@ -19,7 +19,7 @@ from pathlib import Path
 # ============================================================================
 
 filepath = "/home/user/Documents/University/Master Thesis/Databases/Gloria/"
-INPUT_FILE = filepath + "GLORIA_MRIOs_59_2023/20240111_120secMother_AllCountries_002_T-Results_2023_059_Markup001(full).csv"
+INPUT_FILE = filepath + "GLORIA_MRIOs_59_2022/20240110_120secMother_AllCountries_002_T-Results_2022_059_Markup001(full).csv"
 REGIONS_FILE = filepath + "IO-Table/regions_table.csv"
 SECTORS_FILE = filepath + "IO-Table/sector_table_g.csv"
 
@@ -179,6 +179,7 @@ def main():
     print(f"Chunk size (rows): {CHUNK_SIZE}\n")
 
     last_chunk = get_last_chunk()
+    print(last_chunk)
     if not last_chunk == 41:
         if last_chunk > 0:
             print(f"Resuming from chunk index {last_chunk + 1}")

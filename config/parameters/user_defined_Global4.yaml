@@ -9,6 +9,7 @@ transport_modes: [roads, maritime] #, waterways, airways]
 monetary_units_in_model: mUSD
 monetary_units_inputed: mUSD
 time_resolution: week
+epsilon_stop_condition: 1e-3
 
 io_cutoff: 0.0001
 
@@ -41,15 +42,16 @@ cutoff_household_demand:
 inventory_duration_targets:
   definition: per_input_type  # inputed
   values:
-    default: 30
-    food: 5
-    mining: 30
-    utility: 3
-    agriculture: 15
-    manufacturing: 30
-    service: 90
-    trade: 30
-    transport: 5
+    default: 50 #50 - old 30
+    food: 20 #20 doh, 36.5 IT - old 5
+    mining: 24 #24 days - old 30
+    utility: 30 #industry turnover 24-50 days, but then used immediately? - old 3
+    agriculture: 20 #20 DOH, IT 43 - old 15
+    manufacturing: 60 #60 DOH, Inventory Turnover 47-52 - old 30
+    service: 12 #9 Inventory Turnover 9-15days, but do they care if the services are gone? - old 90
+    trade: 60 # 60 - old 30
+    transport: 5 #Inventory turnover for trucking 2 days, maritime 30 days - old 5
+    #construction: 17
   unit: day
 
 simulation_type: disruption

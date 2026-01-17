@@ -343,8 +343,35 @@ class Model(object):
     def setup_sc_network(self, cached: bool = False):
         if cached:
             self.sc_network, self.firms, self.households, self.countries = load_cached_sc_network()
-
-            # Build network topology cache for cached network
+            # CRITICAL: Rebuild ALL agents from graph nodes (don't deserialize separately)
+            
+            # Rebuild firms
+            firm_objects = [
+                node
+                for node in self.sc_network.nodes
+                if getattr(node, "agent_type", None) == "firm"
+            ]
+            from disruptsc.agents.firm import Firms
+            self.firms = Firms(firm_objects)
+            
+            # Rebuild households
+            household_objects = [
+                node
+                for node in self.sc_network.nodes
+                if getattr(node, "agent_type", None) == "household"
+            ]
+            from disruptsc.agents.household import Households
+            self.households = Households(household_objects)
+            
+            # Rebuild countries
+            country_objects = [
+                node
+                for node in self.sc_network.nodes
+                if getattr(node, "agent_type", None) == "country"
+            ]
+            from disruptsc.agents.country import Countries
+            self.countries = Countries(country_objects)
+            
             logging.info('Building network topology cache for cached supply chain network...')
             topology_cache = NetworkTopologyCache(self.sc_network)
             set_topology_cache(topology_cache)
@@ -486,7 +513,7 @@ class Model(object):
         if cached:
             self.sc_network, self.transport_network, self.commercial_link_table, self.firms, self.households, \
                 self.countries = load_cached_logistic_routes()
-
+            #if this doesn't work apply same fix loading agents from graph as in setup_scnetwork
         else:
             self.countries.assign_cost_profile(self.parameters.logistics['nb_cost_profiles'])
             self.firms.assign_cost_profile(self.parameters.logistics['nb_cost_profiles'])
@@ -564,11 +591,13 @@ class Model(object):
         # l1.sort()
         # print(l1)
         # print([firm.pid for firm in self.firms])
+        #firm_nodes_in_graph = list(self.firms.values())
+        #print(firm_nodes_in_graph)
+
         firm_connectivity_matrix = nx.adjacency_matrix(
             self.sc_network,
-            # graph.subgraph(list(graph.nodes)[:-1]),
             weight='weight',
-            nodelist=self.firms.values()
+            nodelist=self.firms.values(),
         )#.todense()
         # Imports are considered as "a sector". We get the weight per firm for these inputs.
         # TODO !!! aren't I computing the same thing as the IMP tech coef? To check

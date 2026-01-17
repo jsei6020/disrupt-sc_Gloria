@@ -712,7 +712,7 @@ class DisruptionList(UserList):
         return disruption_times, disruption_durations
 
     def log_info(self):
-        logging.info(f'There are {len(self)} disruptions')
+        logging.debug(f'There are {len(self)} disruptions')
         for disruption in self:
             disruption.log_info()
 
