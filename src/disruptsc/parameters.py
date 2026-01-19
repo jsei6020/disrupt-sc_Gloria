@@ -168,10 +168,30 @@ class Parameters:
             yaml.dump(self, file)
 
     def create_export_folder(self):
-        if not os.path.isdir(paths.OUTPUT_FOLDER / self.scope):
-            os.mkdir(paths.OUTPUT_FOLDER / self.scope)
-        self.export_folder = paths.OUTPUT_FOLDER / self.scope / datetime.now().strftime('%Y%m%d_%H%M%S')
-        os.mkdir(self.export_folder)
+       # base folder per scope
+        if "_run_" in self.scope:
+            base_scope = self.scope.split("_run_")[0]
+        else:
+            base_scope = self.scope
+
+        base = paths.OUTPUT_FOLDER / base_scope
+        base.mkdir(parents=True, exist_ok=True)
+
+        # get region_sector from first disruption (adapt if needed)
+        disruption = self.disruptions[0]
+        region_sector_str = disruption["filter"]["region_sector"][0]
+
+        # folder name: up to first 12 characters of region_sector
+        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+        folder_name = f"{region_sector_str[:12]}_{timestamp}"
+        self.export_folder = base / folder_name
+        self.export_folder.mkdir(exist_ok=True) #this creates the scope folder along with it
+        
+        #Old version
+        #if not os.path.isdir(paths.OUTPUT_FOLDER / self.scope):
+        #    os.mkdir(paths.OUTPUT_FOLDER / self.scope)
+        #self.export_folder = paths.OUTPUT_FOLDER / self.scope / datetime.now().strftime('%Y%m%d_%H%M%S')
+        #os.mkdir(self.export_folder)
 
     def initialize_exports(self):
         if self.with_output_folder:

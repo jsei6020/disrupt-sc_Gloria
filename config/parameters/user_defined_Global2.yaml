@@ -50,11 +50,11 @@ t_final: 26
 disruptions:
   - type: export_stop
     start_time: 1
-    duration: 8
+    duration: 12
     #description_type: region_sector_file
     description_type: filter  # sectors_homogeneous
     filter:
-      region_sector: ['CN_C26', 'CN_C27', 'CN_C28']
+      region_sector: ['ID_B']
 #      sector: ['C16']
 #    destroyed_capital: 3321980.0
 #    unit: mUSD
