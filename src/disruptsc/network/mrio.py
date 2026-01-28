@@ -174,6 +174,33 @@ class Mrio(pd.DataFrame):
     def adjust_output(self):
         total_output = self.get_total_output_per_region_sectors()
         total_input = self.get_total_input_per_region_sectors()
+        
+        # DEBUG EXPORT: problematic region_sectors
+        #very_small_threshold = 1.0  # adjust to your monetary scale
+        #records = []
+
+#        for region_sector in self.region_sectors:
+ #           out_val = float(total_output.get(region_sector, 0.0))
+  #          in_val = float(total_input.get(region_sector, 0.0))
+#
+#            if out_val <= very_small_threshold or in_val > out_val + EPSILON:
+#                diff = in_val - out_val
+#                rel_diff = diff / out_val if out_val > EPSILON else np.inf
+#                records.append({
+#                    "region": region_sector[0],
+#                    "sector": region_sector[1],
+#                    "total_input": in_val,
+#                    "total_output": out_val,
+#                    "diff_input_minus_output": diff,
+#                    "rel_diff_percent": rel_diff * 100.0,
+#                })#
+#
+#        if records:
+#            df_io = pd.DataFrame(records)
+#            # sort descending by relative difference (% input bigger than output)
+#            df_io.sort_values("rel_diff_percent", ascending=False, inplace=True)
+#            df_io.to_csv("debug_input_gt_output_or_small_output2.csv", index=False)
+        
         unbalanced_region_sectors = total_input[total_input > total_output].index.to_list()
         if len(unbalanced_region_sectors) > 0:
             logging.warning(f"There are {len(unbalanced_region_sectors)} region_sectors with more inputs "
@@ -235,6 +262,40 @@ class Mrio(pd.DataFrame):
         tech_coef_matrix = pd.concat(results)
         del tot_outputs, matrix_output, results
         gc.collect()
+
+        # REGULARIZATION: cap self-coefficients only for production sectors
+        max_self_coef = 0.95
+        capped_records = []
+
+        va_labels = set(self.value_added_label) if hasattr(self.value_added_label, '__iter__') else {self.value_added_label}
+        tax_labels = set(self.tax_label) if hasattr(self.tax_label, '__iter__') else {self.tax_label}
+        import_labels = set(self.import_label) if hasattr(self.import_label, '__iter__') else {self.import_label}
+        satellite_labels = va_labels | tax_labels | import_labels
+
+        for region_sector in tech_coef_matrix.index:
+            # Skip VA/tax/import rows
+            if region_sector[1] in satellite_labels:
+                continue
+
+            if region_sector in tech_coef_matrix.columns:
+                current_aii = tech_coef_matrix.loc[region_sector, region_sector]
+                if current_aii > max_self_coef:
+                    tech_coef_matrix.loc[region_sector, region_sector] = max_self_coef
+                    capped_records.append({
+                        "region": region_sector[0],
+                        "sector": region_sector[1],
+                        "original_a_ii": float(current_aii),
+                        "capped_a_ii": float(max_self_coef),
+                    })
+
+        if capped_records:
+            #df_capped = pd.DataFrame(capped_records)
+            #df_capped.sort_values("original_a_ii", ascending=False, inplace=True)
+            #df_capped.to_csv("debug_capped_self_coefficients.csv", index=False)
+            logging.info(f"MRIO regularization: capped {len(df_capped)} self-coefficients; "
+                         f"details in debug_capped_self_coefficients.csv")
+
+
         if selected_region_sectors:
             if isinstance(selected_region_sectors[0], str):
                 selected_region_sectors = [tuple(region_sector.split('_', 1))

@@ -24,7 +24,7 @@ INPUT_FORMAT = "pkl"  # "pkl" or "parquet"
 
 # Output paths
 HHI_OUTPUT = "/home/user/Documents/University/Master Thesis/sector_hhi_net_export_share.csv"
-REGION_SECTOR_PAIRS_OUTPUT = "/home/user/Documents/University/Master Thesis/supply_concentrations/region_sector_pairs_above_1pct.csv"
+REGION_SECTOR_PAIRS_OUTPUT = "/home/user/Documents/University/Master Thesis/supply_concentrations/region_sectors_data_1pct.csv"
 SECTOR_SUMMARY_OUTPUT = "/home/user/Documents/University/Master Thesis/supply_concentrations/sector_concentration_summary.csv"
 
 # Threshold for export share (1%)

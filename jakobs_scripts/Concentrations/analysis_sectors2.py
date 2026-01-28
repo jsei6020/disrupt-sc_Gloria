@@ -18,12 +18,12 @@ import numpy as np
 
 
 # ==== USER SETTINGS ====
-INPUT_PATH = "/home/user/Documents/University/Master Thesis/disrupt-sc/data/Global2/Network/figaro_2023_agg.csv" #mrio_va_fd.pkl
-INPUT_FORMAT = "csv"  # "pkl" or "parquet"
+INPUT_PATH = "/home/user/Documents/University/Master Thesis/disrupt-sc/data/Global4/Network/mrio_va_fd.pkl" #mrio_va_fd.pkl
+INPUT_FORMAT = "pkl"  # "pkl" or "csv"
 
 # Output paths
 HHI_OUTPUT = "/home/user/Documents/University/Master Thesis/sector_hhi_net_export_share.csv"
-REGION_SECTOR_PAIRS_OUTPUT = "/home/user/Documents/University/Master Thesis/supply_concentrations/region_sector_pairs_above_1pct.csv"
+REGION_SECTOR_PAIRS_OUTPUT = "/home/user/Documents/University/Master Thesis/supply_concentrations/region_sector_pairs_1pct.csv"
 SECTOR_SUMMARY_OUTPUT = "/home/user/Documents/University/Master Thesis/supply_concentrations/sector_concentration_summary.csv"
 
 # Threshold for export share (1%)

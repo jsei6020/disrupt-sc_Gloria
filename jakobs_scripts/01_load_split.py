@@ -19,7 +19,7 @@ from pathlib import Path
 # ============================================================================
 
 filepath = "/home/user/Documents/University/Master Thesis/Databases/Gloria/"
-INPUT_FILE = filepath + "GLORIA_MRIOs_59_2022/20240110_120secMother_AllCountries_002_T-Results_2022_059_Markup001(full).csv"
+INPUT_FILE = filepath + "GLORIA_MRIOs_60_2023/20251217_120secMother_AllCountries_002_T-Results_2023_060_Markup001(full).csv"
 REGIONS_FILE = filepath + "IO-Table/regions_table.csv"
 SECTORS_FILE = filepath + "IO-Table/sector_table_g.csv"
 

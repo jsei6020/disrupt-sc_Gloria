@@ -4,8 +4,8 @@ import pandas as pd
 # ==== USER SETTINGS ====
 INPUT_PATH = "/home/user/Documents/University/Master Thesis/disrupt-sc/data/Global4/Network/mrio_va_fd.pkl"
 INPUT_FORMAT = "pkl"                 # "pkl" or "parquet"
-SECTOR_NAME = "Water transport"         # sector label in the 2nd index level
-OUTPUT_PATH = "/home/user/Documents/University/Master Thesis/supply_concentrations/Water_transport_output_shares.csv"
+SECTOR_NAME = "Motor vehicles, trailers and semi-trailers"         # sector label in the 2nd index level
+OUTPUT_PATH = "/home/user/Documents/University/Master Thesis/supply_concentrations/cars_concentrations.csv"
 # ========================
 
 
