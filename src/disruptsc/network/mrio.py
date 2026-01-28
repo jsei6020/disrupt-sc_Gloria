@@ -289,8 +289,8 @@ class Mrio(pd.DataFrame):
                     })
 
         if capped_records:
-            #df_capped = pd.DataFrame(capped_records)
-            #df_capped.sort_values("original_a_ii", ascending=False, inplace=True)
+            df_capped = pd.DataFrame(capped_records)
+            df_capped.sort_values("original_a_ii", ascending=False, inplace=True)
             #df_capped.to_csv("debug_capped_self_coefficients.csv", index=False)
             logging.info(f"MRIO regularization: capped {len(df_capped)} self-coefficients; "
                          f"details in debug_capped_self_coefficients.csv")
