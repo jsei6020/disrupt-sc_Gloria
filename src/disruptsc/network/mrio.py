@@ -39,11 +39,12 @@ class Mrio(pd.DataFrame):
     def __init__(self, *args, monetary_units, **kwargs):
         super().__init__(*args, **kwargs)
         self.export_label = self.detect_level1_label('export', axis=1)
-        self.final_demand_label = self.detect_level1_label('final.?demand|P.3|P.52|P.53', axis=1) #P.51| Capital
+        self.final_demand_label = self.detect_level1_label('final.?demand|P.3|P.5', axis=1) #P.51| Capital
         self.capital_label = self.detect_level1_label('capital', axis=1)
         self.import_label = self.detect_level1_label('import', axis=0)
         self.value_added_label = self.detect_level1_label('value.?added|va|D.1|D.39|B.2n|B.3n|K.1', axis=0) #D.29 in tax?
         self.tax_label = self.detect_level1_label('tax', axis=0)
+        print(self.export_label,self.final_demand_label, self.capital_label, self.import_label, self.value_added_label, self.tax_label)
         self.check_square_structure()
         self.region_sectors = [tup for tup in self.columns
                                if tup[1] not in list(self.final_demand_label) + list(self.export_label) + list(self.capital_label)]
@@ -291,7 +292,7 @@ class Mrio(pd.DataFrame):
         if capped_records:
             df_capped = pd.DataFrame(capped_records)
             df_capped.sort_values("original_a_ii", ascending=False, inplace=True)
-            #df_capped.to_csv("debug_capped_self_coefficients.csv", index=False)
+            df_capped.to_csv("debug_capped_self_coefficients.csv", index=False)
             logging.info(f"MRIO regularization: capped {len(df_capped)} self-coefficients; "
                          f"details in debug_capped_self_coefficients.csv")
 

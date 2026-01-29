@@ -31,7 +31,7 @@ EXPORT_SHARE_THRESHOLD = 0.01
 
 # Optional: Filter to analyze only sectors above a certain HHI threshold
 # Set to None to analyze all sectors
-HHI_THRESHOLD = 0.001
+HHI_THRESHOLD = 0.00167
 # ========================
 
 

@@ -40,7 +40,7 @@ def detect_level1_label(pattern: str, axis: int):
 
 #output = mrio_va_fd.loc[selected_industries1].sum(axis=1)
 export_label = detect_level1_label('export', axis=1)
-final_demand_label = detect_level1_label('final.?demand|P.3|P.52|P.53', axis=1) #P.51| Capital
+final_demand_label = detect_level1_label('final.?demand|P.3|P.5', axis=1) #P.51| Capital
 capital_label = detect_level1_label('capital', axis=1)
 import_label = detect_level1_label('import', axis=0)
 value_added_label = detect_level1_label('value.?added|va|D.1|D.39|B.2n|B.3n|K.1', axis=0) #D.29 in tax?
