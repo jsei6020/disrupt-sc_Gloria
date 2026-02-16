@@ -32,6 +32,10 @@ from disruptsc.simulation.simulation import Simulation
 from disruptsc.network.sc_network import ScNetwork
 from disruptsc.network.mrio import Mrio
 from disruptsc.network.topology_cache import NetworkTopologyCache, set_topology_cache
+from disruptsc.agents.firm_components import (
+    ProductionManager, InventoryManager, FinanceManager, SupplierManager,
+    init_sector_sets,
+)
 
 if TYPE_CHECKING:
     from disruptsc.agents.country import Countries
@@ -162,6 +166,9 @@ class Model(object):
             utilization_rate=self.parameters.utilization_rate,
             capital_to_value_added_ratio=self.parameters.capital_to_value_added_ratio
         )
+
+        # Initialize sector sets once, using global Parameters of the model
+        init_sector_sets(self.parameters)
 
         # Load technical coefficients based on firm data type
         if self.parameters.firm_data_type == "supplier-buyer network":

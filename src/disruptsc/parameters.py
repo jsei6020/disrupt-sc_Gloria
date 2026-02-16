@@ -87,6 +87,8 @@ class Parameters:
     # Configuration parameters
     filepaths: dict
     logistics: dict
+    sectors: dict
+
 
     # Parameters with defaults (must come last)
     stream_mode: str = "None"

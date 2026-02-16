@@ -287,6 +287,11 @@ utilization_rate: 0.8
 # sector B firms.
 io_cutoff: 0.01
 
+# Sectors whose production functions and supply are handled differently
+sectors:
+  linear_client_sectors: []
+  linear_supplier_sectors: []
+
 # Determines the way firms ration their clients if they cannot meet all demand
 # Possible values are:
 # - 'equal': all clients are equally rationned in proportion of their order

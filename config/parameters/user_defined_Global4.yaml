@@ -7,11 +7,33 @@ filepaths:
   "usd_per_ton": "Network/USD_per_ton.csv"
 transport_modes: [roads, maritime] #, waterways, airways]
 monetary_units_in_model: kUSD
-monetary_units_inputed: kUSD
+monetary_units_in_data: "kUSD"
 time_resolution: week
 epsilon_stop_condition: 1e-3
 
-io_cutoff: 0.0001
+io_cutoff: 0.01 #0.0001
+
+sectors:
+  linear_client_sectors:
+    - "Wholesale and retail trade; repair of motor vehicles and motorcycles"
+
+  linear_supplier_sectors:
+    - "Wholesale and retail trade; repair of motor vehicles and motorcycles"
+#    - "Property and real estate"
+    - "Professional, scientific and technical services"
+#    - "Administrative services"
+#    - "Government; social security; defence; public order"
+#    - "Education"
+    - "Human health and social work activities"
+    - "Arts, entertainment and recreation"
+    - "Other services"
+    - "Postal and courier services"
+#    - "Finance and insurance"
+    - "Hospitality"
+#    - "Publishing"
+#    - "Telecommunications"
+    - "Information services"
+
 
 # Filter out sectors whose output is below that cutoff value
 # - if 'type' is 'percentage', test cutoff against the sector's relative output

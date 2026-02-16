@@ -4,11 +4,34 @@ from typing import TYPE_CHECKING, Dict, Any
 import numpy as np
 
 from disruptsc.model.utils.functions import rescale_monetary_values
+from disruptsc.parameters import Parameters
 
 if TYPE_CHECKING:
     from disruptsc.network.sc_network import ScNetwork
 
 EPSILON = 1e-6
+
+from disruptsc.parameters import Parameters
+
+_LINEAR_CLIENT_SECTORS: set[str] = set()
+_LINEAR_SUPPLIER_SECTORS: set[str] = set()
+_SECTOR_SETS_INITIALIZED = False
+
+
+def init_sector_sets(parameters: Parameters):
+    """
+    Initialize linear-client and linear-supplier sector sets from Parameters.
+    Safe to call multiple times; it only does real work once.
+    """
+    global _LINEAR_CLIENT_SECTORS, _LINEAR_SUPPLIER_SECTORS, _SECTOR_SETS_INITIALIZED
+    if _SECTOR_SETS_INITIALIZED:
+        return
+
+    sectors_dict = parameters.sectors or {}
+    _LINEAR_CLIENT_SECTORS = set(sectors_dict.get("linear_client_sectors", []))
+    _LINEAR_SUPPLIER_SECTORS = set(sectors_dict.get("linear_supplier_sectors", []))
+    _SECTOR_SETS_INITIALIZED = True
+
 
 
 class ProductionManager:
@@ -67,24 +90,62 @@ class ProductionManager:
 
     def produce(self, inventory: Dict, input_mix: Dict, mode="Leontief"):
         """Execute production and update inventory."""
-        # Produce
-        if len(input_mix) == 0:  # If no need for inputs
-            self.production = min([self.production_target, self.current_production_capacity])
-        else:
-            max_production = production_function(inventory, input_mix, mode)
-            self.production = min([max_production, self.production_target, self.current_production_capacity])
 
-        # Add to stock of finished goods
+        # 1) Decide production mode: wholesale/retail clients use linear
+        if self.firm.sector in _LINEAR_CLIENT_SECTORS:
+            effective_mode = "Linear"
+        else:
+            effective_mode = mode  # usually "Leontief"
+
+        # 2) Non‑critical inputs: those whose SUPPLIER sector is in linear_supplier_sectors
+        non_critical_inputs = set()
+        for input_region_sector in input_mix.keys():
+            # input_region_sector is like "IDN_Postal and courier services"
+            try:
+                _, supplier_sector_name = input_region_sector.split("_", 1)
+            except ValueError:
+                # if it doesn't contain "_", treat whole string as sector name
+                supplier_sector_name = input_region_sector
+
+            if supplier_sector_name in _LINEAR_SUPPLIER_SECTORS:
+                non_critical_inputs.add(input_region_sector)
+
+        # 3) Compute production
+        if len(input_mix) == 0:  # no need for inputs
+            self.production = min(self.production_target, self.current_production_capacity)
+        else:
+            max_from_inputs = production_function(
+                inventory,
+                input_mix,
+                function_type=effective_mode,
+                non_critical_inputs=non_critical_inputs,
+            )
+
+            if effective_mode == "Linear":
+                # interpret result as share in [0,1]
+                share = max_from_inputs if np.isfinite(max_from_inputs) else 1.0
+                share = max(0.0, min(1.0, share))
+                self.production = min(
+                    self.production_target * share,
+                    self.current_production_capacity,
+                )
+            else:
+                self.production = min(
+                    max_from_inputs,
+                    self.production_target,
+                    self.current_production_capacity,
+                )
+
+        # 4) Update stock and inventories
         self.product_stock += self.production
 
-        # Remove input used from inventories (return updated inventory)
-        if mode == "Leontief":
-            input_used = {input_id: self.production * mix for input_id, mix in input_mix.items()}
-            updated_inventory = {input_id: quantity - input_used[input_id]
-                                for input_id, quantity in inventory.items()}
-            return updated_inventory
-        else:
-            raise ValueError("Wrong mode chosen")
+        input_used = {input_id: self.production * mix
+                      for input_id, mix in input_mix.items()}
+        updated_inventory = {
+            input_id: quantity - input_used.get(input_id, 0.0)
+            for input_id, quantity in inventory.items()
+        }
+        return updated_inventory
 
     def disrupt_production_capacity(self, disruption_duration: int, reduction: float):
         """Apply production capacity disruption."""
@@ -426,16 +487,43 @@ class SupplierManager:
 
 
 # Utility functions
-
-def production_function(inputs, input_mix, function_type="Leontief"):
+def production_function(inputs, input_mix, function_type="Leontief",
+                        non_critical_inputs=None):
     """Production function determining maximum production given inputs."""
+    non_critical_inputs = non_critical_inputs or set()
+
     if function_type == "Leontief":
         try:
-            return min([inputs[input_id] / input_mix[input_id] for input_id, val in input_mix.items()])
+            ratios = [
+                inputs[input_id] / input_mix[input_id]
+                for input_id in input_mix
+                if input_id not in non_critical_inputs
+            ]
+            if not ratios:
+                return float("inf")
+            return min(ratios)
         except KeyError:
-            return 0
+            return 0.0
+
+    elif function_type == "Linear":
+        total_required = sum(input_mix.values())
+        if total_required <= 0:
+            return 1.0
+        delivered_weighted = 0.0
+        for input_id, coeff in input_mix.items():
+            required = coeff
+            available = inputs.get(input_id, 0.0)
+            if required > 0:
+                frac = min(1.0, available / required)
+            else:
+                frac = 1.0
+            delivered_weighted += coeff * frac
+        delivered_share = delivered_weighted / total_required
+        return max(0.0, min(1.0, delivered_share))
+
     else:
         raise ValueError("Wrong mode selected")
+
 
 
 def purchase_planning_function(estimated_need: float, inventory: float, inventory_duration_target: float,
