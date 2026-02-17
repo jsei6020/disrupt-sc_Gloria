@@ -107,7 +107,7 @@ disruptions:
 #    description_type: region_sector_file
     description_type: filter  # sectors_homogeneous
     filter:
-      region_sector: ['IDN_Nickel ores', 'IDN_Basic nickel']
+      region_sector: ['USA_Vegetable products']
       #region: ['']
     #destroyed_capital: 4.0
 #    region_sector_filepath: "Disruption/earthquake_capital_destruction.csv"

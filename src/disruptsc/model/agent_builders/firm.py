@@ -649,16 +649,18 @@ def load_inventories(firms: Firms, inventory_duration_targets: dict, model_time_
 
             inventory_duration_target = {}
 
-            for input_sector in firm.input_mix.keys():
-                input_sector = input_sector.split("_", 1)[1] if "_" in input_sector else input_sector
-                #print(input_sector)
+            for full_sector in firm.input_mix.keys():
+                bare_sector = full_sector.split("_", 1)[1] if "_" in full_sector else full_sector
 
-                sector_type = input_sector_to_type.get(input_sector, 'default')
+                sector_type = input_sector_to_type.get(bare_sector, 'default')
                 base_value = values.get(sector_type, default)
                 adjusted = max(1.0, time_adjustment * base_value)
-                inventory_duration_target[input_sector] = adjusted
+
+                inventory_duration_target[full_sector] = adjusted
+
             firm.inventory_manager.inventory_duration_target = inventory_duration_target
 
+        
     elif inventory_duration_targets['definition'] == 'inputed':
         dic_sector_inventory = pd.read_csv(inventory_duration_targets['filepath']) \
             .set_index(['buying_sector', 'input_sector'])['inventory_duration_target'].to_dict()

@@ -193,13 +193,15 @@ class InventoryManager:
         """Initialize inventory parameters."""
         self.input_needs = input_needs
         self.eq_needs = input_needs.copy()
-        self.inventory_duration_target = {
-            input_id: min_inventory_duration_target for input_id in input_needs.keys()
-        }
+        #Why would it all have the minimum inventory duration to start with? it also permanently messes up the targets
+        #self.inventory_duration_target = {
+        #    input_id: min_inventory_duration_target for input_id in input_needs.keys()
+        #}
         self.inventory = {
             input_id: need * min_inventory_duration_target
             for input_id, need in input_needs.items()
         }
+        #print(self.inventory)
 
     def evaluate_input_needs(self, input_mix: Dict, production_target: float):
         """Calculate input needs based on production target."""
@@ -231,6 +233,9 @@ class InventoryManager:
                                   f"{inventory_duration} vs. {self.inventory_duration_target[input_id]}")
 
         # Evaluate purchase plan for each sector
+        #missing = set(self.input_needs.keys()) - set(self.inventory_duration_target.keys())
+        #if missing:
+        #    logging.info(f"Missing inventory_duration_target keys: {missing}")
         self.purchase_plan_per_input = {
             input_id: purchase_planning_function(need, self.inventory[input_id],
                                                  self.inventory_duration_target[input_id],
@@ -519,7 +524,7 @@ def production_function(inputs, input_mix, function_type="Leontief",
                 frac = 1.0
             delivered_weighted += coeff * frac
         delivered_share = delivered_weighted / total_required
-        print(delivered_share)
+        #print(delivered_share)
         return max(0.0, min(1.0, delivered_share))
 
     else:
