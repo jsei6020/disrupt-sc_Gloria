@@ -11,7 +11,7 @@ OUT_DIR = Path(
     "/home/user/Documents/University/Master Thesis/supply_concentrations"
 )
 
-TARGET_INPUT_SECTOR_NAME = "Wholesale and retail trade; repair of motor vehicles and motorcycles"
+TARGET_INPUT_SECTOR_NAME = "Vegetable products"
 N_USING_SECTORS = 20
 
 

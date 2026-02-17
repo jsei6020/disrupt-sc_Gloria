@@ -196,6 +196,7 @@ class InventoryManager:
         self.inventory_duration_target = {
             input_id: min_inventory_duration_target for input_id in input_needs.keys()
         }
+        #print(self.inventory_duration_target)
         self.inventory = {
             input_id: need * min_inventory_duration_target
             for input_id, need in input_needs.items()
@@ -519,6 +520,7 @@ def production_function(inputs, input_mix, function_type="Leontief",
                 frac = 1.0
             delivered_weighted += coeff * frac
         delivered_share = delivered_weighted / total_required
+        print(delivered_share)
         return max(0.0, min(1.0, delivered_share))
 
     else:

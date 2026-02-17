@@ -640,12 +640,40 @@ def load_inventories(firms: Firms, inventory_duration_targets: dict, model_time_
 
     if inventory_duration_targets['definition'] == "per_input_type":
         input_sector_to_type = sector_table.set_index('sector')['type']
+        print(input_sector_to_type)
         values = inventory_duration_targets['values']
+        print(values)
         default = values['default']
+        print(default)
+        print(time_adjustment)
+        print(values.get(input_sector_to_type.get("C27")))
         for firm in firms.values():
-            firm.inventory_manager.inventory_duration_target = \
-                {input_sector: max(1.0, time_adjustment * values.get(input_sector_to_type.get(input_sector), default))
-                 for input_sector in firm.input_mix.keys()}
+        #    #print(values.get(input_sector_to_type.get(input_sector)) for input_sector in firm.input_mix.keys())
+        #    firm.inventory_manager.inventory_duration_target = \
+         #       {input_sector: max(1.0, time_adjustment * values.get(input_sector_to_type.get(input_sector), default))
+         #        for input_sector in firm.input_mix.keys()}
+            #print(firm.inventory_manager.inventory_duration_target)
+
+            inventory_duration_target = {}
+
+            for input_sector in firm.input_mix.keys():
+                input_sector = input_sector.split("_", 1)[1] if "_" in input_sector else input_sector
+                print(input_sector)
+
+                sector_type = input_sector_to_type.get(input_sector, 'default')
+                base_value = values.get(sector_type, default)
+                adjusted = max(1.0, time_adjustment * base_value)
+
+                print(
+                    f"sector={input_sector}, "
+                    f"type={sector_type}, "
+                    f"base_value={base_value}, "
+                    f"adjusted={adjusted}"
+                )
+
+                inventory_duration_target[input_sector] = adjusted
+            print("yay2")
+            firm.inventory_manager.inventory_duration_target = inventory_duration_target
 
     elif inventory_duration_targets['definition'] == 'inputed':
         dic_sector_inventory = pd.read_csv(inventory_duration_targets['filepath']) \
