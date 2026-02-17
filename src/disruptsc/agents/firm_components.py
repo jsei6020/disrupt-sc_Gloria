@@ -142,7 +142,7 @@ class ProductionManager:
         input_used = {input_id: self.production * mix
                       for input_id, mix in input_mix.items()}
         updated_inventory = {
-            input_id: quantity - input_used.get(input_id, 0.0)
+            input_id: max(quantity - input_used.get(input_id, 0.0), 0.0) #sometimes negative inventories are produced
             for input_id, quantity in inventory.items()
         }
         return updated_inventory
@@ -196,7 +196,6 @@ class InventoryManager:
         self.inventory_duration_target = {
             input_id: min_inventory_duration_target for input_id in input_needs.keys()
         }
-        #print(self.inventory_duration_target)
         self.inventory = {
             input_id: need * min_inventory_duration_target
             for input_id, need in input_needs.items()

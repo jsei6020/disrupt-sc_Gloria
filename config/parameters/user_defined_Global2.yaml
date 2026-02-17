@@ -9,7 +9,7 @@ transport_modes: [roads, maritime] #, waterways, airways]
 monetary_units_in_model: mUSD
 monetary_units_inputed: mUSD
 time_resolution: week
-io_cutoff: 0.01
+io_cutoff: 0.001
 simulation_type: disruption
 export_files: True
 export_details:
@@ -18,6 +18,13 @@ firm_data_type: "mrio"
 nb_suppliers_per_input: 1
 #adapt_weight_based_on_satisfaction: True
 stream_mode: "loss_only"
+
+sectors:
+  linear_client_sectors:
+    - "G45"
+    - "G46"
+    - "G47"
+
 
 inventory_duration_targets:
   definition: per_input_type  # inputed

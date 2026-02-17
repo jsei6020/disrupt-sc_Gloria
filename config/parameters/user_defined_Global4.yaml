@@ -11,7 +11,7 @@ monetary_units_in_data: "kUSD"
 time_resolution: week
 epsilon_stop_condition: 1e-3
 
-io_cutoff: 0.01 #0.0001
+io_cutoff: 0.001 #0.0001
 
 sectors:
   linear_client_sectors:
@@ -64,17 +64,17 @@ cutoff_household_demand:
 inventory_duration_targets:
   definition: per_input_type  # inputed
   values:
-    default: 30 # - old 30
-    food: 20 #20 doh, 36.5 IT
-    mining: 30 #24 days - old 30
-    utility: 3 #industry turnover 24-50 days, but then used immediately? - old 3
-    agriculture: 20 #20 DOH, IT 43 - old 15
-    manufacturing: 40 #60 DOH, Inventory Turnover 47-52 - old 30
-    service: 90 #9 Inventory Turnover 9-15days, but non-essential input
-    trade: 40 #old 30
-    transport: 5 #Inventory turnover for trucking 2 days, maritime 30 days - old 5  
+    default: 4 # - old 30
+    food: 3 #20 doh, 36.5 IT
+    mining: 4 #24 days - old 30
+    utilities: 1 #industry turnover 24-50 days, but then used immediately? - old 3
+    agriculture:  3 #20 DOH, IT 43 - old 15
+    manufacturing: 6 #60 DOH, Inventory Turnover 47-52 - old 30
+    services: 12 #9 Inventory Turnover 9-15days, but non-essential input
+    trade: 6 #old 30
+    transport: 1 #Inventory turnover for trucking 2 days, maritime 30 days - old 5  
 
-  unit: day
+  unit: week
 
 #    default: 50 #50 - old 30
 #    food: 20 #20 doh, 36.5 IT - old 5
