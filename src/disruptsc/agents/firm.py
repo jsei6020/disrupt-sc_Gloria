@@ -586,13 +586,13 @@ class Firm(BaseAgent, TransportCapable):
         for _, buyer in sc_network.out_edges(self):
             commercial_link = sc_network[self][buyer]['object']
             quantity_to_deliver = quantities_to_deliver[buyer.pid]
+            #if commercial_link.order - quantity_to_deliver > 0.1:
+            #    print(buyer)
+             #   print(commercial_link.order - quantity_to_deliver)
             #Export stop disruption: if I am export controlled, set delivery to foreign client to 0
             if self.controlled and buyer.region != self.region:
-                #if buyer.agent_type == "firm":
-                #    print(buyer.agent_type, buyer.sector, buyer.region)
-                #else: print(buyer.agent_type, buyer.region)
-                #print(quantity_to_deliver)
                 quantity_to_deliver = 0
+                #print(self.sector_type)
             commercial_link.delivery = quantity_to_deliver
             if quantity_to_deliver == 0:
                 if commercial_link.order == 0:

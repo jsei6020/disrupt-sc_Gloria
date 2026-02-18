@@ -72,7 +72,7 @@ inventory_duration_targets:
     manufacturing: 6 #60 DOH, Inventory Turnover 47-52 - old 30
     services: 12 #9 Inventory Turnover 9-15days, but non-essential input
     trade: 6 #old 30
-    transport: 1 #Inventory turnover for trucking 2 days, maritime 30 days - old 5  
+    transport: 2 #Inventory turnover for trucking 2 days, maritime 30 days - old 5  
 
   unit: week
 

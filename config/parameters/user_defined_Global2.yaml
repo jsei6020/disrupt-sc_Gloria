@@ -9,7 +9,7 @@ transport_modes: [roads, maritime] #, waterways, airways]
 monetary_units_in_model: mUSD
 monetary_units_inputed: mUSD
 time_resolution: week
-io_cutoff: 0.01
+io_cutoff: 0.0001
 simulation_type: disruption
 export_files: True
 export_details:
@@ -29,16 +29,16 @@ sectors:
 inventory_duration_targets:
   definition: per_input_type  # inputed
   values:
-    default: 30
-    food: 5
-    mining: 30
-    utility: 3
-    agriculture: 15
-    manufacturing: 30
-    service: 90
-    trade: 30
-    transport: 5
-  unit: day
+    default: 4
+    food: 3
+    mining: 4
+    utility: 1
+    agriculture: 3
+    manufacturing: 6
+    service: 12
+    trade: 6
+    transport: 2
+  unit: week
 
 with_transport: False
 
@@ -61,7 +61,7 @@ disruptions:
     #description_type: region_sector_file
     description_type: filter  # sectors_homogeneous
     filter:
-      region_sector: ['ID_B']
+      region_sector: ['US_A02']
 #      sector: ['C16']
 #    destroyed_capital: 3321980.0
 #    unit: mUSD

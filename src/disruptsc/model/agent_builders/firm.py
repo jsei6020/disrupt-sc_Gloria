@@ -645,7 +645,7 @@ def load_inventories(firms: Firms, inventory_duration_targets: dict, model_time_
         for firm in firms.values():
         #    firm.inventory_manager.inventory_duration_target = \
          #       {input_sector: max(1.0, time_adjustment * values.get(input_sector_to_type.get(input_sector), default))
-         #        for input_sector in firm.input_mix.keys()}
+        #         for input_sector in firm.input_mix.keys()}
 
             inventory_duration_target = {}
 

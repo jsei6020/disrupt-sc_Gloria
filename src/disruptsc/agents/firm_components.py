@@ -96,11 +96,9 @@ class ProductionManager:
             effective_mode = "Linear"
         else:
             effective_mode = mode  # usually "Leontief"
-
         # 2) Non‑critical inputs: those whose SUPPLIER sector is in linear_supplier_sectors
         non_critical_inputs = set()
         for input_region_sector in input_mix.keys():
-            # input_region_sector is like "IDN_Postal and courier services"
             try:
                 _, supplier_sector_name = input_region_sector.split("_", 1)
             except ValueError:
@@ -141,6 +139,8 @@ class ProductionManager:
 
         input_used = {input_id: self.production * mix
                       for input_id, mix in input_mix.items()}
+
+
         updated_inventory = {
             input_id: max(quantity - input_used.get(input_id, 0.0), 0.0) #sometimes negative inventories are produced
             for input_id, quantity in inventory.items()
@@ -197,11 +197,15 @@ class InventoryManager:
         #self.inventory_duration_target = {
         #    input_id: min_inventory_duration_target for input_id in input_needs.keys()
         #}
+        #self.inventory = {
+        #    input_id: need * min_inventory_duration_target
+        #    for input_id, need in input_needs.items()
+        #}
+        #print(self.inventory_duration_target)
         self.inventory = {
-            input_id: need * min_inventory_duration_target
+            input_id: need * self.inventory_duration_target.get(input_id, 1)
             for input_id, need in input_needs.items()
         }
-        #print(self.inventory)
 
     def evaluate_input_needs(self, input_mix: Dict, production_target: float):
         """Calculate input needs based on production target."""
@@ -524,7 +528,6 @@ def production_function(inputs, input_mix, function_type="Leontief",
                 frac = 1.0
             delivered_weighted += coeff * frac
         delivered_share = delivered_weighted / total_required
-        #print(delivered_share)
         return max(0.0, min(1.0, delivered_share))
 
     else:
