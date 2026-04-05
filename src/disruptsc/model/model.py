@@ -140,7 +140,7 @@ class Model(object):
                 transport_nodes=self.transport_nodes,
                 sector_table=self.sector_table
             )
-        else:
+        else: #why are we not using filtered_industries here?
             self.firm_table = define_firms_from_mrio(
                 mrio=self.mrio,
                 sector_table=self.sector_table,

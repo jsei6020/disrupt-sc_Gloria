@@ -2,7 +2,7 @@
 filepaths:
   "sector_table": "Network/sector_table_g.csv"
   #"inventory_duration_targets": "Network/inventory_targets.csv"
-  "mrio": "Network/mrio_va_fd.pkl"
+  "mrio": "Network/mrio_adjusted.pkl"
   #"region_table": "Network/region_table.geojson"
   "usd_per_ton": "Network/USD_per_ton.csv"
 transport_modes: [roads, maritime] #, waterways, airways]
@@ -11,26 +11,41 @@ monetary_units_in_data: "kUSD"
 time_resolution: week
 epsilon_stop_condition: 1e-3
 
-io_cutoff: 0.001 #0.0001
+io_cutoff: 0.01 #0.0001
+
+rationing_mode: "equal"
+#"household_first"
 
 sectors:
   linear_client_sectors:
     - "Wholesale and retail trade; repair of motor vehicles and motorcycles"
+    - "Information services"
+    - "Hospitality"
+    - "Finance and insurance"
+    - "Other services"
+    - "Postal and courier services"
+    - "Telecommunications"
+    - "Human health and social work activities"
+    - "Government; social security; defence; public order"
+    - "Administrative services"
+    - "Property and real estate"
+
+
 
   linear_supplier_sectors:
     - "Wholesale and retail trade; repair of motor vehicles and motorcycles"
-#    - "Property and real estate"
+    - "Property and real estate" #
     - "Professional, scientific and technical services"
 #    - "Administrative services"
 #    - "Government; social security; defence; public order"
-#    - "Education"
+    - "Education" #
     - "Human health and social work activities"
     - "Arts, entertainment and recreation"
     - "Other services"
     - "Postal and courier services"
 #    - "Finance and insurance"
     - "Hospitality"
-#    - "Publishing"
+    - "Publishing" #
 #    - "Telecommunications"
     - "Information services"
 
@@ -64,15 +79,17 @@ cutoff_household_demand:
 inventory_duration_targets:
   definition: per_input_type  # inputed
   values:
-    default: 4 # - old 30
-    food: 3 #20 doh, 36.5 IT
-    mining: 4 #24 days - old 30
-    utilities: 1 #industry turnover 24-50 days, but then used immediately? - old 3
-    agriculture:  3 #20 DOH, IT 43 - old 15
-    manufacturing: 6 #60 DOH, Inventory Turnover 47-52 - old 30
-    services: 12 #9 Inventory Turnover 9-15days, but non-essential input
-    trade: 6 #old 30
-    transport: 2 #Inventory turnover for trucking 2 days, maritime 30 days - old 5  
+    default: 4
+    food: 3
+    mining: 4
+    utilities: 2
+    agriculture:  3
+    manufacturing: 6
+    services: 4
+    trade: 6
+    transport: 2
+    construction: 6
+
 
   unit: week
 
@@ -103,11 +120,11 @@ t_final: 26
 disruptions:
   - type: export_stop
     start_time: 1
-    duration: 12
+    duration: 8
 #    description_type: region_sector_file
     description_type: filter  # sectors_homogeneous
     filter:
-      region_sector: ['USA_Vegetable products']
+      region_sector: ['ARE_Petroleum extraction']
       #region: ['']
     #destroyed_capital: 4.0
 #    region_sector_filepath: "Disruption/earthquake_capital_destruction.csv"

@@ -354,7 +354,7 @@ def _filter_small_firms(firm_table: gpd.GeoDataFrame, mrio: Mrio, cutoff_firm_ou
     
     # Cut out those that are not in the top 2 and have estimated output below threshold
     firm_table = firm_table[(~cond_low_output) | top2_bool_index].copy()
-    logging.info(f'Number of firms removed by the firm cutoff condition: {cond_low_output.sum()}')
+    logging.info(f'Number of firms removed by the firm cutoff condition (only removed if there are other firms in same region_sector): {cond_low_output.sum()}')
     
     # Reset ids
     firm_table['id'] = range(firm_table.shape[0])

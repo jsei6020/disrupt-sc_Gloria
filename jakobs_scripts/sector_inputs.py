@@ -40,7 +40,7 @@ OUT_DIR = Path(
     "/home/user/Documents/University/Master Thesis/supply_concentrations"
 )
 
-BASIC_GOLD_SECTOR_NAME = "Basic gold"
+BASIC_GOLD_SECTOR_NAME = "Pulp and paper"
 N_PRODUCERS = 10          # number of top producing regions to analyze
 N_TOP_INPUTS_PER_REGION = 15   # how many largest inputs per producing region to store
 N_TOP_INPUTS_GLOBAL = 20       # how many largest inputs in global aggregation

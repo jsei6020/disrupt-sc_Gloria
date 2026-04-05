@@ -22,16 +22,16 @@ INPUT_PATH = "/home/user/Documents/University/Master Thesis/disrupt-sc/data/Glob
 INPUT_FORMAT = "pkl"  # "pkl" or "csv"
 
 # Output paths
-HHI_OUTPUT = "/home/user/Documents/University/Master Thesis/sector_hhi_net_export_share.csv"
-REGION_SECTOR_PAIRS_OUTPUT = "/home/user/Documents/University/Master Thesis/supply_concentrations/region_sector_pairs_1pct.csv"
-SECTOR_SUMMARY_OUTPUT = "/home/user/Documents/University/Master Thesis/supply_concentrations/sector_concentration_summary.csv"
+HHI_OUTPUT = "/home/user/Documents/University/Master Thesis/sector_hhi_net_export_share4.csv"
+REGION_SECTOR_PAIRS_OUTPUT = "/home/user/Documents/University/Master Thesis/supply_concentrations/region_sector_pairs_1pct4.csv"
+SECTOR_SUMMARY_OUTPUT = "/home/user/Documents/University/Master Thesis/supply_concentrations/sector_concentration_summary4.csv"
 
 # Threshold for export share (1%)
 EXPORT_SHARE_THRESHOLD = 0.01
 
 # Optional: Filter to analyze only sectors above a certain HHI threshold
 # Set to None to analyze all sectors
-HHI_THRESHOLD = 0.00167
+HHI_THRESHOLD = 0.001
 # ========================
 
 

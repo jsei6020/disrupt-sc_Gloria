@@ -6,6 +6,8 @@ import gc
 
 import pandas as pd
 import numpy as np
+from tqdm import tqdm
+
 
 
 from disruptsc.model.utils.functions import rescale_monetary_values
@@ -141,7 +143,6 @@ class Mrio(pd.DataFrame):
         return [tup for tup in self.region_sectors if tech_coef_matrix.loc[tup, tup] > threshold]
 
     def get_final_demand(self, selected_region_sectors=None):
-        #print(selected_region_sectors)
         if selected_region_sectors:
             if isinstance(selected_region_sectors[0], str):
                 selected_region_sectors = [tuple(region_sector.split('_', 1))
@@ -150,6 +151,7 @@ class Mrio(pd.DataFrame):
                 pass
             else:
                 raise ValueError('selected_region_sectors should be a list of tuples or strings')
+            
             mask = self.columns.get_level_values(1).isin(self.final_demand_label)
             return self.loc[selected_region_sectors, mask]
         else:    
@@ -201,45 +203,106 @@ class Mrio(pd.DataFrame):
 #            df_io.sort_values("rel_diff_percent", ascending=False, inplace=True)
 #            df_io.to_csv("debug_input_gt_output_or_small_output2.csv", index=False)
         
-        unbalanced_region_sectors = total_input[total_input > total_output].index.to_list()
+        unbalanced_region_sectors = total_input[total_input - total_output > EPSILON].index.to_list()
         if len(unbalanced_region_sectors) > 0:
             logging.warning(f"There are {len(unbalanced_region_sectors)} region_sectors with more inputs "
-                            f"than outputs. Currently not correcting it.") # {unbalanced_region_sectors}
-            # TODO very ad-hoc and dirty to accommodate with bad input file
-            #this adds the difference between input and output as an average to external countries
-            #for region_sector in unbalanced_region_sectors:
-                # print(self.get_total_output_per_region_sectors()[region_sector])
-                #print(total_input[region_sector] - total_output[region_sector])
-                #where_to_add = pd.MultiIndex.from_product([self.external_buying_countries,
-                #                                           [self.export_label]], names=['region', 'sector'])
-                #how_much_to_add = (total_input[region_sector] - total_output[region_sector] + EPSILON) / len(where_to_add)
-                #self.loc[region_sector, where_to_add] += how_much_to_add
-                #print(self.get_total_output_per_region_sectors()[region_sector])
+                            f"than outputs. Distributing it across final demand.") # {unbalanced_region_sectors}
+            #this adds the difference between input and output as an average to all final demand
+    
+        for region_sector in tqdm(unbalanced_region_sectors, desc="Balancing unbalanced sectors", unit="sector"):
+            # Create the full set of final demand index positions
+            where_to_add = pd.MultiIndex.from_product(
+                [self.regions, self.final_demand_label],
+                names=['region', 'sector']
+            )
+
+            fd_values = self.loc[region_sector, where_to_add]
+            # Boolean mask: True where value > epsilon (non-zero)
+            non_zero_mask = fd_values > EPSILON
+            # Keep ONLY column labels with non-zero values
+            non_zero_fd_places = where_to_add[non_zero_mask]
+
+            # Safety: skip if no valid places to add
+            if len(non_zero_fd_places) == 0:
+                #print(region_sector)
+                # Calculate how much to all FD location
+                imbalance = total_input[region_sector] - total_output[region_sector]
+                add_per_place = imbalance / len(where_to_add)
+
+                # add the value all FD cells
+                self.loc[region_sector, where_to_add] += add_per_place
+            else:
+                # Calculate how much to add per non-zero FD location
+                imbalance = total_input[region_sector] - total_output[region_sector]
+                add_per_place = imbalance / len(non_zero_fd_places)
+                if  total_input[region_sector] / total_output[region_sector] > 1.1:
+                    print(region_sector)
+                    print(total_input[region_sector] / total_output[region_sector])
+                    print(add_per_place)
+
+                #Add the value ONLY to non-zero FD cells
+                self.loc[region_sector, non_zero_fd_places] += add_per_place
+        
+        #output_path = "mrio_adjusted.pkl"
+
+        # Save the DataFrame (self) as pickle
+        #self.to_pickle(output_path)
+        #print(f"\n✅ Successfully saved adjusted MRIO to: {os.path.abspath(output_path)}")
+
+    #if total_input[region_sector]/total_output[region_sector] > 1.1:
+    #    print(region_sector)
+    #    print(total_input[region_sector]/total_output[region_sector])
+    #    print(total_input[region_sector] - total_output[region_sector])
+    #    print(non_zero_fd_places)
+    #    print(add_per_place)
+    #    print(self.get_total_output_per_region_sectors()[region_sector]/total_input[region_sector])
     
     def filtered_tech_coefficients(self, tech_coef_matrix, selected_region_sectors, threshold):
-        # Assume tech_coef_matrix.columns is a MultiIndex of tuples (country, sector)
-        supplier_tuples = [tuple(col) for col in tech_coef_matrix.columns]
-        is_domestic = np.array([tup in selected_region_sectors for tup in supplier_tuples])  # 1D array, shape (num_columns,)
-        is_external = np.array([tup[0] in self.external_selling_countries for tup in supplier_tuples])  # 1D array
-        supplier_mask = is_domestic | is_external  # 1D boolean mask for columns
-        # Same fix for buyers (rows):
-        buyer_tuples = [tuple(row) for row in tech_coef_matrix.index]
-        buyer_mask = np.array([tup in selected_region_sectors for tup in buyer_tuples])  # 1D boolean mask for rows
+        supplier_tuples = [tuple(row) for row in tech_coef_matrix.index]      # suppliers (rows)
+        buyer_tuples    = [tuple(col) for col in tech_coef_matrix.columns]    # buyers (cols)
+
+        # masks
+        is_domestic_supplier = np.array([tup in selected_region_sectors
+                                        for tup in supplier_tuples])
+        is_external_supplier = np.array([tup[0] in self.external_selling_countries
+                                        for tup in supplier_tuples])
+        supplier_mask = is_domestic_supplier | is_external_supplier
+
+        buyer_mask = np.array([tup in selected_region_sectors for tup in buyer_tuples])
+
+        # filter suppliers once (rows)
+        suppliers_filtered = [t for t, keep in zip(supplier_tuples, supplier_mask) if keep]
+        df_suppliers = tech_coef_matrix.loc[suppliers_filtered, :]
+
+        # list of buyers (cols) we actually care about
+        buyers_filtered = [t for t, keep in zip(buyer_tuples, buyer_mask) if keep]
+        buyer_cols_idx  = np.where(buyer_mask)[0]
+
         filtered_dict = {}
         chunk_size = 4000
-        for start in range(0, len(buyer_tuples), chunk_size):
-            #print(start)
+
+        # iterate over buyers in column chunks
+        for start in range(0, len(buyer_cols_idx), chunk_size):
             end = start + chunk_size
-            buyers_chunk = buyer_tuples[start:end]
-            # Create a buyer mask for just this chunk
-            chunk_mask = np.array([tup in selected_region_sectors for tup in buyers_chunk])
-            chunk_df = tech_coef_matrix.loc[buyers_chunk, supplier_mask]
+            cols_idx_chunk = buyer_cols_idx[start:end]
+            cols_chunk_labels = tech_coef_matrix.columns[cols_idx_chunk]
+            buyers_chunk = [buyer_tuples[i] for i in cols_idx_chunk]
+
+            # submatrix: all suppliers (already filtered) x buyer columns in this chunk
+            chunk_df = df_suppliers.loc[:, cols_chunk_labels]
             chunk_df = chunk_df.where(chunk_df > threshold)
-            chunk_dict = chunk_df.apply(lambda row: row.dropna().to_dict(), axis=1).to_dict()
-            filtered_dict.update(chunk_dict)
-            del buyers_chunk, chunk_mask, chunk_df, chunk_dict
+
+            # build dict column-wise: buyer -> {supplier: coeff}
+            for buyer, col in zip(buyers_chunk, chunk_df.columns):
+                s = chunk_df[col].dropna()
+                if not s.empty:
+                    filtered_dict[buyer] = s.to_dict()
+
+            del cols_idx_chunk, cols_chunk_labels, buyers_chunk, chunk_df
             gc.collect()
+
         return filtered_dict
+
 
     def get_tech_coef_dict(self, threshold, selected_region_sectors):
         """
@@ -292,8 +355,8 @@ class Mrio(pd.DataFrame):
             df_capped = pd.DataFrame(capped_records)
             df_capped.sort_values("original_a_ii", ascending=False, inplace=True)
             #df_capped.to_csv("debug_capped_self_coefficients.csv", index=False)
-            logging.info(f"MRIO regularization: capped {len(df_capped)} self-coefficients; "
-                         f"details in debug_capped_self_coefficients.csv")
+            logging.info(f"MRIO regularization: capped {len(df_capped)} self-coefficients; ")
+                         #f"details in debug_capped_self_coefficients.csv")
 
 
         if selected_region_sectors:
