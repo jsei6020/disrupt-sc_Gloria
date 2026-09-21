@@ -18,7 +18,7 @@ import numpy as np
 
 
 # ==== USER SETTINGS ====
-INPUT_PATH = "/home/user/Documents/University/Master Thesis/disrupt-sc/data/Global4/Network/mrio_va_fd.pkl" #mrio_va_fd.pkl
+INPUT_PATH = "/home/user/Documents/University/Master Thesis/disrupt-sc/data/Global4/Network/mrio_adjusted.pkl" #mrio_va_fd.pkl
 INPUT_FORMAT = "pkl"  # "pkl" or "csv"
 
 # Output paths
@@ -31,7 +31,7 @@ EXPORT_SHARE_THRESHOLD = 0.01
 
 # Optional: Filter to analyze only sectors above a certain HHI threshold
 # Set to None to analyze all sectors
-HHI_THRESHOLD = 0.001
+HHI_THRESHOLD = 0.000000000001
 # ========================
 
 

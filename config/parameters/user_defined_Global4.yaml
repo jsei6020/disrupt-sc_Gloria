@@ -11,10 +11,9 @@ monetary_units_in_data: "kUSD"
 time_resolution: week
 epsilon_stop_condition: 1e-3
 
-io_cutoff: 0.01 #0.0001
+io_cutoff: 0.001 #0.0001
 
 rationing_mode: "equal"
-#"household_first"
 
 sectors:
   linear_client_sectors:
@@ -120,7 +119,7 @@ t_final: 26
 disruptions:
   - type: export_stop
     start_time: 1
-    duration: 8
+    duration: 12
 #    description_type: region_sector_file
     description_type: filter  # sectors_homogeneous
     filter:

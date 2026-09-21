@@ -1,0 +1,341 @@
+Both_Files,Only_Top3_Exports,Only_Region_Sector_Pairs
+AGO_Petroleum extraction,AFG_Growing fibre crops,ARE_Basic aluminium
+ARE_Basic gold,AFG_Growing grapes,ARE_Basic organic chemicals
+ARE_Chemical and fertilizer minerals,"AFG_Growing spices, aromatic, drug and pharmaceutical crops",ARE_Computers; electronic products; optical and precision instruments
+ARE_Gas extraction,AGO_Gas extraction,"ARE_Growing spices, aromatic, drug and pharmaceutical crops"
+ARG_Growing maize,AGO_Mining and quarrying n.e.c.; services to mining,ARE_Petroleum extraction
+"ARG_Lead, zinc, silver ores","ALB_Growing spices, aromatic, drug and pharmaceutical crops","ARE_Quarrying of stone, sand and clay"
+ARG_Vegetable oils and fats,ALB_Growing tobacco,ARE_Tobacco products
+AUS_Aluminium ore,ALB_Seeds and plant propagation,ARG_Growing wheat
+AUS_Iron ores,ARM_Basic copper,AUS_Basic copper
+AUS_Tin ores,ARM_Basic gold,AUS_Basic gold
+BEL_Basic organic chemicals,ARM_Copper ores,"AUS_Basic lead, zinc, silver"
+BEL_Pharmaceuticals and medicinal products,AUT_Basic aluminium,AUS_Basic nickel
+"BEL_Sugar refining; cocoa, chocolate and confectionery",AUT_Basic organic chemicals,AUS_Beef meat
+BGD_Leather and footwear,AUT_Basic tin,AUS_Chemical and fertilizer minerals
+BGD_Textiles and clothing,AZE_Gas extraction,AUS_Copper ores
+BHR_Basic aluminium,AZE_Growing fibre crops,AUS_Gas extraction
+BLR_Non-nitrogenous and mixed fertilizers,AZE_Petroleum extraction,AUS_Gold ores
+BOL_Basic tin,"BDI_Growing beverage crops (coffee, tea etc)",AUS_Growing fibre crops
+"BOL_Lead, zinc, silver ores",BDI_Growing wheat,AUS_Hard coal
+BOL_Tin ores,BDI_Tin ores,"AUS_Lead, zinc, silver ores"
+"BRA_Growing beverage crops (coffee, tea etc)",BEN_Cereal products,AUS_Nickel ores
+BRA_Growing leguminous crops and oil seeds,BEN_Growing fibre crops,AUS_Other non-ferrous ores
+BRA_Iron ores,BEN_Growing leguminous crops and oil seeds,"AUS_Quarrying of stone, sand and clay"
+CAN_Basic gold,BFA_Basic gold,BEL_Basic copper
+CAN_Basic nickel,BFA_Growing fibre crops,"BEL_Basic lead, zinc, silver"
+CAN_Nickel ores,"BFA_Lead, zinc, silver ores",BEL_Basic tin
+CHE_Basic gold,BGD_Growing tobacco,BEL_Vegetable products
+CHE_Computers; electronic products; optical and precision instruments,BGR_Basic copper,BRA_Aluminium ore
+CHE_Pharmaceuticals and medicinal products,BGR_Gold ores,BRA_Basic gold
+CHL_Copper ores,BGR_Growing wheat,BRA_Basic tin
+CHL_Extraction of salt,BHR_Iron ores,BRA_Beef meat
+CHL_Other non-ferrous ores,BHR_Petroleum extraction,BRA_Gold ores
+CHN_Computers; electronic products; optical and precision instruments,BHS_Extraction of salt,BRA_Growing fibre crops
+CHN_Electrical equipment,BHS_Fish products,BRA_Growing maize
+CHN_Glass and other ceramics n.e.c.,BHS_Gas extraction,BRA_Growing tobacco
+COD_Basic copper,BIH_Coke oven products,BRA_Nickel ores
+COG_Tin ores,"BIH_Lead, zinc, silver ores",BRA_Petroleum extraction
+"COL_Growing beverage crops (coffee, tea etc)",BIH_Lignite and peat,"BRA_Quarrying of stone, sand and clay"
+COL_Seeds and plant propagation,BLR_Beef meat,BRA_Seeds and plant propagation
+CUB_Basic nickel,BLR_Seeds and plant propagation,"BRA_Sugar refining; cocoa, chocolate and confectionery"
+"CZE_Motor vehicles, trailers and semi-trailers",BLZ_Growing tobacco,BRA_Tin ores
+DEU_Basic organic chemicals,BLZ_Growing wheat,BRA_Vegetable oils and fats
+DEU_Machinery and equipment,"BLZ_Sugar refining; cocoa, chocolate and confectionery",CAN_Basic aluminium
+"DEU_Motor vehicles, trailers and semi-trailers",BRN_Gas extraction,CAN_Basic copper
+DNK_Pharmaceuticals and medicinal products,BRN_Petroleum extraction,"CAN_Basic lead, zinc, silver"
+DZA_Chemical and fertilizer minerals,BRN_Refined petroleum products,CAN_Basic tin
+DZA_Gas extraction,BTN_Growing cereals n.e.c.,CAN_Chemical and fertilizer minerals
+DZA_Petroleum extraction,BTN_Growing maize,CAN_Copper ores
+ECU_Fish products,BTN_Growing wheat,CAN_Extraction of salt
+ESP_Growing fruits and nuts,BWA_Basic nickel,CAN_Gas extraction
+"ESP_Motor vehicles, trailers and semi-trailers",BWA_Copper ores,CAN_Growing leguminous crops and oil seeds
+ESP_Vegetable products,BWA_Mining and quarrying n.e.c.; services to mining,"CAN_Growing spices, aromatic, drug and pharmaceutical crops"
+FIN_Basic nickel,CAF_Growing fibre crops,CAN_Growing wheat
+FIN_Nickel ores,CAF_Growing maize,CAN_Iron ores
+"FRA_Dyes, paints, glues, detergents and other chemical products",CAF_Growing wheat,"CAN_Motor vehicles, trailers and semi-trailers"
+FRA_Growing wheat,CIV_Growing fibre crops,CAN_Non-nitrogenous and mixed fertilizers
+FRA_Other transport equipment,CIV_Growing fruits and nuts,CAN_Other transport equipment
+GBR_Basic gold,CIV_Nickel ores,CAN_Petroleum extraction
+GBR_Other transport equipment,CMR_Growing fibre crops,CAN_Pulp and paper
+GBR_Petroleum extraction,CMR_Growing fruits and nuts,CAN_Tin ores
+GHA_Basic gold,CMR_Other meat products,CAN_Vegetable products
+GIN_Aluminium ore,COD_Copper ores,CHE_Basic organic chemicals
+"GTM_Lead, zinc, silver ores",COD_Tin ores,CHE_Machinery and equipment
+GTM_Nickel ores,COG_Basic copper,CHL_Fish products
+HKG_Tobacco products,COG_Petroleum extraction,CHL_Gold ores
+"HND_Growing beverage crops (coffee, tea etc)",COL_Hard coal,CHL_Growing grapes
+"HND_Lead, zinc, silver ores",CRI_Fruit products,"CHL_Lead, zinc, silver ores"
+IDN_Basic nickel,"CRI_Growing beverage crops (coffee, tea etc)",CHN_Animal oils and fats
+IDN_Copper ores,CRI_Growing fruits and nuts,CHN_Basic aluminium
+IDN_Hard coal,"CUB_Sugar refining; cocoa, chocolate and confectionery",CHN_Basic copper
+IND_Cereal products,CUB_Tobacco products,CHN_Basic gold
+"IND_Growing spices, aromatic, drug and pharmaceutical crops",CYP_Fruit products,CHN_Basic inorganic chemicals
+"IND_Sugar refining; cocoa, chocolate and confectionery",CYP_Repair and installation of machinery and equipment (service),"CHN_Basic lead, zinc, silver"
+IRL_Basic organic chemicals,CYP_Seeds and plant propagation,CHN_Basic nickel
+"IRL_Lead, zinc, silver ores",CZE_Glass and other ceramics n.e.c.,CHN_Basic non-ferrous metals n.e.c.
+IRL_Pharmaceuticals and medicinal products,CZE_Rubber products,CHN_Basic organic chemicals
+IRN_Basic organic chemicals,"DJI_Basic lead, zinc, silver",CHN_Basic tin
+IRN_Petroleum extraction,"DJI_Growing beverage crops (coffee, tea etc)","CHN_Dyes, paints, glues, detergents and other chemical products"
+IRQ_Basic gold,DJI_Raising of sheep and goats,CHN_Fabricated metal products
+IRQ_Petroleum extraction,DNK_Fish products,CHN_Fish products
+ITA_Basic tin,DNK_Pork,CHN_Furniture and other manufacturing n.e.c.
+ITA_Leather and footwear,DOM_Aluminium ore,CHN_Growing grapes
+ITA_Machinery and equipment,DOM_Basic gold,"CHN_Growing spices, aromatic, drug and pharmaceutical crops"
+JPN_Basic gold,DOM_Growing tobacco,CHN_Information services
+JPN_Machinery and equipment,ECU_Gold ores,CHN_Leather and footwear
+"JPN_Motor vehicles, trailers and semi-trailers",ECU_Growing fruits and nuts,CHN_Machinery and equipment
+KAZ_Petroleum extraction,EGY_Basic gold,"CHN_Motor vehicles, trailers and semi-trailers"
+KEN_Seeds and plant propagation,"EGY_Growing spices, aromatic, drug and pharmaceutical crops",CHN_Non-nitrogenous and mixed fertilizers
+KOR_Basic organic chemicals,EGY_Vegetable products,CHN_Other transport equipment
+KOR_Basic tin,ERI_Basic gold,CHN_Pharmaceuticals and medicinal products
+KOR_Computers; electronic products; optical and precision instruments,ERI_Copper ores,CHN_Plastic products
+KWT_Chemical and fertilizer minerals,"ERI_Lead, zinc, silver ores",CHN_Pulp and paper
+KWT_Petroleum extraction,EST_Forestry and logging,CHN_Refined petroleum products
+MAR_Non-nitrogenous and mixed fertilizers,EST_Repair and installation of machinery and equipment (service),CHN_Rubber products
+"MEX_Basic lead, zinc, silver",EST_Sawmill products,CHN_Textiles and clothing
+"MEX_Lead, zinc, silver ores","ETH_Growing beverage crops (coffee, tea etc)",CHN_Vegetable products
+"MEX_Motor vehicles, trailers and semi-trailers","ETH_Growing spices, aromatic, drug and pharmaceutical crops",DEU_Animal oils and fats
+MYS_Basic tin,ETH_Other meat products,DEU_Basic aluminium
+MYS_Computers; electronic products; optical and precision instruments,FIN_Pulp and paper,DEU_Basic copper
+MYS_Vegetable oils and fats,GAB_Forestry and logging,DEU_Basic gold
+NGA_Petroleum extraction,GAB_Other non-ferrous ores,DEU_Basic inorganic chemicals
+NLD_Basic organic chemicals,GAB_Petroleum extraction,"DEU_Basic lead, zinc, silver"
+NLD_Seeds and plant propagation,GEO_Basic copper,DEU_Basic nickel
+NLD_Vegetable products,GEO_Copper ores,DEU_Basic non-ferrous metals n.e.c.
+NOR_Basic nickel,GEO_Gold ores,DEU_Basic tin
+NOR_Gas extraction,GHA_Aluminium ore,DEU_Computers; electronic products; optical and precision instruments
+NOR_Petroleum extraction,GHA_Growing fruits and nuts,"DEU_Dyes, paints, glues, detergents and other chemical products"
+OMN_Petroleum extraction,GIN_Basic gold,DEU_Electrical equipment
+PER_Copper ores,GIN_Nickel ores,DEU_Extraction of salt
+"PER_Lead, zinc, silver ores",GMB_Growing cereals n.e.c.,DEU_Fabricated metal products
+PER_Tin ores,GMB_Growing maize,DEU_Furniture and other manufacturing n.e.c.
+PHL_Nickel ores,GMB_Growing wheat,DEU_Glass and other ceramics n.e.c.
+PNG_Gold ores,GNQ_Forestry and logging,DEU_Information services
+POL_Basic copper,GNQ_Gas extraction,DEU_Non-nitrogenous and mixed fertilizers
+POL_Glass and other ceramics n.e.c.,GNQ_Petroleum extraction,DEU_Other transport equipment
+"POL_Sugar refining; cocoa, chocolate and confectionery",GRC_Basic aluminium,DEU_Pharmaceuticals and medicinal products
+PRY_Growing fibre crops,GRC_Growing fibre crops,DEU_Plastic products
+QAT_Chemical and fertilizer minerals,GRC_Vegetable products,DEU_Pulp and paper
+QAT_Gas extraction,"GTM_Growing spices, aromatic, drug and pharmaceutical crops",DEU_Rubber products
+QAT_Petroleum extraction,HKG_Glass and other ceramics n.e.c.,DEU_Seeds and plant propagation
+RUS_Gas extraction,HKG_Machinery and equipment,"DEU_Sugar refining; cocoa, chocolate and confectionery"
+RUS_Petroleum extraction,HND_Growing tobacco,DEU_Vegetable products
+RUS_Tin ores,HRV_Growing grapes,ESP_Basic aluminium
+SAU_Basic organic chemicals,HRV_Materials recovery,ESP_Basic gold
+SAU_Gas extraction,HRV_Seeds and plant propagation,ESP_Basic organic chemicals
+SAU_Petroleum extraction,HTI_Fishing,ESP_Fish products
+SGP_Basic organic chemicals,HTI_Fruit products,ESP_Growing grapes
+SGP_Basic tin,"HTI_Growing beverage crops (coffee, tea etc)",ESP_Vegetable oils and fats
+SGP_Computers; electronic products; optical and precision instruments,HUN_Computers; electronic products; optical and precision instruments,FRA_Basic aluminium
+SWE_Pulp and paper,"HUN_Motor vehicles, trailers and semi-trailers",FRA_Basic organic chemicals
+THA_Basic organic chemicals,HUN_Rubber products,FRA_Growing grapes
+THA_Fish products,IRN_Seeds and plant propagation,FRA_Pharmaceuticals and medicinal products
+THA_Rubber products,IRQ_Growing wheat,FRA_Seeds and plant propagation
+TKM_Gas extraction,ISL_Basic aluminium,"FRA_Sugar refining; cocoa, chocolate and confectionery"
+TUR_Basic gold,ISL_Fish products,GBR_Basic organic chemicals
+TUR_Growing grapes,ISL_Fishing,GBR_Finance and insurance
+TUR_Textiles and clothing,ISR_Chemical and fertilizer minerals,"GBR_Sugar refining; cocoa, chocolate and confectionery"
+TZA_Gold ores,ISR_Extraction of salt,HKG_Finance and insurance
+USA_Basic gold,ISR_Non-nitrogenous and mixed fertilizers,IDN_Animal oils and fats
+"USA_Lead, zinc, silver ores",JAM_Aluminium ore,IDN_Basic tin
+USA_Other transport equipment,"JAM_Growing beverage crops (coffee, tea etc)",IDN_Fish products
+VNM_Fish products,"JAM_Growing spices, aromatic, drug and pharmaceutical crops",IDN_Gas extraction
+"VNM_Growing beverage crops (coffee, tea etc)",JOR_Chemical and fertilizer minerals,"IDN_Growing beverage crops (coffee, tea etc)"
+"VNM_Growing spices, aromatic, drug and pharmaceutical crops",JOR_Non-nitrogenous and mixed fertilizers,IDN_Tobacco products
+ZAF_Gold ores,JOR_Seeds and plant propagation,IDN_Vegetable oils and fats
+ZAF_Iron ores,KAZ_Basic copper,IND_Animal oils and fats
+ZAF_Other non-ferrous ores,KAZ_Growing wheat,IND_Basic aluminium
+ZWE_Growing tobacco,"KEN_Growing beverage crops (coffee, tea etc)","IND_Basic lead, zinc, silver"
+ZWE_Nickel ores,"KEN_Growing spices, aromatic, drug and pharmaceutical crops",IND_Basic nickel
+,KGZ_Basic gold,IND_Basic organic chemicals
+,KGZ_Gold ores,IND_Basic tin
+,KGZ_Growing fibre crops,IND_Beef meat
+,KHM_Growing tobacco,IND_Fish products
+,KHM_Leather and footwear,IND_Furniture and other manufacturing n.e.c.
+,KHM_Textiles and clothing,IND_Growing fibre crops
+,KWT_Basic organic chemicals,IND_Information services
+,LAO_Copper ores,IND_Leather and footwear
+,"LAO_Growing spices, aromatic, drug and pharmaceutical crops",IND_Refined petroleum products
+,LAO_Seeds and plant propagation,IND_Seeds and plant propagation
+,LBN_Growing grapes,IND_Textiles and clothing
+,"LBN_Growing spices, aromatic, drug and pharmaceutical crops",IND_Vegetable products
+,LBN_Growing tobacco,IRL_Beef meat
+,LBR_Growing maize,IRL_Furniture and other manufacturing n.e.c.
+,LBR_Growing wheat,IRL_Information services
+,LBR_Iron ores,ITA_Basic aluminium
+,LBY_Basic gold,ITA_Basic gold
+,LBY_Gas extraction,ITA_Basic non-ferrous metals n.e.c.
+,LBY_Petroleum extraction,ITA_Basic organic chemicals
+,"LKA_Growing spices, aromatic, drug and pharmaceutical crops",ITA_Cereal products
+,LKA_Lignite and peat,ITA_Electrical equipment
+,LKA_Rubber products,ITA_Fabricated metal products
+,LTU_Growing wheat,ITA_Furniture and other manufacturing n.e.c.
+,LTU_Nitrogenous fertilizers,ITA_Growing grapes
+,LTU_Non-nitrogenous and mixed fertilizers,ITA_Other transport equipment
+,LUX_Basic aluminium,ITA_Plastic products
+,LUX_Basic tin,ITA_Seeds and plant propagation
+,LUX_Plastic products,ITA_Vegetable products
+,LVA_Growing wheat,JPN_Basic copper
+,LVA_Sawmill products,"JPN_Basic lead, zinc, silver"
+,LVA_Seeds and plant propagation,JPN_Basic nickel
+,MAR_Fish products,JPN_Basic organic chemicals
+,"MAR_Lead, zinc, silver ores",JPN_Computers; electronic products; optical and precision instruments
+,MDA_Fruit products,JPN_Electrical equipment
+,MDA_Growing wheat,JPN_Fish products
+,MDA_Vegetable oils and fats,JPN_Glass and other ceramics n.e.c.
+,MDG_Basic nickel,JPN_Other transport equipment
+,"MDG_Growing spices, aromatic, drug and pharmaceutical crops",JPN_Rubber products
+,MDG_Other non-ferrous ores,KOR_Basic aluminium
+,MKD_Growing tobacco,KOR_Basic copper
+,"MKD_Lead, zinc, silver ores",KOR_Basic inorganic chemicals
+,MKD_Mining and quarrying n.e.c.; services to mining,"KOR_Basic lead, zinc, silver"
+,MLI_Basic gold,KOR_Basic nickel
+,MLI_Growing fibre crops,KOR_Electrical equipment
+,MLI_Non-nitrogenous and mixed fertilizers,KOR_Glass and other ceramics n.e.c.
+,MLT_Fish products,KOR_Machinery and equipment
+,MLT_Fishing,"KOR_Motor vehicles, trailers and semi-trailers"
+,MLT_Repair and installation of machinery and equipment (service),KOR_Other transport equipment
+,MMR_Gas extraction,KOR_Refined petroleum products
+,"MMR_Growing spices, aromatic, drug and pharmaceutical crops",KOR_Rubber products
+,MMR_Seeds and plant propagation,MEX_Basic gold
+,MNG_Copper ores,MEX_Computers; electronic products; optical and precision instruments
+,MNG_Hard coal,MEX_Copper ores
+,"MNG_Lead, zinc, silver ores",MEX_Hard coal
+,MOZ_Gas extraction,NLD_Animal oils and fats
+,MOZ_Growing tobacco,"NLD_Dyes, paints, glues, detergents and other chemical products"
+,MOZ_Hard coal,NLD_Information services
+,MRT_Basic gold,NLD_Machinery and equipment
+,MRT_Fish products,NLD_Refined petroleum products
+,MRT_Iron ores,"NLD_Sugar refining; cocoa, chocolate and confectionery"
+,MWI_Growing fibre crops,NLD_Vegetable oils and fats
+,MWI_Growing tobacco,NOR_Basic aluminium
+,MWI_Uranium ores,NOR_Fish products
+,"NAM_Lead, zinc, silver ores",PER_Gold ores
+,NAM_Mining and quarrying n.e.c.; services to mining,PER_Iron ores
+,NAM_Uranium ores,POL_Rubber products
+,NER_Gas extraction,RUS_Basic aluminium
+,"NER_Growing spices, aromatic, drug and pharmaceutical crops",RUS_Basic copper
+,NER_Uranium ores,RUS_Basic gold
+,NGA_Gas extraction,RUS_Basic nickel
+,NGA_Vegetable products,RUS_Basic non-ferrous metals n.e.c.
+,NIC_Basic gold,RUS_Basic tin
+,"NIC_Growing beverage crops (coffee, tea etc)",RUS_Chemical and fertilizer minerals
+,"NIC_Sugar refining; cocoa, chocolate and confectionery",RUS_Gold ores
+,NPL_Fruit products,"RUS_Growing spices, aromatic, drug and pharmaceutical crops"
+,"NPL_Growing spices, aromatic, drug and pharmaceutical crops",RUS_Growing wheat
+,NPL_Growing tobacco,RUS_Hard coal
+,NZL_Dairy products,"RUS_Lead, zinc, silver ores"
+,NZL_Seeds and plant propagation,RUS_Non-nitrogenous and mixed fertilizers
+,NZL_Sheep meat,RUS_Refined petroleum products
+,OMN_Fish products,SGP_Basic gold
+,OMN_Gas extraction,SGP_Information services
+,PAK_Cereal products,SGP_Other transport equipment
+,"PAK_Growing spices, aromatic, drug and pharmaceutical crops",SGP_Refined petroleum products
+,PAK_Textiles and clothing,"THA_Sugar refining; cocoa, chocolate and confectionery"
+,PAN_Copper ores,TUR_Growing fruits and nuts
+,PAN_Fish products,TUR_Leather and footwear
+,PAN_Tobacco products,USA_Aluminium ore
+,PHL_Fish products,USA_Animal oils and fats
+,PHL_Vegetable oils and fats,USA_Basic aluminium
+,PNG_Copper ores,USA_Basic copper
+,PNG_Gas extraction,USA_Basic inorganic chemicals
+,PRK_Computers; electronic products; optical and precision instruments,"USA_Basic lead, zinc, silver"
+,PRK_Growing wheat,USA_Basic nickel
+,PRK_Hard coal,USA_Basic non-ferrous metals n.e.c.
+,PRT_Glass and other ceramics n.e.c.,USA_Basic organic chemicals
+,"PRT_Lead, zinc, silver ores",USA_Basic tin
+,PRT_Vegetable products,USA_Beef meat
+,PRY_Growing leguminous crops and oil seeds,USA_Cereal products
+,PRY_Growing maize,USA_Computers; electronic products; optical and precision instruments
+,PSE_Aluminium ore,USA_Copper ores
+,"PSE_Quarrying of stone, sand and clay","USA_Dyes, paints, glues, detergents and other chemical products"
+,PSE_Vegetable products,USA_Extraction of salt
+,ROU_Growing maize,USA_Fabricated metal products
+,ROU_Growing wheat,USA_Finance and insurance
+,ROU_Rubber products,USA_Fish products
+,"RWA_Growing spices, aromatic, drug and pharmaceutical crops",USA_Furniture and other manufacturing n.e.c.
+,RWA_Other non-ferrous ores,USA_Gas extraction
+,RWA_Tin ores,USA_Glass and other ceramics n.e.c.
+,SDN_Basic gold,USA_Gold ores
+,"SDN_Quarrying of stone, sand and clay",USA_Growing fibre crops
+,SDN_Uranium ores,USA_Growing fruits and nuts
+,SDS_Growing cereals n.e.c.,USA_Growing grapes
+,SDS_Growing maize,USA_Growing leguminous crops and oil seeds
+,SDS_Growing wheat,USA_Growing maize
+,SEN_Chemical and fertilizer minerals,"USA_Growing spices, aromatic, drug and pharmaceutical crops"
+,SEN_Extraction of salt,USA_Growing wheat
+,SEN_Other non-ferrous ores,USA_Hard coal
+,SLE_Aluminium ore,USA_Information services
+,SLE_Forestry and logging,USA_Machinery and equipment
+,SLE_Other non-ferrous ores,"USA_Motor vehicles, trailers and semi-trailers"
+,SLV_Cereal products,USA_Nickel ores
+,"SLV_Growing beverage crops (coffee, tea etc)",USA_Non-nitrogenous and mixed fertilizers
+,"SLV_Sugar refining; cocoa, chocolate and confectionery",USA_Other non-ferrous ores
+,SOM_Basic gold,USA_Petroleum extraction
+,SOM_Fish products,USA_Pharmaceuticals and medicinal products
+,SOM_Raising of sheep and goats,USA_Plastic products
+,SRB_Aluminium ore,USA_Pulp and paper
+,SRB_Basic copper,"USA_Quarrying of stone, sand and clay"
+,SRB_Tobacco products,USA_Refined petroleum products
+,SVK_Fabricated metal products,USA_Rubber products
+,"SVK_Motor vehicles, trailers and semi-trailers",USA_Seeds and plant propagation
+,SVK_Rubber products,USA_Vegetable oils and fats
+,SVN_Basic aluminium,USA_Vegetable products
+,SVN_Electrical equipment,VNM_Cereal products
+,SVN_Pharmaceuticals and medicinal products,VNM_Computers; electronic products; optical and precision instruments
+,SWE_Pharmaceuticals and medicinal products,VNM_Furniture and other manufacturing n.e.c.
+,SWE_Sawmill products,VNM_Growing fruits and nuts
+,SYR_Chemical and fertilizer minerals,VNM_Hard coal
+,SYR_Growing fibre crops,VNM_Leather and footwear
+,SYR_Petroleum extraction,VNM_Textiles and clothing
+,TCD_Basic gold,"ZAF_Lead, zinc, silver ores"
+,TCD_Growing fibre crops,ZAF_Nickel ores
+,TCD_Petroleum extraction,ZAF_Tin ores
+,TGO_Chemical and fertilizer minerals,
+,TGO_Growing fibre crops,
+,TGO_Vegetable oils and fats,
+,TJK_Growing fibre crops,
+,TJK_Growing wheat,
+,"TJK_Lead, zinc, silver ores",
+,TKM_Chemical and fertilizer minerals,
+,TKM_Growing fibre crops,
+,TUN_Leather and footwear,
+,TUN_Non-nitrogenous and mixed fertilizers,
+,TUN_Vegetable oils and fats,
+,TZA_Basic gold,
+,TZA_Growing fibre crops,
+,UGA_Basic gold,
+,"UGA_Growing beverage crops (coffee, tea etc)",
+,UGA_Growing tobacco,
+,UKR_Growing maize,
+,UKR_Growing wheat,
+,UKR_Vegetable oils and fats,
+,URY_Beef meat,
+,URY_Growing leguminous crops and oil seeds,
+,"URY_Lead, zinc, silver ores",
+,UZB_Basic gold,
+,UZB_Gas extraction,
+,UZB_Growing fibre crops,
+,VEN_Hard coal,
+,VEN_Iron ores,
+,VEN_Petroleum extraction,
+,XAF_Fish products,
+,XAF_Fishing,
+,"XAF_Sugar refining; cocoa, chocolate and confectionery",
+,XAM_Basic gold,
+,XAM_Gas extraction,
+,XAM_Nitrogenous fertilizers,
+,XAS_Aluminium ore,
+,"XAS_Growing beverage crops (coffee, tea etc)",
+,XAS_Nickel ores,
+,XEU_Basic gold,
+,XEU_Fish products,
+,XEU_Gold ores,
+,YEM_Growing maize,
+,YEM_Growing tobacco,
+,YEM_Growing wheat,
+,ZMB_Basic copper,
+,ZMB_Growing tobacco,
+,ZMB_Nickel ores,
+,ZWE_Basic gold,

@@ -4,11 +4,11 @@ import numpy as np
 
 
 # --- CONFIG ---
-BASE_PATH = "/home/user/Documents/University/Master Thesis/disrupt-sc/output/Global4/final8weeks"
-RUNS_FILE = "/home/user/Documents/University/Master Thesis/disrupt-sc/runs_vs_folders_status2.csv"
+BASE_PATH = "/home/user/Documents/University/Master Thesis/disrupt-sc/output/Global4/final12weeks"
+RUNS_FILE = "/home/user/Documents/University/Master Thesis/disrupt-sc/runs_vs_folders_status_all.csv"
 SECTOR_TABLE_FILE = "/home/user/Documents/University/Master Thesis/disrupt-sc/data/Global4/Network/sector_table_g.csv"
-MRIO_FILE = "/home/user/Documents/University/Master Thesis/disrupt-sc/data/Global4/Network/mrio_va_fd.pkl"
-OUT_FILE = "loss_rankings_cascade_ratio.csv"
+MRIO_FILE = "/home/user/Documents/University/Master Thesis/disrupt-sc/data/Global4/Network/mrio_adjusted.pkl"
+OUT_FILE = "/home/user/Documents/University/Master Thesis/threat_analysis/loss_rankings_cascade_ratio_all.csv"
 
 
 def compute_exports_for_region_sector(io_df, region_sector):
@@ -59,9 +59,29 @@ def main():
     # --- 1. Load mapping and sector table ---
     print("Loading runs file...")
     runs = pd.read_csv(RUNS_FILE)
+
+    initial_count = len(runs)
+
+    # Filter: Exclude rows where 'region_sector' starts with "UNKNOWN" (case-insensitive)
+    if "region_sector" in runs.columns:
+        mask_valid = ~runs["region_sector"].astype(str).str.upper().str.startswith("UNKNOWN")
+        runs = runs[mask_valid]
+        
+        filtered_out = initial_count - len(runs)
+        if filtered_out > 0:
+            print(f"  Filtered out {filtered_out} entries starting with 'UNKNOWN'")
+    else:
+        print("  WARNING: 'region_sector' column not found. Skipping UNKNOWN filter.")
+
+    # Additional check for exists_in_global4_final if it exists
     if "exists_in_global4_final" in runs.columns:
         runs = runs[runs["exists_in_global4_final"] == True]
+        
+    print(f"  Found {len(runs)} valid simulations to process")
 
+    if runs.empty:
+        print("ERROR: No valid simulations remaining after filtering.")
+        return
     print("Loading sector table...")
     sector_table = pd.read_csv(SECTOR_TABLE_FILE)
 
@@ -72,7 +92,6 @@ def main():
     for _, row in runs.iterrows():
         region_sector = row["region_sector"]
         folder = row["folder_name"]
-
         # Split only on first underscore
         region, sector = region_sector.split("_", 1)
 

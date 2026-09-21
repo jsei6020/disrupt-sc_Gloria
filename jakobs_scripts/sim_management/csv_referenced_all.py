@@ -7,19 +7,19 @@ import pandas as pd
 # paths (adjust base if needed)
 # ------------------------------------------------------------
 BASE = Path("/home/user/Documents/University/Master Thesis")
-GLOBAL4_FINAL = BASE / "disrupt-sc/output/Global4/final8weeks"
+GLOBAL4_FINAL = BASE / "disrupt-sc/output/Global4/final12weeks"
 GLORIA = BASE / "Databases/Gloria"
 SECTORS_FILE = GLORIA / "IO-Table/sector_table_g.csv"
 TARGET_FILE = "loss_per_region_sector_time.csv"
 PARAMS_FILE = "parameters.yaml"
-REGION_SECTOR_LIST = BASE / "supply_concentrations/region_sector_pairs_1pct4.csv"
+REGION_SECTOR_LIST = BASE / "supply_concentrations/all_region_sectors.csv"
 
 # ------------------------------------------------------------
 # 1) load expected runs from CSV file
 # ------------------------------------------------------------
 def load_expected_runs_from_csv(csv_path: Path):
     """
-    Load expected runs from region_sector_pairs_1pct.csv
+    Load expected runs from region_sector_pairs_selected.csv
     Format: one column with header 'region_sector', values like "NOR_Fish products"
     """
     expected_runs = []
@@ -213,10 +213,10 @@ def main():
     
     # Create DataFrames (preserve order, no sorting)
     status_df = pd.DataFrame(rows)
-    status_df.to_csv("runs_vs_folders_status2.csv", index=False)
+    status_df.to_csv("runs_vs_folders_status_all.csv", index=False)
     
     missing_df = pd.DataFrame(missing_loss)
-    missing_df.to_csv("missing_loss_region_sector2.csv", index=False)
+    missing_df.to_csv("missing_loss_region_sector_all.csv", index=False)
     
     # Calculate statistics
     matched = len([r for r in rows if r['exists_in_global4_final'] and r['region_sector'] != 'UNKNOWN (extra folder)'])

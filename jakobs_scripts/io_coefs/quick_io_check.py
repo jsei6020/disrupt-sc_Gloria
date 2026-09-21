@@ -9,7 +9,7 @@ import pandas as pd
 # ==============================================================================
 
 INPUT_PATH = Path(
-    "/home/user/Documents/University/Master Thesis/disrupt-sc/data/Global4/Network/mrio_va_fd.pkl"
+    "/home/user/Documents/University/Master Thesis/disrupt-sc/data/Global4/Network/mrio_adjusted.pkl"
 )
 OUT_DIR = Path(
     "/home/user/Documents/University/Master Thesis/supply_concentrations"
@@ -17,9 +17,9 @@ OUT_DIR = Path(
 
 # Target sectors: compute their production-function coefficients
 TARGET_PAIRS = [
-    ("AUT", "Pulp and paper"),
+    ("JPN", "Fabricated metal products"),
     ("IDN", "Machinery and equipment"),
-    ("JPN", "Basic nickel"),
+    ("DEU", "Basic nickel"),
 ]
 
 # Threshold for reporting coefficients

@@ -1,0 +1,761 @@
+region_sector,timestamp,folder_name,exists_in_global4_final,has_loss_per_region_sector_time
+"AFG_Growing spices, aromatic, drug and pharmaceutical crops",20260428_010852,AFG_Growing _20260428_010852,True,True
+AFG_Growing grapes,20260427_234341,AFG_Growing _20260427_234341,True,True
+AFG_Growing fibre crops,20260428_002921,AFG_Growing _20260428_002921,True,True
+AGO_Petroleum extraction,20260406_023603,AGO_Petroleu_20260406_023603,True,True
+AGO_Gas extraction,20260411_123220,AGO_Gas extr_20260411_123220,True,True
+AGO_Mining and quarrying n.e.c.; services to mining,20260411_123256,AGO_Mining a_20260411_123256,True,True
+ALB_Growing tobacco,20260411_130520,ALB_Growing _20260411_130520,True,True
+ALB_Seeds and plant propagation,20260411_132439,ALB_Seeds an_20260411_132439,True,True
+"ALB_Growing spices, aromatic, drug and pharmaceutical crops",20260411_123431,ALB_Growing _20260411_123431,True,True
+ARE_Basic gold,20260408_183203,ARE_Basic go_20260408_183203,True,True
+ARE_Chemical and fertilizer minerals,20260406_230503,ARE_Chemical_20260406_230503,True,True
+ARE_Gas extraction,20260406_070507,ARE_Gas extr_20260406_070507,True,True
+ARG_Growing maize,20260405_142831,ARG_Growing _20260405_142831,True,True
+ARG_Vegetable oils and fats,20260407_123656,ARG_Vegetabl_20260407_123656,True,True
+"ARG_Lead, zinc, silver ores",20260410_082241,"ARG_Lead, zi_20260410_082241",True,True
+ARM_Basic gold,20260411_134616,ARM_Basic go_20260411_134616,True,True
+ARM_Copper ores,20260411_141022,ARM_Copper o_20260411_141022,True,True
+ARM_Basic copper,20260411_132522,ARM_Basic co_20260411_132522,True,True
+AUS_Iron ores,20260406_101206,AUS_Iron ore_20260406_101206,True,True
+AUS_Aluminium ore,20260406_114031,AUS_Aluminiu_20260406_114031,True,True
+AUS_Tin ores,20260406_200300,AUS_Tin ores_20260406_200300,True,True
+AUT_Basic tin,20260411_145751,AUT_Basic ti_20260411_145751,True,True
+AUT_Basic aluminium,20260411_141347,AUT_Basic al_20260411_141347,True,True
+AUT_Basic organic chemicals,20260411_143054,AUT_Basic or_20260411_143054,True,True
+AZE_Petroleum extraction,20260411_154326,AZE_Petroleu_20260411_154326,True,True
+AZE_Gas extraction,20260411_145832,AZE_Gas extr_20260411_145832,True,True
+AZE_Growing fibre crops,20260411_151925,AZE_Growing _20260411_151925,True,True
+"BDI_Growing beverage crops (coffee, tea etc)",20260411_155107,BDI_Growing _20260411_155107,True,True
+BDI_Tin ores,20260411_163255,BDI_Tin ores_20260411_163255,True,True
+BDI_Growing wheat,20260411_160752,BDI_Growing _20260411_160752,True,True
+BEL_Basic organic chemicals,20260408_003946,BEL_Basic or_20260408_003946,True,True
+BEL_Pharmaceuticals and medicinal products,20260408_052312,BEL_Pharmace_20260408_052312,True,True
+"BEL_Sugar refining; cocoa, chocolate and confectionery",20260410_122534,BEL_Sugar re_20260410_122534,True,True
+BEN_Growing fibre crops,20260411_163939,BEN_Growing _20260411_163939,True,True
+BEN_Growing leguminous crops and oil seeds,20260411_171837,BEN_Growing _20260411_171837,True,True
+BEN_Cereal products,20260411_163257,BEN_Cereal p_20260411_163257,True,True
+BFA_Growing fibre crops,20260411_173004,BFA_Growing _20260411_173004,True,True
+BFA_Basic gold,20260411_172326,BFA_Basic go_20260411_172326,True,True
+"BFA_Lead, zinc, silver ores",20260411_180730,"BFA_Lead, zi_20260411_180730",True,True
+BGD_Leather and footwear,20260407_164104,BGD_Leather _20260407_164104,True,True
+BGD_Textiles and clothing,20260407_151317,BGD_Textiles_20260407_151317,True,True
+BGD_Growing tobacco,20260411_180730,BGD_Growing _20260411_180730,True,True
+BGR_Basic copper,20260411_182054,BGR_Basic co_20260411_182054,True,True
+BGR_Growing wheat,20260411_185510,BGR_Growing _20260411_185510,True,True
+BGR_Gold ores,20260411_185405,BGR_Gold ore_20260411_185405,True,True
+BHR_Basic aluminium,20260408_125411,BHR_Basic al_20260408_125411,True,True
+BHR_Iron ores,20260411_190620,BHR_Iron ore_20260411_190620,True,True
+BHR_Petroleum extraction,20260411_194108,BHR_Petroleu_20260411_194108,True,True
+BHS_Extraction of salt,20260411_194657,BHS_Extracti_20260411_194657,True,True
+BHS_Gas extraction,20260411_202941,BHS_Gas extr_20260411_202941,True,True
+BHS_Fish products,20260411_195043,BHS_Fish pro_20260411_195043,True,True
+"BIH_Lead, zinc, silver ores",20260411_203745,"BIH_Lead, zi_20260411_203745",True,True
+BIH_Coke oven products,20260411_203425,BIH_Coke ove_20260411_203425,True,True
+BIH_Lignite and peat,20260411_211802,BIH_Lignite _20260411_211802,True,True
+BLR_Non-nitrogenous and mixed fertilizers,20260407_212908,BLR_Non-nitr_20260407_212908,True,True
+BLR_Seeds and plant propagation,20260411_212532,BLR_Seeds an_20260411_212532,True,True
+BLR_Beef meat,20260411_211847,BLR_Beef mea_20260411_211847,True,True
+BLZ_Growing tobacco,20260411_220603,BLZ_Growing _20260411_220603,True,True
+"BLZ_Sugar refining; cocoa, chocolate and confectionery",20260411_220823,BLZ_Sugar re_20260411_220823,True,True
+BLZ_Growing wheat,20260411_220706,BLZ_Growing _20260411_220706,True,True
+"BOL_Lead, zinc, silver ores",20260410_083124,"BOL_Lead, zi_20260410_083124",True,True
+BOL_Basic tin,20260409_033738,BOL_Basic ti_20260409_033738,True,True
+BOL_Tin ores,20260406_200815,BOL_Tin ores_20260406_200815,True,True
+BRA_Iron ores,20260406_102410,BRA_Iron ore_20260406_102410,True,True
+BRA_Growing leguminous crops and oil seeds,20260405_151941,BRA_Growing _20260405_151941,True,True
+"BRA_Growing beverage crops (coffee, tea etc)",20260410_050427,BRA_Growing _20260410_050427,True,True
+BRN_Gas extraction,20260411_225127,BRN_Gas extr_20260411_225127,True,True
+BRN_Petroleum extraction,20260411_225633,BRN_Petroleu_20260411_225633,True,True
+BRN_Refined petroleum products,20260411_230030,BRN_Refined _20260411_230030,True,True
+BTN_Growing wheat,20260411_235016,BTN_Growing _20260411_235016,True,True
+BTN_Growing maize,20260411_234320,BTN_Growing _20260411_234320,True,True
+BTN_Growing cereals n.e.c.,20260411_234049,BTN_Growing _20260411_234049,True,True
+BWA_Basic nickel,20260412_000921,BWA_Basic ni_20260412_000921,True,True
+BWA_Copper ores,20260412_001212,BWA_Copper o_20260412_001212,True,True
+BWA_Mining and quarrying n.e.c.; services to mining,20260412_001803,BWA_Mining a_20260412_001803,True,True
+CAF_Growing fibre crops,20260412_005341,CAF_Growing _20260412_005341,True,True
+CAF_Growing wheat,20260412_010704,CAF_Growing _20260412_010704,True,True
+CAF_Growing maize,20260412_010301,CAF_Growing _20260412_010301,True,True
+CAN_Basic nickel,20260409_002054,CAN_Basic ni_20260409_002054,True,True
+CAN_Nickel ores,20260406_175146,CAN_Nickel o_20260406_175146,True,True
+CAN_Basic gold,20260408_191741,CAN_Basic go_20260408_191741,True,True
+CHE_Pharmaceuticals and medicinal products,20260408_054355,CHE_Pharmace_20260408_054355,True,True
+CHE_Basic gold,20260408_195430,CHE_Basic go_20260408_195430,True,True
+CHE_Computers; electronic products; optical and precision instruments,20260409_151255,CHE_Computer_20260409_151255,True,True
+CHL_Copper ores,20260406_131122,CHL_Copper o_20260406_131122,True,True
+CHL_Extraction of salt,20260407_005753,CHL_Extracti_20260407_005753,True,True
+CHL_Other non-ferrous ores,20260406_215041,CHL_Other no_20260406_215041,True,True
+CHN_Computers; electronic products; optical and precision instruments,20260409_155118,CHN_Computer_20260409_155118,True,True
+CHN_Electrical equipment,20260409_181917,CHN_Electric_20260409_181917,True,True
+CHN_Glass and other ceramics n.e.c.,20260408_104256,CHN_Glass an_20260408_104256,True,True
+CIV_Growing fruits and nuts,20260412_013115,CIV_Growing _20260412_013115,True,True
+CIV_Nickel ores,20260412_013458,CIV_Nickel o_20260412_013458,True,True
+CIV_Growing fibre crops,20260412_012141,CIV_Growing _20260412_012141,True,True
+CMR_Growing fibre crops,20260412_020432,CMR_Growing _20260412_020432,True,True
+CMR_Other meat products,20260412_022321,CMR_Other me_20260412_022321,True,True
+CMR_Growing fruits and nuts,20260412_021216,CMR_Growing _20260412_021216,True,True
+COD_Basic copper,20260408_164650,COD_Basic co_20260408_164650,True,True
+COD_Tin ores,20260412_025439,COD_Tin ores_20260412_025439,True,True
+COD_Copper ores,20260412_024809,COD_Copper o_20260412_024809,True,True
+COG_Tin ores,20260406_204902,COG_Tin ores_20260406_204902,True,True
+COG_Petroleum extraction,20260412_033247,COG_Petroleu_20260412_033247,True,True
+COG_Basic copper,20260412_030244,COG_Basic co_20260412_030244,True,True
+"COL_Growing beverage crops (coffee, tea etc)",20260410_050427,COL_Growing _20260410_050427,True,True
+COL_Seeds and plant propagation,20260405_223311,COL_Seeds an_20260405_223311,True,True
+COL_Hard coal,20260412_033739,COL_Hard coa_20260412_033739,True,True
+CRI_Growing fruits and nuts,20260412_042733,CRI_Growing _20260412_042733,True,True
+"CRI_Growing beverage crops (coffee, tea etc)",20260412_042240,CRI_Growing _20260412_042240,True,True
+CRI_Fruit products,20260412_034649,CRI_Fruit pr_20260412_034649,True,True
+CUB_Basic nickel,20260409_010511,CUB_Basic ni_20260409_010511,True,True
+"CUB_Sugar refining; cocoa, chocolate and confectionery",20260412_043540,CUB_Sugar re_20260412_043540,True,True
+CUB_Tobacco products,20260412_051011,CUB_Tobacco _20260412_051011,True,True
+CYP_Fruit products,20260412_051729,CYP_Fruit pr_20260412_051729,True,True
+CYP_Repair and installation of machinery and equipment (service),20260412_052439,CYP_Repair a_20260412_052439,True,True
+CYP_Seeds and plant propagation,20260412_055454,CYP_Seeds an_20260412_055454,True,True
+"CZE_Motor vehicles, trailers and semi-trailers",20260410_193634,CZE_Motor ve_20260410_193634,True,True
+CZE_Rubber products,20260412_060828,CZE_Rubber p_20260412_060828,True,True
+CZE_Glass and other ceramics n.e.c.,20260412_060110,CZE_Glass an_20260412_060110,True,True
+"DEU_Motor vehicles, trailers and semi-trailers",20260410_194335,DEU_Motor ve_20260410_194335,True,True
+DEU_Machinery and equipment,20260409_095614,DEU_Machiner_20260409_095614,True,True
+DEU_Basic organic chemicals,20260408_012711,DEU_Basic or_20260408_012711,True,True
+"DJI_Basic lead, zinc, silver",20260412_062249,DJI_Basic le_20260412_062249,True,True
+"DJI_Growing beverage crops (coffee, tea etc)",20260412_064623,DJI_Growing _20260412_064623,True,True
+DJI_Raising of sheep and goats,20260412_065422,DJI_Raising _20260412_065422,True,True
+DNK_Pharmaceuticals and medicinal products,20260408_063059,DNK_Pharmace_20260408_063059,True,True
+DNK_Fish products,20260412_070612,DNK_Fish pro_20260412_070612,True,True
+DNK_Pork,20260412_072633,DNK_Pork_20260412_072633,True,True
+DOM_Growing tobacco,20260412_081443,DOM_Growing _20260412_081443,True,True
+DOM_Basic gold,20260412_075528,DOM_Basic go_20260412_075528,True,True
+DOM_Aluminium ore,20260412_074154,DOM_Aluminiu_20260412_074154,True,True
+DZA_Gas extraction,20260406_075436,DZA_Gas extr_20260406_075436,True,True
+DZA_Chemical and fertilizer minerals,20260406_235903,DZA_Chemical_20260406_235903,True,True
+DZA_Petroleum extraction,20260406_033357,DZA_Petroleu_20260406_033357,True,True
+ECU_Fish products,20260407_035932,ECU_Fish pro_20260407_035932,True,True
+ECU_Gold ores,20260412_083047,ECU_Gold ore_20260412_083047,True,True
+ECU_Growing fruits and nuts,20260412_083929,ECU_Growing _20260412_083929,True,True
+EGY_Basic gold,20260412_085945,EGY_Basic go_20260412_085945,True,True
+"EGY_Growing spices, aromatic, drug and pharmaceutical crops",20260412_091635,EGY_Growing _20260412_091635,True,True
+EGY_Vegetable products,20260412_093002,EGY_Vegetabl_20260412_093002,True,True
+"ERI_Lead, zinc, silver ores",20260412_101803,"ERI_Lead, zi_20260412_101803",True,True
+ERI_Copper ores,20260412_100135,ERI_Copper o_20260412_100135,True,True
+ERI_Basic gold,20260412_094347,ERI_Basic go_20260412_094347,True,True
+ESP_Vegetable products,20260407_083447,ESP_Vegetabl_20260407_083447,True,True
+ESP_Growing fruits and nuts,20260405_201829,ESP_Growing _20260405_201829,True,True
+"ESP_Motor vehicles, trailers and semi-trailers",20260410_195918,ESP_Motor ve_20260410_195918,True,True
+EST_Sawmill products,20260412_110123,EST_Sawmill _20260412_110123,True,True
+EST_Repair and installation of machinery and equipment (service),20260412_104528,EST_Repair a_20260412_104528,True,True
+EST_Forestry and logging,20260412_102722,EST_Forestry_20260412_102722,True,True
+"ETH_Growing spices, aromatic, drug and pharmaceutical crops",20260412_113245,ETH_Growing _20260412_113245,True,True
+"ETH_Growing beverage crops (coffee, tea etc)",20260412_112118,ETH_Growing _20260412_112118,True,True
+ETH_Other meat products,20260412_114746,ETH_Other me_20260412_114746,True,True
+FIN_Nickel ores,20260406_183012,FIN_Nickel o_20260406_183012,True,True
+FIN_Basic nickel,20260409_011830,FIN_Basic ni_20260409_011830,True,True
+FIN_Pulp and paper,20260412_120830,FIN_Pulp and_20260412_120830,True,True
+FRA_Other transport equipment,20260409_132139,FRA_Other tr_20260409_132139,True,True
+"FRA_Dyes, paints, glues, detergents and other chemical products",20260410_153316,"FRA_Dyes, pa_20260410_153316",True,True
+FRA_Growing wheat,20260405_133728,FRA_Growing _20260405_133728,True,True
+GAB_Other non-ferrous ores,20260412_122120,GAB_Other no_20260412_122120,True,True
+GAB_Petroleum extraction,20260412_125509,GAB_Petroleu_20260412_125509,True,True
+GAB_Forestry and logging,20260412_121523,GAB_Forestry_20260412_121523,True,True
+GBR_Other transport equipment,20260409_132850,GBR_Other tr_20260409_132850,True,True
+GBR_Petroleum extraction,20260406_034503,GBR_Petroleu_20260406_034503,True,True
+GBR_Basic gold,20260408_204659,GBR_Basic go_20260408_204659,True,True
+GEO_Gold ores,20260412_134614,GEO_Gold ore_20260412_134614,True,True
+GEO_Copper ores,20260412_130503,GEO_Copper o_20260412_130503,True,True
+GEO_Basic copper,20260412_130400,GEO_Basic co_20260412_130400,True,True
+GHA_Basic gold,20260408_205009,GHA_Basic go_20260408_205009,True,True
+GHA_Growing fruits and nuts,20260412_135537,GHA_Growing _20260412_135537,True,True
+GHA_Aluminium ore,20260412_134740,GHA_Aluminiu_20260412_134740,True,True
+GIN_Aluminium ore,20260406_115935,GIN_Aluminiu_20260406_115935,True,True
+GIN_Basic gold,20260412_143205,GIN_Basic go_20260412_143205,True,True
+GIN_Nickel ores,20260412_143441,GIN_Nickel o_20260412_143441,True,True
+GMB_Growing wheat,20260412_151853,GMB_Growing _20260412_151853,True,True
+GMB_Growing maize,20260412_151210,GMB_Growing _20260412_151210,True,True
+GMB_Growing cereals n.e.c.,20260412_144659,GMB_Growing _20260412_144659,True,True
+GNQ_Gas extraction,20260412_154115,GNQ_Gas extr_20260412_154115,True,True
+GNQ_Petroleum extraction,20260412_154808,GNQ_Petroleu_20260412_154808,True,True
+GNQ_Forestry and logging,20260412_151955,GNQ_Forestry_20260412_151955,True,True
+GRC_Basic aluminium,20260412_161112,GRC_Basic al_20260412_161112,True,True
+GRC_Growing fibre crops,20260412_163020,GRC_Growing _20260412_163020,True,True
+GRC_Vegetable products,20260412_163333,GRC_Vegetabl_20260412_163333,True,True
+GTM_Nickel ores,20260406_183440,GTM_Nickel o_20260406_183440,True,True
+"GTM_Lead, zinc, silver ores",20260410_091401,"GTM_Lead, zi_20260410_091401",True,True
+"GTM_Growing spices, aromatic, drug and pharmaceutical crops",20260412_165528,GTM_Growing _20260412_165528,True,True
+HKG_Tobacco products,20260407_142839,HKG_Tobacco _20260407_142839,True,True
+HKG_Machinery and equipment,20260412_172331,HKG_Machiner_20260412_172331,True,True
+HKG_Glass and other ceramics n.e.c.,20260412_172034,HKG_Glass an_20260412_172034,True,True
+"HND_Growing beverage crops (coffee, tea etc)",20260410_050427,HND_Growing _20260410_050427,True,True
+"HND_Lead, zinc, silver ores",20260410_092046,"HND_Lead, zi_20260410_092046",True,True
+HND_Growing tobacco,20260412_174406,HND_Growing _20260412_174406,True,True
+HRV_Seeds and plant propagation,20260412_182909,HRV_Seeds an_20260412_182909,True,True
+HRV_Materials recovery,20260412_181300,HRV_Material_20260412_181300,True,True
+HRV_Growing grapes,20260412_180431,HRV_Growing _20260412_180431,True,True
+HTI_Fruit products,20260412_185750,HTI_Fruit pr_20260412_185750,True,True
+"HTI_Growing beverage crops (coffee, tea etc)",20260412_185806,HTI_Growing _20260412_185806,True,True
+HTI_Fishing,20260412_183435,HTI_Fishing_20260412_183435,True,True
+"HUN_Motor vehicles, trailers and semi-trailers",20260412_192636,HUN_Motor ve_20260412_192636,True,True
+HUN_Rubber products,20260412_192640,HUN_Rubber p_20260412_192640,True,True
+HUN_Computers; electronic products; optical and precision instruments,20260412_192412,HUN_Computer_20260412_192412,True,True
+IDN_Basic nickel,20260409_014929,IDN_Basic ni_20260409_014929,True,True
+IDN_Copper ores,20260406_131942,IDN_Copper o_20260406_131942,True,True
+IDN_Hard coal,20260406_010348,IDN_Hard coa_20260406_010348,True,True
+IND_Cereal products,20260407_062657,IND_Cereal p_20260407_062657,True,True
+"IND_Growing spices, aromatic, drug and pharmaceutical crops",20260410_064621,IND_Growing _20260410_064621,True,True
+"IND_Sugar refining; cocoa, chocolate and confectionery",20260410_135336,IND_Sugar re_20260410_135336,True,True
+IRL_Pharmaceuticals and medicinal products,20260408_065631,IRL_Pharmace_20260408_065631,True,True
+IRL_Basic organic chemicals,20260408_025430,IRL_Basic or_20260408_025430,True,True
+"IRL_Lead, zinc, silver ores",20260410_095550,"IRL_Lead, zi_20260410_095550",True,True
+IRN_Basic organic chemicals,20260408_030231,IRN_Basic or_20260408_030231,True,True
+IRN_Petroleum extraction,20260406_041437,IRN_Petroleu_20260406_041437,True,True
+IRN_Seeds and plant propagation,20260412_201313,IRN_Seeds an_20260412_201313,True,True
+IRQ_Petroleum extraction,20260406_042353,IRQ_Petroleu_20260406_042353,True,True
+IRQ_Basic gold,20260408_212739,IRQ_Basic go_20260408_212739,True,True
+IRQ_Growing wheat,20260412_201319,IRQ_Growing _20260412_201319,True,True
+ISL_Basic aluminium,20260412_201751,ISL_Basic al_20260412_201751,True,True
+ISL_Fish products,20260412_210150,ISL_Fish pro_20260412_210150,True,True
+ISL_Fishing,20260412_210317,ISL_Fishing_20260412_210317,True,True
+ISR_Non-nitrogenous and mixed fertilizers,20260412_215319,ISR_Non-nitr_20260412_215319,True,True
+ISR_Extraction of salt,20260412_215232,ISR_Extracti_20260412_215232,True,True
+ISR_Chemical and fertilizer minerals,20260412_210417,ISR_Chemical_20260412_210417,True,True
+ITA_Leather and footwear,20260407_172820,ITA_Leather _20260407_172820,True,True
+ITA_Basic tin,20260409_053747,ITA_Basic ti_20260409_053747,True,True
+ITA_Machinery and equipment,20260409_101655,ITA_Machiner_20260409_101655,True,True
+JAM_Aluminium ore,20260412_220448,JAM_Aluminiu_20260412_220448,True,True
+"JAM_Growing spices, aromatic, drug and pharmaceutical crops",20260412_224032,JAM_Growing _20260412_224032,True,True
+"JAM_Growing beverage crops (coffee, tea etc)",20260412_223927,JAM_Growing _20260412_223927,True,True
+JOR_Seeds and plant propagation,20260412_232724,JOR_Seeds an_20260412_232724,True,True
+JOR_Non-nitrogenous and mixed fertilizers,20260412_231008,JOR_Non-nitr_20260412_231008,True,True
+JOR_Chemical and fertilizer minerals,20260412_225011,JOR_Chemical_20260412_225011,True,True
+JPN_Basic gold,20260408_213453,JPN_Basic go_20260408_213453,True,True
+"JPN_Motor vehicles, trailers and semi-trailers",20260410_202512,JPN_Motor ve_20260410_202512,True,True
+JPN_Machinery and equipment,20260409_103519,JPN_Machiner_20260409_103519,True,True
+KAZ_Petroleum extraction,20260406_043529,KAZ_Petroleu_20260406_043529,True,True
+KAZ_Basic copper,20260412_233517,KAZ_Basic co_20260412_233517,True,True
+KAZ_Growing wheat,20260412_235504,KAZ_Growing _20260412_235504,True,True
+KEN_Seeds and plant propagation,20260406_000558,KEN_Seeds an_20260406_000558,True,True
+"KEN_Growing beverage crops (coffee, tea etc)",20260413_001341,KEN_Growing _20260413_001341,True,True
+"KEN_Growing spices, aromatic, drug and pharmaceutical crops",20260413_001952,KEN_Growing _20260413_001952,True,True
+KGZ_Gold ores,20260413_010308,KGZ_Gold ore_20260413_010308,True,True
+KGZ_Basic gold,20260413_004406,KGZ_Basic go_20260413_004406,True,True
+KGZ_Growing fibre crops,20260413_010827,KGZ_Growing _20260413_010827,True,True
+KHM_Leather and footwear,20260413_014737,KHM_Leather _20260413_014737,True,True
+KHM_Textiles and clothing,20260413_015401,KHM_Textiles_20260413_015401,True,True
+KHM_Growing tobacco,20260413_012750,KHM_Growing _20260413_012750,True,True
+KOR_Basic tin,20260409_053758,KOR_Basic ti_20260409_053758,True,True
+KOR_Basic organic chemicals,20260408_034713,KOR_Basic or_20260408_034713,True,True
+KOR_Computers; electronic products; optical and precision instruments,20260409_164036,KOR_Computer_20260409_164036,True,True
+KWT_Petroleum extraction,20260406_050720,KWT_Petroleu_20260406_050720,True,True
+KWT_Chemical and fertilizer minerals,20260407_000350,KWT_Chemical_20260407_000350,True,True
+KWT_Basic organic chemicals,20260413_021429,KWT_Basic or_20260413_021429,True,True
+LAO_Copper ores,20260413_023232,LAO_Copper o_20260413_023232,True,True
+"LAO_Growing spices, aromatic, drug and pharmaceutical crops",20260413_023811,LAO_Growing _20260413_023811,True,True
+LAO_Seeds and plant propagation,20260413_024555,LAO_Seeds an_20260413_024555,True,True
+LBN_Growing tobacco,20260413_031345,LBN_Growing _20260413_031345,True,True
+LBN_Growing grapes,20260413_030126,LBN_Growing _20260413_030126,True,True
+"LBN_Growing spices, aromatic, drug and pharmaceutical crops",20260413_030541,LBN_Growing _20260413_030541,True,True
+LBR_Iron ores,20260413_035733,LBR_Iron ore_20260413_035733,True,True
+LBR_Growing wheat,20260413_035046,LBR_Growing _20260413_035046,True,True
+LBR_Growing maize,20260413_033403,LBR_Growing _20260413_033403,True,True
+LBY_Petroleum extraction,20260413_044227,LBY_Petroleu_20260413_044227,True,True
+LBY_Basic gold,20260413_040403,LBY_Basic go_20260413_040403,True,True
+LBY_Gas extraction,20260413_041818,LBY_Gas extr_20260413_041818,True,True
+"LKA_Growing spices, aromatic, drug and pharmaceutical crops",20260413_044657,LKA_Growing _20260413_044657,True,True
+LKA_Rubber products,20260413_053244,LKA_Rubber p_20260413_053244,True,True
+LKA_Lignite and peat,20260413_050754,LKA_Lignite _20260413_050754,True,True
+LTU_Growing wheat,20260413_053435,LTU_Growing _20260413_053435,True,True
+LTU_Non-nitrogenous and mixed fertilizers,20260413_061909,LTU_Non-nitr_20260413_061909,True,True
+LTU_Nitrogenous fertilizers,20260413_055630,LTU_Nitrogen_20260413_055630,True,True
+LUX_Basic tin,20260413_064801,LUX_Basic ti_20260413_064801,True,True
+LUX_Plastic products,20260413_070504,LUX_Plastic _20260413_070504,True,True
+LUX_Basic aluminium,20260413_062558,LUX_Basic al_20260413_062558,True,True
+LVA_Sawmill products,20260413_071824,LVA_Sawmill _20260413_071824,True,True
+LVA_Growing wheat,20260413_070903,LVA_Growing _20260413_070903,True,True
+LVA_Seeds and plant propagation,20260413_074922,LVA_Seeds an_20260413_074922,True,True
+MAR_Non-nitrogenous and mixed fertilizers,20260407_223433,MAR_Non-nitr_20260407_223433,True,True
+MAR_Fish products,20260413_075853,MAR_Fish pro_20260413_075853,True,True
+"MAR_Lead, zinc, silver ores",20260413_080531,"MAR_Lead, zi_20260413_080531",True,True
+MDA_Vegetable oils and fats,20260413_085026,MDA_Vegetabl_20260413_085026,True,True
+MDA_Growing wheat,20260413_084808,MDA_Growing _20260413_084808,True,True
+MDA_Fruit products,20260413_083802,MDA_Fruit pr_20260413_083802,True,True
+"MDG_Growing spices, aromatic, drug and pharmaceutical crops",20260413_093815,MDG_Growing _20260413_093815,True,True
+MDG_Basic nickel,20260413_092611,MDG_Basic ni_20260413_092611,True,True
+MDG_Other non-ferrous ores,20260413_093938,MDG_Other no_20260413_093938,True,True
+"MEX_Lead, zinc, silver ores",20260410_100135,"MEX_Lead, zi_20260410_100135",True,True
+"MEX_Basic lead, zinc, silver",20260410_181626,MEX_Basic le_20260410_181626,True,True
+"MEX_Motor vehicles, trailers and semi-trailers",20260410_204809,MEX_Motor ve_20260410_204809,True,True
+MKD_Growing tobacco,20260413_095508,MKD_Growing _20260413_095508,True,True
+"MKD_Lead, zinc, silver ores",20260413_102505,"MKD_Lead, zi_20260413_102505",True,True
+MKD_Mining and quarrying n.e.c.; services to mining,20260413_102850,MKD_Mining a_20260413_102850,True,True
+MLI_Growing fibre crops,20260413_110857,MLI_Growing _20260413_110857,True,True
+MLI_Basic gold,20260413_104059,MLI_Basic go_20260413_104059,True,True
+MLI_Non-nitrogenous and mixed fertilizers,20260413_111746,MLI_Non-nitr_20260413_111746,True,True
+MLT_Fish products,20260413_112530,MLT_Fish pro_20260413_112530,True,True
+MLT_Fishing,20260413_115747,MLT_Fishing_20260413_115747,True,True
+MLT_Repair and installation of machinery and equipment (service),20260413_120141,MLT_Repair a_20260413_120141,True,True
+"MMR_Growing spices, aromatic, drug and pharmaceutical crops",20260413_124440,MMR_Growing _20260413_124440,True,True
+MMR_Seeds and plant propagation,20260413_124452,MMR_Seeds an_20260413_124452,True,True
+MMR_Gas extraction,20260413_121139,MMR_Gas extr_20260413_121139,True,True
+MNG_Copper ores,20260413_130328,MNG_Copper o_20260413_130328,True,True
+"MNG_Lead, zinc, silver ores",20260413_133648,"MNG_Lead, zi_20260413_133648",True,True
+MNG_Hard coal,20260413_133025,MNG_Hard coa_20260413_133025,True,True
+MOZ_Growing tobacco,20260413_141932,MOZ_Growing _20260413_141932,True,True
+MOZ_Gas extraction,20260413_134744,MOZ_Gas extr_20260413_134744,True,True
+MOZ_Hard coal,20260413_141946,MOZ_Hard coa_20260413_141946,True,True
+MRT_Iron ores,20260413_151038,MRT_Iron ore_20260413_151038,True,True
+MRT_Fish products,20260413_150933,MRT_Fish pro_20260413_150933,True,True
+MRT_Basic gold,20260413_143807,MRT_Basic go_20260413_143807,True,True
+MWI_Growing tobacco,20260413_155942,MWI_Growing _20260413_155942,True,True
+MWI_Uranium ores,20260413_160145,MWI_Uranium _20260413_160145,True,True
+MWI_Growing fibre crops,20260413_152336,MWI_Growing _20260413_152336,True,True
+MYS_Vegetable oils and fats,20260407_133347,MYS_Vegetabl_20260407_133347,True,True
+MYS_Computers; electronic products; optical and precision instruments,20260409_164838,MYS_Computer_20260409_164838,True,True
+MYS_Basic tin,20260409_055427,MYS_Basic ti_20260409_055427,True,True
+NAM_Uranium ores,20260413_164659,NAM_Uranium _20260413_164659,True,True
+"NAM_Lead, zinc, silver ores",20260413_160829,"NAM_Lead, zi_20260413_160829",True,True
+NAM_Mining and quarrying n.e.c.; services to mining,20260413_164615,NAM_Mining a_20260413_164615,True,True
+NER_Uranium ores,20260413_173532,NER_Uranium _20260413_173532,True,True
+"NER_Growing spices, aromatic, drug and pharmaceutical crops",20260413_173308,NER_Growing _20260413_173308,True,True
+NER_Gas extraction,20260413_165417,NER_Gas extr_20260413_165417,True,True
+NGA_Petroleum extraction,20260406_051307,NGA_Petroleu_20260406_051307,True,True
+NGA_Gas extraction,20260413_173700,NGA_Gas extr_20260413_173700,True,True
+NGA_Vegetable products,20260413_180251,NGA_Vegetabl_20260413_180251,True,True
+"NIC_Growing beverage crops (coffee, tea etc)",20260413_183131,NIC_Growing _20260413_183131,True,True
+"NIC_Sugar refining; cocoa, chocolate and confectionery",20260413_185056,NIC_Sugar re_20260413_185056,True,True
+NIC_Basic gold,20260413_182228,NIC_Basic go_20260413_182228,True,True
+NLD_Seeds and plant propagation,20260406_001337,NLD_Seeds an_20260406_001337,True,True
+NLD_Basic organic chemicals,20260408_040919,NLD_Basic or_20260408_040919,True,True
+NLD_Vegetable products,20260407_092437,NLD_Vegetabl_20260407_092437,True,True
+NOR_Gas extraction,20260406_083241,NOR_Gas extr_20260406_083241,True,True
+NOR_Petroleum extraction,20260406_052456,NOR_Petroleu_20260406_052456,True,True
+NOR_Basic nickel,20260409_023617,NOR_Basic ni_20260409_023617,True,True
+"NPL_Growing spices, aromatic, drug and pharmaceutical crops",20260413_192006,NPL_Growing _20260413_192006,True,True
+NPL_Fruit products,20260413_190613,NPL_Fruit pr_20260413_190613,True,True
+NPL_Growing tobacco,20260413_194033,NPL_Growing _20260413_194033,True,True
+NZL_Sheep meat,20260413_200723,NZL_Sheep me_20260413_200723,True,True
+NZL_Dairy products,20260413_195152,NZL_Dairy pr_20260413_195152,True,True
+NZL_Seeds and plant propagation,20260413_200705,NZL_Seeds an_20260413_200705,True,True
+OMN_Petroleum extraction,20260406_055455,OMN_Petroleu_20260406_055455,True,True
+OMN_Gas extraction,20260413_205627,OMN_Gas extr_20260413_205627,True,True
+OMN_Fish products,20260413_204242,OMN_Fish pro_20260413_204242,True,True
+PAK_Textiles and clothing,20260413_214730,PAK_Textiles_20260413_214730,True,True
+PAK_Cereal products,20260413_205706,PAK_Cereal p_20260413_205706,True,True
+"PAK_Growing spices, aromatic, drug and pharmaceutical crops",20260413_213256,PAK_Growing _20260413_213256,True,True
+PAN_Copper ores,20260413_214817,PAN_Copper o_20260413_214817,True,True
+PAN_Fish products,20260413_220321,PAN_Fish pro_20260413_220321,True,True
+PAN_Tobacco products,20260413_223438,PAN_Tobacco _20260413_223438,True,True
+"PER_Lead, zinc, silver ores",20260410_100920,"PER_Lead, zi_20260410_100920",True,True
+PER_Copper ores,20260406_135802,PER_Copper o_20260406_135802,True,True
+PER_Tin ores,20260406_205435,PER_Tin ores_20260406_205435,True,True
+PHL_Nickel ores,20260406_183624,PHL_Nickel o_20260406_183624,True,True
+PHL_Vegetable oils and fats,20260413_225307,PHL_Vegetabl_20260413_225307,True,True
+PHL_Fish products,20260413_223503,PHL_Fish pro_20260413_223503,True,True
+PNG_Gold ores,20260406_151239,PNG_Gold ore_20260406_151239,True,True
+PNG_Gas extraction,20260413_232752,PNG_Gas extr_20260413_232752,True,True
+PNG_Copper ores,20260413_232044,PNG_Copper o_20260413_232044,True,True
+POL_Basic copper,20260408_174824,POL_Basic co_20260408_174824,True,True
+"POL_Sugar refining; cocoa, chocolate and confectionery",20260410_141114,POL_Sugar re_20260410_141114,True,True
+POL_Glass and other ceramics n.e.c.,20260408_120910,POL_Glass an_20260408_120910,True,True
+PRK_Hard coal,20260414_001651,PRK_Hard coa_20260414_001651,True,True
+PRK_Computers; electronic products; optical and precision instruments,20260413_235308,PRK_Computer_20260413_235308,True,True
+PRK_Growing wheat,20260414_000534,PRK_Growing _20260414_000534,True,True
+"PRT_Lead, zinc, silver ores",20260414_003340,"PRT_Lead, zi_20260414_003340",True,True
+PRT_Vegetable products,20260414_004529,PRT_Vegetabl_20260414_004529,True,True
+PRT_Glass and other ceramics n.e.c.,20260414_002007,PRT_Glass an_20260414_002007,True,True
+PRY_Growing fibre crops,20260405_175159,PRY_Growing _20260405_175159,True,True
+PRY_Growing leguminous crops and oil seeds,20260414_010525,PRY_Growing _20260414_010525,True,True
+PRY_Growing maize,20260414_011806,PRY_Growing _20260414_011806,True,True
+PSE_Aluminium ore,20260414_013358,PSE_Aluminiu_20260414_013358,True,True
+PSE_Vegetable products,20260414_020808,PSE_Vegetabl_20260414_020808,True,True
+"PSE_Quarrying of stone, sand and clay",20260414_015511,PSE_Quarryin_20260414_015511,True,True
+QAT_Gas extraction,20260406_084443,QAT_Gas extr_20260406_084443,True,True
+QAT_Petroleum extraction,20260406_060225,QAT_Petroleu_20260406_060225,True,True
+QAT_Chemical and fertilizer minerals,20260407_000553,QAT_Chemical_20260407_000553,True,True
+ROU_Growing wheat,20260414_023555,ROU_Growing _20260414_023555,True,True
+ROU_Growing maize,20260414_021735,ROU_Growing _20260414_021735,True,True
+ROU_Rubber products,20260414_024124,ROU_Rubber p_20260414_024124,True,True
+RUS_Gas extraction,20260406_091234,RUS_Gas extr_20260406_091234,True,True
+RUS_Petroleum extraction,20260406_061456,RUS_Petroleu_20260406_061456,True,True
+RUS_Tin ores,20260406_210653,RUS_Tin ores_20260406_210653,True,True
+RWA_Tin ores,20260414_032543,RWA_Tin ores_20260414_032543,True,True
+"RWA_Growing spices, aromatic, drug and pharmaceutical crops",20260414_030710,RWA_Growing _20260414_030710,True,True
+RWA_Other non-ferrous ores,20260414_032500,RWA_Other no_20260414_032500,True,True
+SAU_Petroleum extraction,20260406_064442,SAU_Petroleu_20260406_064442,True,True
+SAU_Basic organic chemicals,20260408_042821,SAU_Basic or_20260408_042821,True,True
+SAU_Gas extraction,20260406_092223,SAU_Gas extr_20260406_092223,True,True
+"SDN_Quarrying of stone, sand and clay",20260414_041103,SDN_Quarryin_20260414_041103,True,True
+SDN_Basic gold,20260414_035453,SDN_Basic go_20260414_035453,True,True
+SDN_Uranium ores,20260414_041114,SDN_Uranium _20260414_041114,True,True
+SDS_Growing wheat,20260414_044051,SDS_Growing _20260414_044051,True,True
+SDS_Growing maize,20260414_043930,SDS_Growing _20260414_043930,True,True
+SDS_Growing cereals n.e.c.,20260414_043927,SDS_Growing _20260414_043927,True,True
+SEN_Other non-ferrous ores,20260414_051011,SEN_Other no_20260414_051011,True,True
+SEN_Chemical and fertilizer minerals,20260414_050856,SEN_Chemical_20260414_050856,True,True
+SEN_Extraction of salt,20260414_050901,SEN_Extracti_20260414_050901,True,True
+SGP_Basic organic chemicals,20260408_043531,SGP_Basic or_20260408_043531,True,True
+SGP_Computers; electronic products; optical and precision instruments,20260409_173013,SGP_Computer_20260409_173013,True,True
+SGP_Basic tin,20260409_062351,SGP_Basic ti_20260409_062351,True,True
+SLE_Aluminium ore,20260414_055554,SLE_Aluminiu_20260414_055554,True,True
+SLE_Forestry and logging,20260414_055611,SLE_Forestry_20260414_055611,True,True
+SLE_Other non-ferrous ores,20260414_055709,SLE_Other no_20260414_055709,True,True
+"SLV_Growing beverage crops (coffee, tea etc)",20260414_064407,SLV_Growing _20260414_064407,True,True
+"SLV_Sugar refining; cocoa, chocolate and confectionery",20260414_064536,SLV_Sugar re_20260414_064536,True,True
+SLV_Cereal products,20260414_064118,SLV_Cereal p_20260414_064118,True,True
+SOM_Fish products,20260414_073610,SOM_Fish pro_20260414_073610,True,True
+SOM_Basic gold,20260414_073336,SOM_Basic go_20260414_073336,True,True
+SOM_Raising of sheep and goats,20260414_074428,SOM_Raising _20260414_074428,True,True
+SRB_Aluminium ore,20260414_080209,SRB_Aluminiu_20260414_080209,True,True
+SRB_Basic copper,20260414_082331,SRB_Basic co_20260414_082331,True,True
+SRB_Tobacco products,20260414_083217,SRB_Tobacco _20260414_083217,True,True
+"SVK_Motor vehicles, trailers and semi-trailers",20260414_090722,SVK_Motor ve_20260414_090722,True,True
+SVK_Rubber products,20260414_091805,SVK_Rubber p_20260414_091805,True,True
+SVK_Fabricated metal products,20260414_084618,SVK_Fabricat_20260414_084618,True,True
+SVN_Basic aluminium,20260414_093120,SVN_Basic al_20260414_093120,True,True
+SVN_Pharmaceuticals and medicinal products,20260414_100226,SVN_Pharmace_20260414_100226,True,True
+SVN_Electrical equipment,20260414_095516,SVN_Electric_20260414_095516,True,True
+SWE_Pulp and paper,20260407_190120,SWE_Pulp and_20260407_190120,True,True
+SWE_Pharmaceuticals and medicinal products,20260414_101749,SWE_Pharmace_20260414_101749,True,True
+SWE_Sawmill products,20260414_104211,SWE_Sawmill _20260414_104211,True,True
+SYR_Chemical and fertilizer minerals,20260414_104704,SYR_Chemical_20260414_104704,True,True
+SYR_Growing fibre crops,20260414_110545,SYR_Growing _20260414_110545,True,True
+SYR_Petroleum extraction,20260414_112911,SYR_Petroleu_20260414_112911,True,True
+TCD_Growing fibre crops,20260414_115321,TCD_Growing _20260414_115321,True,True
+TCD_Petroleum extraction,20260414_121633,TCD_Petroleu_20260414_121633,True,True
+TCD_Basic gold,20260414_113305,TCD_Basic go_20260414_113305,True,True
+TGO_Chemical and fertilizer minerals,20260414_121732,TGO_Chemical_20260414_121732,True,True
+TGO_Growing fibre crops,20260414_124300,TGO_Growing _20260414_124300,True,True
+TGO_Vegetable oils and fats,20260414_130531,TGO_Vegetabl_20260414_130531,True,True
+THA_Rubber products,20260408_090446,THA_Rubber p_20260408_090446,True,True
+THA_Fish products,20260407_053822,THA_Fish pro_20260407_053822,True,True
+THA_Basic organic chemicals,20260408_045720,THA_Basic or_20260408_045720,True,True
+TJK_Growing fibre crops,20260414_130743,TJK_Growing _20260414_130743,True,True
+"TJK_Lead, zinc, silver ores",20260414_134947,"TJK_Lead, zi_20260414_134947",True,True
+TJK_Growing wheat,20260414_133005,TJK_Growing _20260414_133005,True,True
+TKM_Gas extraction,20260406_093451,TKM_Gas extr_20260406_093451,True,True
+TKM_Growing fibre crops,20260414_135722,TKM_Growing _20260414_135722,True,True
+TKM_Chemical and fertilizer minerals,20260414_135633,TKM_Chemical_20260414_135633,True,True
+TUN_Leather and footwear,20260414_143532,TUN_Leather _20260414_143532,True,True
+TUN_Vegetable oils and fats,20260414_144625,TUN_Vegetabl_20260414_144625,True,True
+TUN_Non-nitrogenous and mixed fertilizers,20260414_144309,TUN_Non-nitr_20260414_144309,True,True
+TUR_Growing grapes,20260405_193510,TUR_Growing _20260405_193510,True,True
+TUR_Basic gold,20260408_225710,TUR_Basic go_20260408_225710,True,True
+TUR_Textiles and clothing,20260407_155842,TUR_Textiles_20260407_155842,True,True
+TZA_Gold ores,20260406_155825,TZA_Gold ore_20260406_155825,True,True
+TZA_Basic gold,20260414_152107,TZA_Basic go_20260414_152107,True,True
+TZA_Growing fibre crops,20260414_152800,TZA_Growing _20260414_152800,True,True
+UGA_Basic gold,20260414_153720,UGA_Basic go_20260414_153720,True,True
+"UGA_Growing beverage crops (coffee, tea etc)",20260414_160612,UGA_Growing _20260414_160612,True,True
+UGA_Growing tobacco,20260414_161501,UGA_Growing _20260414_161501,True,True
+UKR_Growing wheat,20260414_165404,UKR_Growing _20260414_165404,True,True
+UKR_Growing maize,20260414_162053,UKR_Growing _20260414_162053,True,True
+UKR_Vegetable oils and fats,20260414_170251,UKR_Vegetabl_20260414_170251,True,True
+URY_Beef meat,20260414_171028,URY_Beef mea_20260414_171028,True,True
+"URY_Lead, zinc, silver ores",20260414_175106,"URY_Lead, zi_20260414_175106",True,True
+URY_Growing leguminous crops and oil seeds,20260414_174339,URY_Growing _20260414_174339,True,True
+USA_Other transport equipment,20260409_150140,USA_Other tr_20260409_150140,True,True
+"USA_Lead, zinc, silver ores",20260410_105058,"USA_Lead, zi_20260410_105058",True,True
+USA_Basic gold,20260408_230952,USA_Basic go_20260408_230952,True,True
+UZB_Basic gold,20260414_175922,UZB_Basic go_20260414_175922,True,True
+UZB_Growing fibre crops,20260414_183326,UZB_Growing _20260414_183326,True,True
+UZB_Gas extraction,20260414_183319,UZB_Gas extr_20260414_183319,True,True
+VEN_Petroleum extraction,20260414_192423,VEN_Petroleu_20260414_192423,True,True
+VEN_Iron ores,20260414_192410,VEN_Iron ore_20260414_192410,True,True
+VEN_Hard coal,20260414_184802,VEN_Hard coa_20260414_184802,True,True
+VNM_Fish products,20260407_055645,VNM_Fish pro_20260407_055645,True,True
+"VNM_Growing beverage crops (coffee, tea etc)",20260410_055456,VNM_Growing _20260410_055456,True,True
+"VNM_Growing spices, aromatic, drug and pharmaceutical crops",20260410_073813,VNM_Growing _20260410_073813,True,True
+YEM_Growing tobacco,20260414_200349,YEM_Growing _20260414_200349,True,True
+YEM_Growing wheat,20260414_201655,YEM_Growing _20260414_201655,True,True
+YEM_Growing maize,20260414_193904,YEM_Growing _20260414_193904,True,True
+ZAF_Other non-ferrous ores,20260406_222420,ZAF_Other no_20260406_222420,True,True
+ZAF_Gold ores,20260406_162353,ZAF_Gold ore_20260406_162353,True,True
+ZAF_Iron ores,20260406_111300,ZAF_Iron ore_20260406_111300,True,True
+ZMB_Basic copper,20260414_201723,ZMB_Basic co_20260414_201723,True,True
+ZMB_Growing tobacco,20260414_203311,ZMB_Growing _20260414_203311,True,True
+ZMB_Nickel ores,20260414_204638,ZMB_Nickel o_20260414_204638,True,True
+ZWE_Growing tobacco,20260405_165914,ZWE_Growing _20260405_165914,True,True
+ZWE_Nickel ores,20260406_192157,ZWE_Nickel o_20260406_192157,True,True
+ZWE_Basic gold,20260414_210650,ZWE_Basic go_20260414_210650,True,True
+UNKNOWN (extra folder),20260406_201058,BRA_Tin ores_20260406_201058,True,True
+UNKNOWN (extra folder),20260409_173656,VNM_Computer_20260409_173656,True,True
+UNKNOWN (extra folder),20260406_005536,AUS_Hard coa_20260406_005536,True,True
+UNKNOWN (extra folder),20260409_040654,BRA_Basic ti_20260409_040654,True,True
+UNKNOWN (extra folder),20260409_003038,CHN_Basic ni_20260409_003038,True,True
+UNKNOWN (extra folder),20260408_071641,USA_Pharmace_20260408_071641,True,True
+UNKNOWN (extra folder),20260405_151923,BRA_Growing _20260405_151923,True,True
+UNKNOWN (extra folder),20260410_091025,"CHL_Lead, zi_20260410_091025",True,True
+UNKNOWN (extra folder),20260407_105846,DEU_Animal o_20260407_105846,True,True
+UNKNOWN (extra folder),20260406_140640,USA_Copper o_20260406_140640,True,True
+UNKNOWN (extra folder),20260405_170325,BRA_Growing _20260405_170325,True,True
+UNKNOWN (extra folder),20260407_091348,ITA_Vegetabl_20260407_091348,True,True
+UNKNOWN (extra folder),20260410_113929,AUS_Quarryin_20260410_113929,True,True
+UNKNOWN (extra folder),20260407_022147,BRA_Beef mea_20260407_022147,True,True
+UNKNOWN (extra folder),20260407_014254,AUS_Beef mea_20260407_014254,True,True
+UNKNOWN (extra folder),20260405_151930,USA_Growing _20260405_151930,True,True
+UNKNOWN (extra folder),20260407_211250,USA_Refined _20260407_211250,True,True
+UNKNOWN (extra folder),20260408_213439,ITA_Basic go_20260408_213439,True,True
+UNKNOWN (extra folder),20260407_050459,NOR_Fish pro_20260407_050459,True,True
+UNKNOWN (extra folder),20260408_002857,ARE_Basic or_20260408_002857,True,True
+UNKNOWN (extra folder),20260406_174919,BRA_Nickel o_20260406_174919,True,True
+UNKNOWN (extra folder),20260409_070841,CHN_Basic no_20260409_070841,True,True
+UNKNOWN (extra folder),20260407_082441,DEU_Vegetabl_20260407_082441,True,True
+UNKNOWN (extra folder),20260408_095400,DEU_Plastic _20260408_095400,True,True
+UNKNOWN (extra folder),20260409_160220,JPN_Computer_20260409_160220,True,True
+UNKNOWN (extra folder),20260409_191616,CHN_Furnitur_20260409_191616,True,True
+UNKNOWN (extra folder),20260410_104255,"RUS_Lead, zi_20260410_104255",True,True
+UNKNOWN (extra folder),20260410_121700,USA_Quarryin_20260410_121700,True,True
+UNKNOWN (extra folder),20260406_213820,AUS_Other no_20260406_213820,True,True
+UNKNOWN (extra folder),20260407_045748,JPN_Fish pro_20260407_045748,True,True
+UNKNOWN (extra folder),20260408_080636,CHN_Rubber p_20260408_080636,True,True
+UNKNOWN (extra folder),20260408_155439,AUS_Basic co_20260408_155439,True,True
+UNKNOWN (extra folder),20260407_220914,CHN_Non-nitr_20260407_220914,True,True
+UNKNOWN (extra folder),20260405_232432,IND_Seeds an_20260405_232432,True,True
+UNKNOWN (extra folder),20260409_092930,CHE_Machiner_20260409_092930,True,True
+UNKNOWN (extra folder),20260407_110250,IDN_Animal o_20260407_110250,True,True
+UNKNOWN (extra folder),20260415_035926,ARE_Growing _20260415_035926,True,True
+UNKNOWN (extra folder),20260405_210328,USA_Growing _20260405_210328,True,True
+UNKNOWN (extra folder),20260406_014544,RUS_Hard coa_20260406_014544,True,True
+UNKNOWN (extra folder),20260409_094308,CHN_Machiner_20260409_094308,True,True
+UNKNOWN (extra folder),20260406_231619,AUS_Chemical_20260406_231619,True,True
+UNKNOWN (extra folder),20260406_015633,VNM_Hard coa_20260406_015633,True,True
+UNKNOWN (extra folder),20260408_182040,RUS_Basic co_20260408_182040,True,True
+UNKNOWN (extra folder),20260405_174724,IND_Growing _20260405_174724,True,True
+UNKNOWN (extra folder),20260409_205555,USA_Furnitur_20260409_205555,True,True
+UNKNOWN (extra folder),20260406_144322,BRA_Gold ore_20260406_144322,True,True
+UNKNOWN (extra folder),20260407_234151,DEU_Basic in_20260407_234151,True,True
+UNKNOWN (extra folder),20260407_152143,CHN_Textiles_20260407_152143,True,True
+UNKNOWN (extra folder),20260407_165340,IND_Leather _20260407_165340,True,True
+UNKNOWN (extra folder),20260410_170744,CHN_Basic le_20260410_170744,True,True
+UNKNOWN (extra folder),20260407_005145,CAN_Extracti_20260407_005145,True,True
+UNKNOWN (extra folder),20260405_161118,BRA_Growing _20260405_161118,True,True
+UNKNOWN (extra folder),20260405_232839,ITA_Seeds an_20260405_232839,True,True
+UNKNOWN (extra folder),20260409_141641,KOR_Other tr_20260409_141641,True,True
+UNKNOWN (extra folder),20260407_192104,CHN_Refined _20260407_192104,True,True
+UNKNOWN (extra folder),20260409_075553,RUS_Basic no_20260409_075553,True,True
+UNKNOWN (extra folder),20260406_191729,USA_Nickel o_20260406_191729,True,True
+UNKNOWN (extra folder),20260409_205243,ITA_Furnitur_20260409_205243,True,True
+UNKNOWN (extra folder),20260405_192806,ITA_Growing _20260405_192806,True,True
+UNKNOWN (extra folder),20260409_124131,DEU_Other tr_20260409_124131,True,True
+UNKNOWN (extra folder),20260406_001831,USA_Seeds an_20260406_001831,True,True
+UNKNOWN (extra folder),20260407_064441,USA_Cereal p_20260407_064441,True,True
+UNKNOWN (extra folder),20260405_170225,AUS_Growing _20260405_170225,True,True
+UNKNOWN (extra folder),20260408_114250,KOR_Glass an_20260408_114250,True,True
+UNKNOWN (extra folder),20260410_064534,CAN_Growing _20260410_064534,True,True
+UNKNOWN (extra folder),20260407_013516,DEU_Extracti_20260407_013516,True,True
+UNKNOWN (extra folder),20260405_201431,USA_Growing _20260405_201431,True,True
+UNKNOWN (extra folder),20260407_040902,ESP_Fish pro_20260407_040902,True,True
+UNKNOWN (extra folder),20260408_085719,KOR_Rubber p_20260408_085719,True,True
+UNKNOWN (extra folder),20260408_122606,ARE_Basic al_20260408_122606,True,True
+UNKNOWN (extra folder),20260410_114211,BRA_Quarryin_20260410_114211,True,True
+UNKNOWN (extra folder),20260408_134007,DEU_Basic al_20260408_134007,True,True
+UNKNOWN (extra folder),20260405_142808,RUS_Growing _20260405_142808,True,True
+UNKNOWN (extra folder),20260405_133728,CAN_Growing _20260405_133728,True,True
+UNKNOWN (extra folder),20260408_173631,KOR_Basic co_20260408_173631,True,True
+UNKNOWN (extra folder),20260407_004752,RUS_Chemical_20260407_004752,True,True
+UNKNOWN (extra folder),20260410_131536,FRA_Sugar re_20260410_131536,True,True
+UNKNOWN (extra folder),20260408_014700,ESP_Basic or_20260408_014700,True,True
+UNKNOWN (extra folder),20260407_205949,SGP_Refined _20260407_205949,True,True
+UNKNOWN (extra folder),20260410_164156,CAN_Basic le_20260410_164156,True,True
+UNKNOWN (extra folder),20260406_124620,CAN_Copper o_20260406_124620,True,True
+UNKNOWN (extra folder),20260407_181518,CAN_Pulp and_20260407_181518,True,True
+UNKNOWN (extra folder),20260405_210927,VNM_Growing _20260405_210927,True,True
+UNKNOWN (extra folder),20260410_130326,DEU_Sugar re_20260410_130326,True,True
+UNKNOWN (extra folder),20260410_190319,CHN_Motor ve_20260410_190319,True,True
+UNKNOWN (extra folder),20260407_031515,CHL_Fish pro_20260407_031515,True,True
+UNKNOWN (extra folder),20260407_235342,KOR_Basic in_20260407_235342,True,True
+UNKNOWN (extra folder),20260405_231843,FRA_Seeds an_20260405_231843,True,True
+UNKNOWN (extra folder),20260407_132739,IDN_Vegetabl_20260407_132739,True,True
+UNKNOWN (extra folder),20260408_011610,CHN_Basic or_20260408_011610,True,True
+UNKNOWN (extra folder),20260409_113119,USA_Machiner_20260409_113119,True,True
+UNKNOWN (extra folder),20260405_183955,CHN_Growing _20260405_183955,True,True
+UNKNOWN (extra folder),20260410_073510,RUS_Growing _20260410_073510,True,True
+UNKNOWN (extra folder),20260407_225540,RUS_Non-nitr_20260407_225540,True,True
+UNKNOWN (extra folder),20260408_090040,POL_Rubber p_20260408_090040,True,True
+UNKNOWN (extra folder),20260408_051601,USA_Basic or_20260408_051601,True,True
+UNKNOWN (extra folder),20260408_094838,CHN_Plastic _20260408_094838,True,True
+UNKNOWN (extra folder),20260407_202358,NLD_Refined _20260407_202358,True,True
+UNKNOWN (extra folder),20260409_182400,DEU_Electric_20260409_182400,True,True
+UNKNOWN (extra folder),20260407_133717,NLD_Vegetabl_20260407_133717,True,True
+UNKNOWN (extra folder),20260406_231633,CAN_Chemical_20260406_231633,True,True
+UNKNOWN (extra folder),20260408_222633,SGP_Basic go_20260408_222633,True,True
+UNKNOWN (extra folder),20260409_023439,KOR_Basic ni_20260409_023439,True,True
+UNKNOWN (extra folder),20260408_170228,DEU_Basic co_20260408_170228,True,True
+UNKNOWN (extra folder),20260408_020714,FRA_Basic or_20260408_020714,True,True
+UNKNOWN (extra folder),20260408_142534,IND_Basic al_20260408_142534,True,True
+UNKNOWN (extra folder),20260410_203236,KOR_Motor ve_20260410_203236,True,True
+UNKNOWN (extra folder),20260408_144825,KOR_Basic al_20260408_144825,True,True
+UNKNOWN (extra folder),20260406_192150,ZAF_Nickel o_20260406_192150,True,True
+UNKNOWN (extra folder),20260408_080748,DEU_Rubber p_20260408_080748,True,True
+UNKNOWN (extra folder),20260408_112253,DEU_Glass an_20260408_112253,True,True
+UNKNOWN (extra folder),20260408_103325,ITA_Plastic _20260408_103325,True,True
+UNKNOWN (extra folder),20260407_192101,USA_Pulp and_20260407_192101,True,True
+UNKNOWN (extra folder),20260407_054559,USA_Fish pro_20260407_054559,True,True
+UNKNOWN (extra folder),20260407_094644,USA_Vegetabl_20260407_094644,True,True
+UNKNOWN (extra folder),20260407_141820,USA_Vegetabl_20260407_141820,True,True
+UNKNOWN (extra folder),20260407_080736,CHN_Vegetabl_20260407_080736,True,True
+UNKNOWN (extra folder),20260408_151025,NOR_Basic al_20260408_151025,True,True
+UNKNOWN (extra folder),20260407_071820,VNM_Cereal p_20260407_071820,True,True
+UNKNOWN (extra folder),20260410_064604,CHN_Growing _20260410_064604,True,True
+UNKNOWN (extra folder),20260409_025243,RUS_Basic ni_20260409_025243,True,True
+UNKNOWN (extra folder),20260410_105403,"ZAF_Lead, zi_20260410_105403",True,True
+UNKNOWN (extra folder),20260407_164351,CHN_Leather _20260407_164351,True,True
+UNKNOWN (extra folder),20260408_094522,USA_Rubber p_20260408_094522,True,True
+UNKNOWN (extra folder),20260407_085727,IND_Vegetabl_20260407_085727,True,True
+UNKNOWN (extra folder),20260408_134618,ESP_Basic al_20260408_134618,True,True
+UNKNOWN (extra folder),20260408_222246,RUS_Basic go_20260408_222246,True,True
+UNKNOWN (extra folder),20260407_195026,IND_Refined _20260407_195026,True,True
+UNKNOWN (extra folder),20260407_182630,CHN_Pulp and_20260407_182630,True,True
+UNKNOWN (extra folder),20260405_183637,CHL_Growing _20260405_183637,True,True
+UNKNOWN (extra folder),20260406_122521,USA_Aluminiu_20260406_122521,True,True
+UNKNOWN (extra folder),20260409_040720,CAN_Basic ti_20260409_040720,True,True
+UNKNOWN (extra folder),20260407_013908,USA_Extracti_20260407_013908,True,True
+UNKNOWN (extra folder),20260408_161736,CAN_Basic co_20260408_161736,True,True
+UNKNOWN (extra folder),20260410_082810,"AUS_Lead, zi_20260410_082810",True,True
+UNKNOWN (extra folder),20260409_001737,AUS_Basic ni_20260409_001737,True,True
+UNKNOWN (extra folder),20260407_174646,VNM_Leather _20260407_174646,True,True
+UNKNOWN (extra folder),20260409_155132,DEU_Computer_20260409_155132,True,True
+UNKNOWN (extra folder),20260405_222830,BRA_Seeds an_20260405_222830,True,True
+UNKNOWN (extra folder),20260406_082336,IDN_Gas extr_20260406_082336,True,True
+UNKNOWN (extra folder),20260407_160822,VNM_Textiles_20260407_160822,True,True
+UNKNOWN (extra folder),20260407_232038,CHN_Basic in_20260407_232038,True,True
+UNKNOWN (extra folder),20260409_123051,CAN_Other tr_20260409_123051,True,True
+UNKNOWN (extra folder),20260406_015326,USA_Hard coa_20260406_015326,True,True
+UNKNOWN (extra folder),20260409_200856,IND_Furnitur_20260409_200856,True,True
+UNKNOWN (extra folder),20260408_034115,JPN_Basic or_20260408_034115,True,True
+UNKNOWN (extra folder),20260407_155546,IND_Textiles_20260407_155546,True,True
+UNKNOWN (extra folder),20260405_133728,ARG_Growing _20260405_133728,True,True
+UNKNOWN (extra folder),20260406_151143,PER_Gold ore_20260406_151143,True,True
+UNKNOWN (extra folder),20260406_174215,AUS_Nickel o_20260406_174215,True,True
+UNKNOWN (extra folder),20260408_021525,GBR_Basic or_20260408_021525,True,True
+UNKNOWN (extra folder),20260409_010805,DEU_Basic ni_20260409_010805,True,True
+UNKNOWN (extra folder),20260406_074330,CAN_Gas extr_20260406_074330,True,True
+UNKNOWN (extra folder),20260407_073506,BEL_Vegetabl_20260407_073506,True,True
+UNKNOWN (extra folder),20260406_065120,USA_Petroleu_20260406_065120,True,True
+UNKNOWN (extra folder),20260409_200248,DEU_Furnitur_20260409_200248,True,True
+UNKNOWN (extra folder),20260409_173553,USA_Computer_20260409_173553,True,True
+UNKNOWN (extra folder),20260407_032056,CHN_Fish pro_20260407_032056,True,True
+UNKNOWN (extra folder),20260408_060950,DEU_Pharmace_20260408_060950,True,True
+UNKNOWN (extra folder),20260409_201256,IRL_Furnitur_20260409_201256,True,True
+UNKNOWN (extra folder),20260407_173936,TUR_Leather _20260407_173936,True,True
+UNKNOWN (extra folder),20260410_132210,GBR_Sugar re_20260410_132210,True,True
+UNKNOWN (extra folder),20260406_123256,AUS_Copper o_20260406_123256,True,True
+UNKNOWN (extra folder),20260407_183413,DEU_Pulp and_20260407_183413,True,True
+UNKNOWN (extra folder),20260409_081206,CHN_Fabricat_20260409_081206,True,True
+UNKNOWN (extra folder),20260408_113132,JPN_Glass an_20260408_113132,True,True
+UNKNOWN (extra folder),20260408_153256,USA_Basic al_20260408_153256,True,True
+UNKNOWN (extra folder),20260407_114657,IND_Animal o_20260407_114657,True,True
+UNKNOWN (extra folder),20260405_142822,USA_Growing _20260405_142822,True,True
+UNKNOWN (extra folder),20260409_051630,IND_Basic ti_20260409_051630,True,True
+UNKNOWN (extra folder),20260410_185502,CAN_Motor ve_20260410_185502,True,True
+UNKNOWN (extra folder),20260409_123213,CHN_Other tr_20260409_123213,True,True
+UNKNOWN (extra folder),20260406_160032,USA_Gold ore_20260406_160032,True,True
+UNKNOWN (extra folder),20260407_201116,KOR_Refined _20260407_201116,True,True
+UNKNOWN (extra folder),20260410_123117,BRA_Sugar re_20260410_123117,True,True
+UNKNOWN (extra folder),20260409_090619,USA_Fabricat_20260409_090619,True,True
+UNKNOWN (extra folder),20260410_180226,JPN_Basic le_20260410_180226,True,True
+UNKNOWN (extra folder),20260405_184448,ESP_Growing _20260405_184448,True,True
+UNKNOWN (extra folder),20260408_160215,BEL_Basic co_20260408_160215,True,True
+UNKNOWN (extra folder),20260408_173303,JPN_Basic co_20260408_173303,True,True
+UNKNOWN (extra folder),20260406_153902,RUS_Gold ore_20260406_153902,True,True
+UNKNOWN (extra folder),20260409_015214,IND_Basic ni_20260409_015214,True,True
+UNKNOWN (extra folder),20260408_005949,CHE_Basic or_20260408_005949,True,True
+UNKNOWN (extra folder),20260407_214840,CAN_Non-nitr_20260407_214840,True,True
+UNKNOWN (extra folder),20260409_150323,ARE_Computer_20260409_150323,True,True
+UNKNOWN (extra folder),20260409_110530,NLD_Machiner_20260409_110530,True,True
+UNKNOWN (extra folder),20260406_024656,ARE_Petroleu_20260406_024656,True,True
+UNKNOWN (extra folder),20260406_100224,USA_Gas extr_20260406_100224,True,True
+UNKNOWN (extra folder),20260407_221550,DEU_Non-nitr_20260407_221550,True,True
+UNKNOWN (extra folder),20260408_182900,USA_Basic co_20260408_182900,True,True
+UNKNOWN (extra folder),20260408_151811,RUS_Basic al_20260408_151811,True,True
+UNKNOWN (extra folder),20260407_022636,IND_Beef mea_20260407_022636,True,True
+UNKNOWN (extra folder),20260407_031037,USA_Beef mea_20260407_031037,True,True
+UNKNOWN (extra folder),20260408_195854,CHN_Basic go_20260408_195854,True,True
+UNKNOWN (extra folder),20260410_155217,"USA_Dyes, pa_20260410_155217",True,True
+UNKNOWN (extra folder),20260408_200415,DEU_Basic go_20260408_200415,True,True
+UNKNOWN (extra folder),20260409_072614,ITA_Basic no_20260409_072614,True,True
+UNKNOWN (extra folder),20260409_191158,JPN_Electric_20260409_191158,True,True
+UNKNOWN (extra folder),20260409_080746,USA_Basic no_20260409_080746,True,True
+UNKNOWN (extra folder),20260409_085508,ITA_Fabricat_20260409_085508,True,True
+UNKNOWN (extra folder),20260407_115047,NLD_Animal o_20260407_115047,True,True
+UNKNOWN (extra folder),20260406_213215,ZAF_Tin ores_20260406_213215,True,True
+UNKNOWN (extra folder),20260405_175304,USA_Growing _20260405_175304,True,True
+UNKNOWN (extra folder),20260408_121513,USA_Glass an_20260408_121513,True,True
+UNKNOWN (extra folder),20260409_191305,KOR_Electric_20260409_191305,True,True
+UNKNOWN (extra folder),20260410_055449,IDN_Growing _20260410_055449,True,True
+UNKNOWN (extra folder),20260406_025533,BRA_Petroleu_20260406_025533,True,True
+UNKNOWN (extra folder),20260408_081345,JPN_Rubber p_20260408_081345,True,True
+UNKNOWN (extra folder),20260410_144331,THA_Sugar re_20260410_144331,True,True
+UNKNOWN (extra folder),20260408_032131,ITA_Basic or_20260408_032131,True,True
+UNKNOWN (extra folder),20260409_045244,IDN_Basic ti_20260409_045244,True,True
+UNKNOWN (extra folder),20260409_032117,USA_Basic ni_20260409_032117,True,True
+UNKNOWN (extra folder),20260407_124645,ESP_Vegetabl_20260407_124645,True,True
+UNKNOWN (extra folder),20260405_192617,FRA_Growing _20260405_192617,True,True
+UNKNOWN (extra folder),20260405_202402,TUR_Growing _20260405_202402,True,True
+UNKNOWN (extra folder),20260406_145352,CHL_Gold ore_20260406_145352,True,True
+UNKNOWN (extra folder),20260409_164802,MEX_Computer_20260409_164802,True,True
+UNKNOWN (extra folder),20260409_084129,DEU_Fabricat_20260409_084129,True,True
+UNKNOWN (extra folder),20260410_173052,IND_Basic le_20260410_173052,True,True
+UNKNOWN (extra folder),20260407_074631,CAN_Vegetabl_20260407_074631,True,True
+UNKNOWN (extra folder),20260409_142438,SGP_Other tr_20260409_142438,True,True
+UNKNOWN (extra folder),20260410_112804,ARE_Quarryin_20260410_112804,True,True
+UNKNOWN (extra folder),20260409_063925,USA_Basic ti_20260409_063925,True,True
+UNKNOWN (extra folder),20260410_180755,KOR_Basic le_20260410_180755,True,True
+UNKNOWN (extra folder),20260409_182536,ITA_Electric_20260409_182536,True,True
+UNKNOWN (extra folder),20260407_203927,RUS_Refined _20260407_203927,True,True
+UNKNOWN (extra folder),20260410_150116,"DEU_Dyes, pa_20260410_150116",True,True
+UNKNOWN (extra folder),20260408_060425,CHN_Pharmace_20260408_060425,True,True
+UNKNOWN (extra folder),20260406_203803,CAN_Tin ores_20260406_203803,True,True
+UNKNOWN (extra folder),20260410_140527,NLD_Sugar re_20260410_140527,True,True
+UNKNOWN (extra folder),20260406_133317,MEX_Copper o_20260406_133317,True,True
+UNKNOWN (extra folder),20260407_115655,USA_Animal o_20260407_115655,True,True
+UNKNOWN (extra folder),20260410_172321,DEU_Basic le_20260410_172321,True,True
+UNKNOWN (extra folder),20260408_001131,USA_Basic in_20260408_001131,True,True
+UNKNOWN (extra folder),20260408_104145,USA_Plastic _20260408_104145,True,True
+UNKNOWN (extra folder),20260408_163812,CHN_Basic co_20260408_163812,True,True
+UNKNOWN (extra folder),20260408_023406,IND_Basic or_20260408_023406,True,True
+UNKNOWN (extra folder),20260407_151018,IDN_Tobacco _20260407_151018,True,True
+UNKNOWN (extra folder),20260406_114614,BRA_Aluminiu_20260406_114614,True,True
+UNKNOWN (extra folder),20260409_140939,JPN_Other tr_20260409_140939,True,True
+UNKNOWN (extra folder),20260407_044847,IND_Fish pro_20260407_044847,True,True
+UNKNOWN (extra folder),20260406_105334,CAN_Iron ore_20260406_105334,True,True
+UNKNOWN (extra folder),20260410_185129,USA_Basic le_20260410_185129,True,True
+UNKNOWN (extra folder),20260406_073443,AUS_Gas extr_20260406_073443,True,True
+UNKNOWN (extra folder),20260405_161030,CAN_Growing _20260405_161030,True,True
+UNKNOWN (extra folder),20260405_223919,DEU_Seeds an_20260405_223919,True,True
+UNKNOWN (extra folder),20260407_041600,IDN_Fish pro_20260407_041600,True,True
+UNKNOWN (extra folder),20260409_070900,DEU_Basic no_20260409_070900,True,True
+UNKNOWN (extra folder),20260409_104457,KOR_Machiner_20260409_104457,True,True
+UNKNOWN (extra folder),20260408_143307,ITA_Basic al_20260408_143307,True,True
+UNKNOWN (extra folder),20260410_211414,USA_Motor ve_20260410_211414,True,True
+UNKNOWN (extra folder),20260408_130057,CAN_Basic al_20260408_130057,True,True
+UNKNOWN (extra folder),20260410_163822,BEL_Basic le_20260410_163822,True,True
+UNKNOWN (extra folder),20260407_142353,ARE_Tobacco _20260407_142353,True,True
+UNKNOWN (extra folder),20260409_045214,DEU_Basic ti_20260409_045214,True,True
+UNKNOWN (extra folder),20260407_023137,IRL_Beef mea_20260407_023137,True,True
+UNKNOWN (extra folder),20260405_161034,USA_Growing _20260405_161034,True,True
+UNKNOWN (extra folder),20260408_131055,CHN_Basic al_20260408_131055,True,True
+UNKNOWN (extra folder),20260409_032226,BEL_Basic ti_20260409_032226,True,True
+UNKNOWN (extra folder),20260408_190638,AUS_Basic go_20260408_190638,True,True
+UNKNOWN (extra folder),20260406_110045,PER_Iron ore_20260406_110045,True,True
+UNKNOWN (extra folder),20260409_020249,JPN_Basic ni_20260409_020249,True,True
+UNKNOWN (extra folder),20260408_140358,FRA_Basic al_20260408_140358,True,True
+UNKNOWN (extra folder),20260406_010901,MEX_Hard coa_20260406_010901,True,True
+UNKNOWN (extra folder),20260410_162229,AUS_Basic le_20260410_162229,True,True
+UNKNOWN (extra folder),20260406_032548,CAN_Petroleu_20260406_032548,True,True
+UNKNOWN (extra folder),20260406_221544,USA_Other no_20260406_221544,True,True
+UNKNOWN (extra folder),20260408_204026,ESP_Basic go_20260408_204026,True,True
+UNKNOWN (extra folder),20260408_221258,MEX_Basic go_20260408_221258,True,True
+UNKNOWN (extra folder),20260406_141816,AUS_Gold ore_20260406_141816,True,True
+UNKNOWN (extra folder),20260409_205904,VNM_Furnitur_20260409_205904,True,True
+UNKNOWN (extra folder),20260407_064347,ITA_Cereal p_20260407_064347,True,True
+UNKNOWN (extra folder),20260407_230207,USA_Non-nitr_20260407_230207,True,True
+UNKNOWN (extra folder),20260409_133643,ITA_Other tr_20260409_133643,True,True
+UNKNOWN (extra folder),20260409_042253,CHN_Basic ti_20260409_042253,True,True
+UNKNOWN (extra folder),20260410_154918,"NLD_Dyes, pa_20260410_154918",True,True
+UNKNOWN (extra folder),20260410_073756,USA_Growing _20260410_073756,True,True
+UNKNOWN (extra folder),20260410_145548,"CHN_Dyes, pa_20260410_145548",True,True
+UNKNOWN (extra folder),20260408_191450,BRA_Basic go_20260408_191450,True,True
+UNKNOWN (extra folder),20260407_123957,BRA_Vegetabl_20260407_123957,True,True
+UNKNOWN (extra folder),20260408_065243,FRA_Pharmace_20260408_065243,True,True
+UNKNOWN (extra folder),20260407_105109,CHN_Animal o_20260407_105109,True,True
+UNKNOWN (extra folder),20260409_062312,RUS_Basic ti_20260409_062312,True,True
