@@ -17,21 +17,88 @@ _LINEAR_CLIENT_SECTORS: set[str] = set()
 _LINEAR_SUPPLIER_SECTORS: set[str] = set()
 _SECTOR_SETS_INITIALIZED = False
 
+# Input criticality: "sector_lists" (linear client/supplier lists) or "pichler"
+# (IHS ratings of Pichler et al. 2022, half-critical production function).
+_INPUT_CRITICALITY = "sector_lists"
+_PICHLER_RATINGS: dict[str, dict[str, float]] = {}  # buyer sector -> {input sector: rating}
+_PICHLER_LINEAR_CLIENT_SECTORS: set[str] = set()
+
+# Inventory floor diagnostics, reset and logged by Firms.produce() each time step
+FLOOR_STATS = {"critical_count": 0, "critical_amount": 0.0, "other_count": 0, "other_amount": 0.0}
+
+
+def load_pichler_ratings(filepath) -> dict[str, dict[str, float]]:
+    """Read the long-format ratings file (input_sector, buyer_sector, rating)."""
+    import pandas as pd
+    df = pd.read_csv(filepath)
+    if not set(df["rating"].unique()) <= {0.0, 0.5, 1.0}:
+        raise ValueError(f"Unexpected Pichler ratings in {filepath}: {sorted(df['rating'].unique())}")
+    ratings: dict[str, dict[str, float]] = {}
+    for inp, buyer, rating in df[["input_sector", "buyer_sector", "rating"]].itertuples(index=False):
+        ratings.setdefault(buyer, {})[inp] = float(rating)
+    return ratings
+
 
 def init_sector_sets(parameters: Parameters):
     """
-    Initialize linear-client and linear-supplier sector sets from Parameters.
+    Initialize linear-client and linear-supplier sector sets and, if selected,
+    the Pichler criticality ratings from Parameters.
+    Must also run on the cached path, since module globals are not pickled.
     Safe to call multiple times; it only does real work once.
     """
     global _LINEAR_CLIENT_SECTORS, _LINEAR_SUPPLIER_SECTORS, _SECTOR_SETS_INITIALIZED
+    global _INPUT_CRITICALITY, _PICHLER_RATINGS, _PICHLER_LINEAR_CLIENT_SECTORS
     if _SECTOR_SETS_INITIALIZED:
         return
 
     sectors_dict = parameters.sectors or {}
     _LINEAR_CLIENT_SECTORS = set(sectors_dict.get("linear_client_sectors", []))
     _LINEAR_SUPPLIER_SECTORS = set(sectors_dict.get("linear_supplier_sectors", []))
+    _INPUT_CRITICALITY = sectors_dict.get("input_criticality", "sector_lists")
+    if _INPUT_CRITICALITY == "pichler":
+        filepath = (parameters.filepaths or {}).get("pichler_ratings")
+        if filepath is None:
+            raise ValueError("input_criticality is 'pichler' but filepaths.pichler_ratings is not set")
+        _PICHLER_RATINGS = load_pichler_ratings(filepath)
+        _PICHLER_LINEAR_CLIENT_SECTORS = set(sectors_dict.get("pichler_linear_client_sectors", []))
+        logging.info(f"Input criticality: Pichler ratings from {filepath} "
+                     f"({len(_PICHLER_RATINGS)} buyer sectors); linear buyers: "
+                     f"{sorted(_PICHLER_LINEAR_CLIENT_SECTORS)}")
+    elif _INPUT_CRITICALITY == "sector_lists":
+        logging.info(f"Input criticality: sector lists ({len(_LINEAR_CLIENT_SECTORS)} linear clients, "
+                     f"{len(_LINEAR_SUPPLIER_SECTORS)} linear suppliers)")
+    else:
+        raise ValueError(f"Unknown input_criticality: {_INPUT_CRITICALITY}")
     _SECTOR_SETS_INITIALIZED = True
 
+
+def _input_sector(input_region_sector: str) -> str:
+    """'AUS_Iron ores' -> 'Iron ores' (input_mix keys are region_sector)."""
+    try:
+        return input_region_sector.split("_", 1)[1]
+    except IndexError:
+        return input_region_sector
+
+
+def input_ratings(buyer_sector: str, input_mix: Dict) -> Dict[str, float]:
+    """Criticality per input of a firm: 1 critical, 0.5 important, 0 non-critical.
+
+    sector_lists: inputs from linear_supplier_sectors are 0, all others 1.
+    pichler: rating of (input sector, buyer sector), the same for domestic and imported inputs.
+    """
+    if _INPUT_CRITICALITY == "pichler":
+        try:
+            row = _PICHLER_RATINGS[buyer_sector]
+            return {key: row[_input_sector(key)] for key in input_mix}
+        except KeyError as e:
+            raise KeyError(f"No Pichler rating for buyer '{buyer_sector}', input {e}") from e
+    return {key: 0.0 if _input_sector(key) in _LINEAR_SUPPLIER_SECTORS else 1.0 for key in input_mix}
+
+
+def is_linear_client(buyer_sector: str) -> bool:
+    if _INPUT_CRITICALITY == "pichler":
+        return buyer_sector in _PICHLER_LINEAR_CLIENT_SECTORS
+    return buyer_sector in _LINEAR_CLIENT_SECTORS
 
 
 class ProductionManager:
@@ -91,60 +158,50 @@ class ProductionManager:
     def produce(self, inventory: Dict, input_mix: Dict, mode="Leontief"):
         """Execute production and update inventory."""
 
-        # 1) Decide production mode: wholesale/retail clients use linear
-        if self.firm.sector in _LINEAR_CLIENT_SECTORS:
-            effective_mode = "Linear"
-        else:
-            effective_mode = mode  # usually "Leontief"
-        # 2) Non‑critical inputs: those whose SUPPLIER sector is in linear_supplier_sectors
-        non_critical_inputs = set()
-        for input_region_sector in input_mix.keys():
-            try:
-                _, supplier_sector_name = input_region_sector.split("_", 1)
-            except ValueError:
-                # if it doesn't contain "_", treat whole string as sector name
-                supplier_sector_name = input_region_sector
-
-            if supplier_sector_name in _LINEAR_SUPPLIER_SECTORS:
-                non_critical_inputs.add(input_region_sector)
+        # 1) Decide production mode: linear clients (e.g. wholesale/retail) use linear
+        effective_mode = "Linear" if is_linear_client(self.firm.sector) else mode  # usually "Leontief"
+        # 2) Criticality of each input (sector lists or Pichler ratings)
+        ratings = input_ratings(self.firm.sector, input_mix)
 
         # 3) Compute production
         if len(input_mix) == 0:  # no need for inputs
             self.production = min(self.production_target, self.current_production_capacity)
+        elif effective_mode == "Linear":
+            if _INPUT_CRITICALITY == "pichler":
+                # rating-0 inputs are irrelevant for production (Pichler et al. 2022)
+                linear_inputs = {k: v for k, v in input_mix.items() if ratings[k] > 0}
+            else:
+                linear_inputs = input_mix  # unchanged from the original sector-list treatment
+            share = production_function(inventory, linear_inputs, function_type="Linear",
+                                        production_target=self.production_target)
+            self.production = min(self.production_target * share, self.current_production_capacity)
         else:
             max_from_inputs = production_function(
                 inventory,
                 input_mix,
                 function_type=effective_mode,
-                non_critical_inputs=non_critical_inputs,
+                ratings=ratings,
+                eq_production=self.eq_production,
             )
+            self.production = min(max_from_inputs, self.production_target, self.current_production_capacity)
 
-            if effective_mode == "Linear":
-                # interpret result as share in [0,1]
-                share = max_from_inputs if np.isfinite(max_from_inputs) else 1.0
-                share = max(0.0, min(1.0, share))
-                self.production = min(
-                    self.production_target * share,
-                    self.current_production_capacity,
-                )
-            else:
-                self.production = min(
-                    max_from_inputs,
-                    self.production_target,
-                    self.current_production_capacity,
-                )
-
-        # 4) Update stock and inventories
+        # 4) Update stock and inventories: use what is needed, but never more than is in stock (B3).
+        # The shortfall is expected for non-critical/important inputs and for linear clients;
+        # for critical inputs of Leontief firms it should be zero up to float error.
         self.product_stock += self.production
-
-        input_used = {input_id: self.production * mix
-                      for input_id, mix in input_mix.items()}
-
-
-        updated_inventory = {
-            input_id: max(quantity - input_used.get(input_id, 0.0), 0.0) #sometimes negative inventories are produced
-            for input_id, quantity in inventory.items()
-        }
+        updated_inventory = {}
+        for input_id, quantity in inventory.items():
+            needed = self.production * input_mix.get(input_id, 0.0)
+            used = min(quantity, needed)
+            shortfall = needed - used
+            if shortfall > EPSILON:
+                if effective_mode != "Linear" and ratings.get(input_id, 1.0) == 1.0:
+                    FLOOR_STATS["critical_count"] += 1
+                    FLOOR_STATS["critical_amount"] += shortfall
+                else:
+                    FLOOR_STATS["other_count"] += 1
+                    FLOOR_STATS["other_amount"] += shortfall
+            updated_inventory[input_id] = quantity - used
         return updated_inventory
 
     def disrupt_production_capacity(self, disruption_duration: int, reduction: float):
@@ -497,42 +554,45 @@ class SupplierManager:
 
 # Utility functions
 def production_function(inputs, input_mix, function_type="Leontief",
-                        non_critical_inputs=None):
-    """Production function determining maximum production given inputs."""
-    non_critical_inputs = non_critical_inputs or set()
+                        ratings=None, eq_production=None, production_target=None):
+    """Production function determining maximum production given inputs.
 
+    Leontief: returns the maximum output. Inputs rated 1 (or all inputs if ratings is None)
+        bind as in Leontief; inputs rated 0.5 bind half-critically, i.e. cap output at
+        0.5 * (stock / coeff + eq_production) (Pichler et al. 2022, eq. 11); inputs rated 0 do not bind.
+    Linear: returns the share of production_target that can be produced, the input-coefficient
+        weighted average of min(1, stock / (coeff * production_target)).
+    """
     if function_type == "Leontief":
-        try:
-            ratios = [
-                inputs[input_id] / input_mix[input_id]
-                for input_id in input_mix
-                if input_id not in non_critical_inputs
-            ]
-            if not ratios:
-                return float("inf")
-            return min(ratios)
-        except KeyError:
-            return 0.0
+        caps = []
+        for input_id, coeff in input_mix.items():
+            rating = 1.0 if ratings is None else ratings[input_id]
+            if rating == 0 or coeff <= 0:
+                continue
+            stock_ratio = inputs.get(input_id, 0.0) / coeff
+            if rating == 1.0:
+                caps.append(stock_ratio)
+            else:
+                caps.append(0.5 * (stock_ratio + eq_production))
+        return min(caps) if caps else float("inf")
 
     elif function_type == "Linear":
         total_required = sum(input_mix.values())
-        if total_required <= 0:
+        if total_required <= 0 or production_target is None or production_target <= 0:
             return 1.0
         delivered_weighted = 0.0
         for input_id, coeff in input_mix.items():
-            required = coeff
+            if coeff <= 0:
+                continue
             available = inputs.get(input_id, 0.0)
-            if required > 0:
-                frac = min(1.0, available / required)
-            else:
-                frac = 1.0
+            # B2: compare the stock with the quantity needed for the target, not with the coefficient
+            frac = min(1.0, available / (coeff * production_target))
             delivered_weighted += coeff * frac
         delivered_share = delivered_weighted / total_required
         return max(0.0, min(1.0, delivered_share))
 
     else:
         raise ValueError("Wrong mode selected")
-
 
 
 def purchase_planning_function(estimated_need: float, inventory: float, inventory_duration_target: float,

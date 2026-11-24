@@ -5,6 +5,7 @@ filepaths:
   "mrio": "Network/mrio_adjusted.pkl"
   #"region_table": "Network/region_table.geojson"
   "usd_per_ton": "Network/USD_per_ton.csv"
+  "pichler_ratings": "Network/pichler_ratings.csv"
 transport_modes: [roads, maritime] #, waterways, airways]
 monetary_units_in_model: kUSD
 monetary_units_in_data: "kUSD"
@@ -16,6 +17,14 @@ io_cutoff: 0.001 #0.0001
 rationing_mode: "equal"
 
 sectors:
+  # "sector_lists": linear_client_sectors produce linearly, inputs from linear_supplier_sectors
+  #   never bind, all other inputs are critical (Leontief).
+  # "pichler": IHS ratings (filepaths.pichler_ratings), half-critical production function;
+  #   pichler_linear_client_sectors produce linearly in their inputs rated above 0.
+  input_criticality: "sector_lists"
+  pichler_linear_client_sectors:
+    - "Wholesale and retail trade; repair of motor vehicles and motorcycles"
+
   linear_client_sectors:
     - "Wholesale and retail trade; repair of motor vehicles and motorcycles"
     - "Information services"

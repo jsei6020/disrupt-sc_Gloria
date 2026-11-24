@@ -868,8 +868,16 @@ class Firms(BaseAgents):
                 firm.decide_purchase_plan(adaptive_inventories, adapt_weight_based_on_satisfaction)
 
     def produce(self):
+        from disruptsc.agents.firm_components import FLOOR_STATS
+        for key in FLOOR_STATS:
+            FLOOR_STATS[key] = 0
         for firm in self.values():
             firm.produce()
+        if FLOOR_STATS["critical_count"] > 0:
+            logging.warning(f"Inventory floor hit on {FLOOR_STATS['critical_count']} critical inputs "
+                            f"(shortfall {FLOOR_STATS['critical_amount']:.6g}); expected 0")
+        logging.info(f"Inventory floor on non-critical inputs and linear clients: "
+                     f"{FLOOR_STATS['other_count']} inputs, shortfall {FLOOR_STATS['other_amount']:.6g}")
 
     def evaluate_profit(self, sc_network: "ScNetwork"):
         for firm in self.values():
