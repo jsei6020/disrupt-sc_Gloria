@@ -263,6 +263,9 @@ class Model(object):
             if self.parameters.firm_data_type == "supplier-buyer network":
                 self.transaction_table = load_cached_transaction_table()
             self.mrio = Mrio(self.mrio, monetary_units=self.parameters.monetary_units_in_data)
+            # The linear client/supplier sector sets are module globals, so the
+            # cache cannot restore them; setup_firms() is skipped on this path.
+            init_sector_sets(self.parameters)
 
         else:
             # Create agents from scratch
