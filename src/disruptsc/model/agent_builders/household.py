@@ -233,10 +233,11 @@ def _calculate_household_consumption_patterns(
         input_units=final_demand_cutoff['unit']
     )
     
-    # Sum all final demand categories (e.g. GLORIA P.3h, P.3n, P.3g, P.51, P.52, P.53)
-    # per buying region and supplying region-sector. Before this fix, the categories
-    # were stacked and keyed by supplier only, so the last category above the cutoff
-    # overwrote the others.
+    # Sum all final demand categories (GLORIA P.3h, P.3n, P.3g, P.51, P.53; changes in
+    # inventories P.52 are excluded in Mrio) per buying region and supplying region-sector.
+    # Before this fix, the categories were stacked and keyed by supplier only, so the last
+    # category above the cutoff overwrote the others. Negative totals should no longer occur;
+    # the clamp below is a guard.
     summed_final_demand = final_demand.T.groupby(level=0).sum().T
     negative = summed_final_demand[summed_final_demand < 0]
     logging.info(f"Final demand: summed {final_demand.shape[1]} columns into "

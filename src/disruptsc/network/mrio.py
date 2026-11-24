@@ -31,6 +31,7 @@ class Mrio(pd.DataFrame):
         'region_households',
         'export_label',
         'final_demand_label',
+        'inventory_label',
         'capital_label',
         'import_label',
         'value_added_label',
@@ -41,14 +42,21 @@ class Mrio(pd.DataFrame):
     def __init__(self, *args, monetary_units, **kwargs):
         super().__init__(*args, **kwargs)
         self.export_label = self.detect_level1_label('export', axis=1)
-        self.final_demand_label = self.detect_level1_label('final.?demand|P.3|P.51|P.52|P.53', axis=1) #P.51| Capital
+        # Changes in inventories (GLORIA P.52) are kept in total output but excluded from final demand:
+        # they are stock movements, not consumption, and GLORIA uses them to absorb statistical discrepancies.
+        self.inventory_label = self.detect_level1_label(r'P\.52|changes in inventories', axis=1)
+        self.final_demand_label = np.array([
+            label for label in self.detect_level1_label('final.?demand|P.3|P.51|P.52|P.53', axis=1)  #P.51| Capital
+            if label not in list(self.inventory_label)
+        ])
         self.capital_label = self.detect_level1_label('capital', axis=1)
         self.import_label = self.detect_level1_label('import', axis=0)
         self.value_added_label = self.detect_level1_label('value.?added|va|D.1|D.39|B.2n|B.3n|K.1', axis=0) #D.29 in tax?
         self.tax_label = self.detect_level1_label('tax', axis=0)
         self.check_square_structure()
         self.region_sectors = [tup for tup in self.columns
-                               if tup[1] not in list(self.final_demand_label) + list(self.export_label) + list(self.capital_label)]
+                               if tup[1] not in list(self.final_demand_label) + list(self.export_label)
+                               + list(self.capital_label) + list(self.inventory_label)]
         self.region_sector_names = ['_'.join(tup) for tup in self.region_sectors]
         self.regions = list(set([tup[0] for tup in self.region_sectors]))
         self.sectors = list(set([tup[1] for tup in self.region_sectors]))
@@ -165,7 +173,8 @@ class Mrio(pd.DataFrame):
             raise ValueError('Intermediary matrix not square')
 
     def get_intermediary_part(self):
-        columns_cut = list(self.final_demand_label) + list(self.export_label) + list(self.capital_label)
+        columns_cut = (list(self.final_demand_label) + list(self.export_label) + list(self.capital_label)
+                       + list(self.inventory_label))
         rows_cut = labels_array = list(self.value_added_label) + list(self.import_label) + list(self.tax_label)
         region_sectors_in_columns = [tup for tup in self.columns
                                      if tup[1] not in columns_cut]
@@ -209,40 +218,28 @@ class Mrio(pd.DataFrame):
                             f"than outputs. Distributing it across final demand.") # {unbalanced_region_sectors}
             #this adds the difference between input and output as an average to all final demand
     
+        # Distribute each gap over the sector's positive final demand cells (P.52 excluded) in proportion
+        # to their size, so every buyer keeps its share and no new links appear. Sectors without any
+        # positive final demand get an equal split over all final demand cells (previous behaviour).
+        n_fallback = 0
         for region_sector in tqdm(unbalanced_region_sectors, desc="Balancing unbalanced sectors", unit="sector"):
-            # Create the full set of final demand index positions
             where_to_add = pd.MultiIndex.from_product(
                 [self.regions, self.final_demand_label],
                 names=['region', 'sector']
             )
-
+            imbalance = total_input[region_sector] - total_output[region_sector]
             fd_values = self.loc[region_sector, where_to_add]
-            # Boolean mask: True where value > epsilon (non-zero)
-            non_zero_mask = fd_values > EPSILON
-            # Keep ONLY column labels with non-zero values
-            non_zero_fd_places = where_to_add[non_zero_mask]
-
-            # Safety: skip if no valid places to add
-            if len(non_zero_fd_places) == 0:
-                #print(region_sector)
-                # Calculate how much to all FD location
-                imbalance = total_input[region_sector] - total_output[region_sector]
-                add_per_place = imbalance / len(where_to_add)
-
-                # add the value all FD cells
-                self.loc[region_sector, where_to_add] += add_per_place
+            positive = fd_values[fd_values > EPSILON]
+            if len(positive) == 0:
+                n_fallback += 1
+                self.loc[region_sector, where_to_add] += imbalance / len(where_to_add)
             else:
-                # Calculate how much to add per non-zero FD location
-                imbalance = total_input[region_sector] - total_output[region_sector]
-                add_per_place = imbalance / len(non_zero_fd_places)
-                if  total_input[region_sector] / total_output[region_sector] > 1.1:
-                    print(region_sector)
-                    print(total_input[region_sector] / total_output[region_sector])
-                    print(add_per_place)
+                self.loc[region_sector, positive.index] += imbalance * positive / positive.sum()
+        if len(unbalanced_region_sectors) > 0:
+            logging.info(f"Balanced {len(unbalanced_region_sectors)} region_sectors, adding "
+                         f"{(total_input - total_output)[unbalanced_region_sectors].sum():.6g} to final demand "
+                         f"(proportional; equal split for {n_fallback} without positive final demand)")
 
-                #Add the value ONLY to non-zero FD cells
-                self.loc[region_sector, non_zero_fd_places] += add_per_place
-        
         #output_path = "mrio_adjusted.pkl"
 
         # Save the DataFrame (self) as pickle
