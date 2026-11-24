@@ -109,16 +109,19 @@ def input_ratings(buyer_sector: str, input_mix: Dict) -> Dict[str, float]:
     return {key: 0.0 if _input_sector(key) in _LINEAR_SUPPLIER_SECTORS else 1.0 for key in input_mix}
 
 
-def pool_inputs(inventory: Dict, input_mix: Dict, ratings: Dict[str, float]):
-    """Pool inputs of the same WIOD group and rating (and supplier region, if grouping is 'region').
+def pool_inputs(inventory: Dict, input_mix: Dict, ratings: Dict[str, float], production_target: float):
+    """Pool inputs of the same group and rating, without substitution between members.
 
-    Returns pooled (inventory, input_mix, ratings) keyed by group: the pooled stock and
-    coefficient are sums, so a group binds at total stock / total requirement.
+    Group key: GLORIA sector ("sector"), or WIOD group with ("region") or without ("all") the
+    supplier region. A group's availability is the share of its requirement at the production
+    target that is in stock, f = sum_k min(S_k, a_k T) / (a_g T): each member counts at most
+    with its normal requirement, so a surplus of one member never covers the shortfall of another.
+    Returns pooled (inventory, input_mix, ratings) such that stock / coefficient = f * T, plus
+    the member keys and f per group (used to draw down stocks consistently).
     """
-    pooled_inv: Dict[tuple, float] = {}
-    pooled_mix: Dict[tuple, float] = {}
+    members: Dict[tuple, list] = {}
     pooled_ratings: Dict[tuple, float] = {}
-    for key, coeff in input_mix.items():
+    for key in input_mix:
         rating = ratings[key]
         if _PICHLER_GROUPING == "sector":
             group = _input_sector(key)
@@ -128,10 +131,22 @@ def pool_inputs(inventory: Dict, input_mix: Dict, ratings: Dict[str, float]):
             pool_key = (key.split("_", 1)[0], group, rating)
         else:
             pool_key = (group, rating)
-        pooled_mix[pool_key] = pooled_mix.get(pool_key, 0.0) + coeff
-        pooled_inv[pool_key] = pooled_inv.get(pool_key, 0.0) + inventory.get(key, 0.0)
+        members.setdefault(pool_key, []).append(key)
         pooled_ratings[pool_key] = rating
-    return pooled_inv, pooled_mix, pooled_ratings
+    pooled_inv: Dict[tuple, float] = {}
+    pooled_mix: Dict[tuple, float] = {}
+    availability: Dict[tuple, float] = {}
+    for pool_key, keys in members.items():
+        coeff = sum(input_mix[k] for k in keys)
+        if production_target <= 0 or coeff <= 0:
+            f = 1.0
+        else:
+            f = sum(min(inventory.get(k, 0.0), input_mix[k] * production_target) for k in keys) \
+                / (coeff * production_target)
+        availability[pool_key] = f
+        pooled_mix[pool_key] = coeff
+        pooled_inv[pool_key] = f * production_target * coeff
+    return pooled_inv, pooled_mix, pooled_ratings, members, availability
 
 
 def is_linear_client(buyer_sector: str) -> bool:
@@ -216,7 +231,8 @@ class ProductionManager:
             self.production = min(self.production_target * share, self.current_production_capacity)
         else:
             if _INPUT_CRITICALITY == "pichler" and _PICHLER_GROUPING != "none":
-                pf_inventory, pf_mix, pf_ratings = pool_inputs(inventory, input_mix, ratings)
+                pf_inventory, pf_mix, pf_ratings, members, availability = pool_inputs(
+                    inventory, input_mix, ratings, self.production_target)
             else:
                 pf_inventory, pf_mix, pf_ratings = inventory, input_mix, ratings
             max_from_inputs = production_function(
@@ -234,9 +250,25 @@ class ProductionManager:
         # should be zero up to float error.
         pooled = _INPUT_CRITICALITY == "pichler" and _PICHLER_GROUPING != "none"
         self.product_stock += self.production
+        # In pooled groups, member k is drawn at min(S_k, a_k T) * x / (f T): the group as a whole
+        # supplies a_g * x, and no member is drawn faster than its normal rate a_k T, so stocks of
+        # other origins are not used up to replace a missing one (no implicit supplier switching).
+        pooled_need = {}
+        if (effective_mode != "Linear" and len(input_mix) > 0 and _INPUT_CRITICALITY == "pichler"
+                and _PICHLER_GROUPING != "none"):
+            for pool_key, keys in members.items():
+                f = availability[pool_key]
+                if pf_ratings[pool_key] == 0 or self.production_target <= 0:
+                    continue
+                for k in keys:
+                    if f > 0:
+                        pooled_need[k] = min(inventory.get(k, 0.0), input_mix[k] * self.production_target) \
+                            * self.production / (f * self.production_target)
+                    else:
+                        pooled_need[k] = input_mix[k] * self.production
         updated_inventory = {}
         for input_id, quantity in inventory.items():
-            needed = self.production * input_mix.get(input_id, 0.0)
+            needed = pooled_need.get(input_id, self.production * input_mix.get(input_id, 0.0))
             used = min(quantity, needed)
             shortfall = needed - used
             if shortfall > EPSILON:
