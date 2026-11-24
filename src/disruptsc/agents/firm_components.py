@@ -22,13 +22,19 @@ _SECTOR_SETS_INITIALIZED = False
 _INPUT_CRITICALITY = "sector_lists"
 _PICHLER_RATINGS: dict[str, dict[str, float]] = {}  # buyer sector -> {input sector: rating}
 _PICHLER_LINEAR_CLIENT_SECTORS: set[str] = set()
+# Pooling of inputs at the resolution of the ratings (WIOD sectors):
+# "none": every input region_sector binds on its own; "sector": the same GLORIA sector is pooled
+# across supplier regions; "region": inputs of the same WIOD group and rating from the same
+# supplier region are pooled; "all": WIOD group and rating pooled across supplier regions.
+_PICHLER_GROUPING = "none"
+_PICHLER_GROUPS: dict[str, str] = {}  # input sector -> WIOD group
 
 # Inventory floor diagnostics, reset and logged by Firms.produce() each time step
 FLOOR_STATS = {"critical_count": 0, "critical_amount": 0.0, "other_count": 0, "other_amount": 0.0}
 
 
-def load_pichler_ratings(filepath) -> dict[str, dict[str, float]]:
-    """Read the long-format ratings file (input_sector, buyer_sector, rating)."""
+def load_pichler_ratings(filepath) -> tuple[dict[str, dict[str, float]], dict[str, str]]:
+    """Read the long-format ratings file (input_sector, buyer_sector, rating[, input_group])."""
     import pandas as pd
     df = pd.read_csv(filepath)
     if not set(df["rating"].unique()) <= {0.0, 0.5, 1.0}:
@@ -36,7 +42,11 @@ def load_pichler_ratings(filepath) -> dict[str, dict[str, float]]:
     ratings: dict[str, dict[str, float]] = {}
     for inp, buyer, rating in df[["input_sector", "buyer_sector", "rating"]].itertuples(index=False):
         ratings.setdefault(buyer, {})[inp] = float(rating)
-    return ratings
+    if "input_group" in df.columns:
+        groups = dict(df[["input_sector", "input_group"]].drop_duplicates().itertuples(index=False))
+    else:
+        groups = {s: s for s in df["input_sector"].unique()}
+    return ratings, groups
 
 
 def init_sector_sets(parameters: Parameters):
@@ -48,6 +58,7 @@ def init_sector_sets(parameters: Parameters):
     """
     global _LINEAR_CLIENT_SECTORS, _LINEAR_SUPPLIER_SECTORS, _SECTOR_SETS_INITIALIZED
     global _INPUT_CRITICALITY, _PICHLER_RATINGS, _PICHLER_LINEAR_CLIENT_SECTORS
+    global _PICHLER_GROUPING, _PICHLER_GROUPS
     if _SECTOR_SETS_INITIALIZED:
         return
 
@@ -59,11 +70,14 @@ def init_sector_sets(parameters: Parameters):
         filepath = (parameters.filepaths or {}).get("pichler_ratings")
         if filepath is None:
             raise ValueError("input_criticality is 'pichler' but filepaths.pichler_ratings is not set")
-        _PICHLER_RATINGS = load_pichler_ratings(filepath)
+        _PICHLER_RATINGS, _PICHLER_GROUPS = load_pichler_ratings(filepath)
         _PICHLER_LINEAR_CLIENT_SECTORS = set(sectors_dict.get("pichler_linear_client_sectors", []))
+        _PICHLER_GROUPING = sectors_dict.get("pichler_grouping", "none")
+        if _PICHLER_GROUPING not in ("none", "sector", "region", "all"):
+            raise ValueError(f"Unknown pichler_grouping: {_PICHLER_GROUPING}")
         logging.info(f"Input criticality: Pichler ratings from {filepath} "
-                     f"({len(_PICHLER_RATINGS)} buyer sectors); linear buyers: "
-                     f"{sorted(_PICHLER_LINEAR_CLIENT_SECTORS)}")
+                     f"({len(_PICHLER_RATINGS)} buyer sectors, {len(set(_PICHLER_GROUPS.values()))} input groups, "
+                     f"grouping '{_PICHLER_GROUPING}'); linear buyers: {sorted(_PICHLER_LINEAR_CLIENT_SECTORS)}")
     elif _INPUT_CRITICALITY == "sector_lists":
         logging.info(f"Input criticality: sector lists ({len(_LINEAR_CLIENT_SECTORS)} linear clients, "
                      f"{len(_LINEAR_SUPPLIER_SECTORS)} linear suppliers)")
@@ -93,6 +107,31 @@ def input_ratings(buyer_sector: str, input_mix: Dict) -> Dict[str, float]:
         except KeyError as e:
             raise KeyError(f"No Pichler rating for buyer '{buyer_sector}', input {e}") from e
     return {key: 0.0 if _input_sector(key) in _LINEAR_SUPPLIER_SECTORS else 1.0 for key in input_mix}
+
+
+def pool_inputs(inventory: Dict, input_mix: Dict, ratings: Dict[str, float]):
+    """Pool inputs of the same WIOD group and rating (and supplier region, if grouping is 'region').
+
+    Returns pooled (inventory, input_mix, ratings) keyed by group: the pooled stock and
+    coefficient are sums, so a group binds at total stock / total requirement.
+    """
+    pooled_inv: Dict[tuple, float] = {}
+    pooled_mix: Dict[tuple, float] = {}
+    pooled_ratings: Dict[tuple, float] = {}
+    for key, coeff in input_mix.items():
+        rating = ratings[key]
+        if _PICHLER_GROUPING == "sector":
+            group = _input_sector(key)
+        else:
+            group = _PICHLER_GROUPS.get(_input_sector(key), _input_sector(key))
+        if _PICHLER_GROUPING == "region":
+            pool_key = (key.split("_", 1)[0], group, rating)
+        else:
+            pool_key = (group, rating)
+        pooled_mix[pool_key] = pooled_mix.get(pool_key, 0.0) + coeff
+        pooled_inv[pool_key] = pooled_inv.get(pool_key, 0.0) + inventory.get(key, 0.0)
+        pooled_ratings[pool_key] = rating
+    return pooled_inv, pooled_mix, pooled_ratings
 
 
 def is_linear_client(buyer_sector: str) -> bool:
@@ -176,18 +215,24 @@ class ProductionManager:
                                         production_target=self.production_target)
             self.production = min(self.production_target * share, self.current_production_capacity)
         else:
+            if _INPUT_CRITICALITY == "pichler" and _PICHLER_GROUPING != "none":
+                pf_inventory, pf_mix, pf_ratings = pool_inputs(inventory, input_mix, ratings)
+            else:
+                pf_inventory, pf_mix, pf_ratings = inventory, input_mix, ratings
             max_from_inputs = production_function(
-                inventory,
-                input_mix,
+                pf_inventory,
+                pf_mix,
                 function_type=effective_mode,
-                ratings=ratings,
+                ratings=pf_ratings,
                 eq_production=self.eq_production,
             )
             self.production = min(max_from_inputs, self.production_target, self.current_production_capacity)
 
         # 4) Update stock and inventories: use what is needed, but never more than is in stock (B3).
-        # The shortfall is expected for non-critical/important inputs and for linear clients;
-        # for critical inputs of Leontief firms it should be zero up to float error.
+        # The shortfall is expected for non-critical/important inputs, for linear clients and for
+        # single inputs inside a pooled group; for critical, unpooled inputs of Leontief firms it
+        # should be zero up to float error.
+        pooled = _INPUT_CRITICALITY == "pichler" and _PICHLER_GROUPING != "none"
         self.product_stock += self.production
         updated_inventory = {}
         for input_id, quantity in inventory.items():
@@ -195,7 +240,7 @@ class ProductionManager:
             used = min(quantity, needed)
             shortfall = needed - used
             if shortfall > EPSILON:
-                if effective_mode != "Linear" and ratings.get(input_id, 1.0) == 1.0:
+                if effective_mode != "Linear" and not pooled and ratings.get(input_id, 1.0) == 1.0:
                     FLOOR_STATS["critical_count"] += 1
                     FLOOR_STATS["critical_amount"] += shortfall
                 else:

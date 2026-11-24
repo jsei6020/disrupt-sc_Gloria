@@ -22,6 +22,10 @@ sectors:
   # "pichler": IHS ratings (filepaths.pichler_ratings), half-critical production function;
   #   pichler_linear_client_sectors produce linearly in their inputs rated above 0.
   input_criticality: "sector_lists"
+  # Pooling of inputs under "pichler": "none" (each supplier region_sector binds on its own),
+  # "sector" (same GLORIA sector pooled across supplier regions), "region" (same WIOD group and
+  # rating pooled within a supplier region), "all" (WIOD group and rating pooled across regions).
+  pichler_grouping: "none"
   pichler_linear_client_sectors:
     - "Wholesale and retail trade; repair of motor vehicles and motorcycles"
 
