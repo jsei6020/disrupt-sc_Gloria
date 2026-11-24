@@ -233,27 +233,38 @@ def _calculate_household_consumption_patterns(
         input_units=final_demand_cutoff['unit']
     )
     
+    # Sum all final demand categories (e.g. GLORIA P.3h, P.3n, P.3g, P.51, P.52, P.53)
+    # per buying region and supplying region-sector. Before this fix, the categories
+    # were stacked and keyed by supplier only, so the last category above the cutoff
+    # overwrote the others.
+    summed_final_demand = final_demand.T.groupby(level=0).sum().T
+    negative = summed_final_demand[summed_final_demand < 0]
+    logging.info(f"Final demand: summed {final_demand.shape[1]} columns into "
+                 f"{summed_final_demand.shape[1]} regions; "
+                 f"{int(negative.count().sum())} negative region-sector totals "
+                 f"set to 0 (sum {negative.sum().sum():.2f})")
+
     # Calculate consumption for each household
     household_sector_consumption = {}
-    
+
     for _, household in household_table.iterrows():
         # Population proportion within region
         pop_proportion = household['population'] / total_population_per_region[household['region']]
-        
+
         # Get demand for this region
-        if household['region'] in final_demand.columns.get_level_values(0):
-            region_demand = final_demand.xs(household['region'], axis=1, level=0)
-            
+        if household['region'] in summed_final_demand.columns:
+            region_demand = summed_final_demand[household['region']]
+
             # Scale demand for this household
-            household_demand = (region_demand * pop_proportion).stack().to_dict()
-            
-            # Apply cutoff and store
+            household_demand = (region_demand * pop_proportion).to_dict()
+
+            # Apply cutoff and store (negative totals are dropped here)
             household_sector_consumption[household['id']] = {
                 tup[0] + "_" + tup[1]: demand
                 for tup, demand in household_demand.items()
                 if demand > cutoff
             }
-    
+
     return household_sector_consumption
 
 
