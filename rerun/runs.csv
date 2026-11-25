@@ -1,0 +1,834 @@
+tag,region_sector,overrides
+AFG_011_Grapes,AFG_Growing grapes,{}
+AFG_014_Spices,"AFG_Growing spices, aromatic, drug and pharmaceutical crops",{}
+AFG_048_VegProducts,AFG_Vegetable products,{}
+AGO_027_Gas,AGO_Gas extraction,{}
+AGO_040_MiningNec,AGO_Mining and quarrying n.e.c.; services to mining,{}
+AGO_026_Petroleum,AGO_Petroleum extraction,{}
+ALB_008_Tobacco,ALB_Growing tobacco,{}
+ALB_020_AnimalsNec,ALB_Raising of animals n.e.c.; services to agriculture,{}
+ALB_015_Seeds,ALB_Seeds and plant propagation,{}
+ARE_078_BasicAluminium,ARE_Basic aluminium,{}
+ARE_080_BasicGold,ARE_Basic gold,{}
+ARE_068_OrganicChem,ARE_Basic organic chemicals,{}
+ARE_038_ChemMinerals,ARE_Chemical and fertilizer minerals,{}
+ARE_090_Electronics,ARE_Computers; electronic products; optical and precision instruments,{}
+ARE_027_Gas,ARE_Gas extraction,{}
+ARE_014_Spices,"ARE_Growing spices, aromatic, drug and pharmaceutical crops",{}
+ARE_025_Lignite,ARE_Lignite and peat,{}
+ARE_037_Quarrying,"ARE_Quarrying of stone, sand and clay",{}
+ARE_035_TinOres,ARE_Tin ores,{}
+ARE_056_TobaccoProducts,ARE_Tobacco products,{}
+ARG_002_Maize,ARG_Growing maize,{}
+ARG_001_Wheat,ARG_Growing wheat,{}
+ARG_033_LeadZincSilverOres,"ARG_Lead, zinc, silver ores",{}
+ARG_053_VegOils,ARG_Vegetable oils and fats,{}
+ARM_080_BasicGold,ARM_Basic gold,{}
+ARM_031_CopperOres,ARM_Copper ores,{}
+ARM_036_NonFerrOresNec,ARM_Other non-ferrous ores,{}
+AUS_030_AluminiumOre,AUS_Aluminium ore,{}
+AUS_079_BasicCopper,AUS_Basic copper,{}
+AUS_080_BasicGold,AUS_Basic gold,{}
+AUS_081_BasicLeadZincSilver,"AUS_Basic lead, zinc, silver",{}
+AUS_082_BasicNickel,AUS_Basic nickel,{}
+AUS_041_BeefMeat,AUS_Beef meat,{}
+AUS_038_ChemMinerals,AUS_Chemical and fertilizer minerals,{}
+AUS_031_CopperOres,AUS_Copper ores,{}
+AUS_027_Gas,AUS_Gas extraction,{}
+AUS_032_GoldOres,AUS_Gold ores,{}
+AUS_009_FibreCrops,AUS_Growing fibre crops,{}
+AUS_024_HardCoal,AUS_Hard coal,{}
+AUS_028_IronOres,AUS_Iron ores,{}
+AUS_033_LeadZincSilverOres,"AUS_Lead, zinc, silver ores",{}
+AUS_034_NickelOres,AUS_Nickel ores,{}
+AUS_036_NonFerrOresNec,AUS_Other non-ferrous ores,{}
+AUS_037_Quarrying,"AUS_Quarrying of stone, sand and clay",{}
+AUS_035_TinOres,AUS_Tin ores,{}
+AUT_078_BasicAluminium,AUT_Basic aluminium,{}
+AUT_068_OrganicChem,AUT_Basic organic chemicals,{}
+AUT_083_BasicTin,AUT_Basic tin,{}
+AZE_027_Gas,AZE_Gas extraction,{}
+AZE_009_FibreCrops,AZE_Growing fibre crops,{}
+AZE_026_Petroleum,AZE_Petroleum extraction,{}
+BDI_080_BasicGold,BDI_Basic gold,{}
+BDI_013_BeverageCrops,"BDI_Growing beverage crops (coffee, tea etc)",{}
+BDI_035_TinOres,BDI_Tin ores,{}
+BEL_079_BasicCopper,BEL_Basic copper,{}
+BEL_081_BasicLeadZincSilver,"BEL_Basic lead, zinc, silver",{}
+BEL_068_OrganicChem,BEL_Basic organic chemicals,{}
+BEL_083_BasicTin,BEL_Basic tin,{}
+BEL_069_Pharma,BEL_Pharmaceuticals and medicinal products,{}
+BEL_051_SugarCocoa,"BEL_Sugar refining; cocoa, chocolate and confectionery",{}
+BEL_048_VegProducts,BEL_Vegetable products,{}
+BEN_047_CerealProducts,BEN_Cereal products,{}
+BEN_009_FibreCrops,BEN_Growing fibre crops,{}
+BEN_004_Oilseeds,BEN_Growing leguminous crops and oil seeds,{}
+BFA_080_BasicGold,BFA_Basic gold,{}
+BFA_009_FibreCrops,BFA_Growing fibre crops,{}
+BFA_033_LeadZincSilverOres,"BFA_Lead, zinc, silver ores",{}
+BGD_008_Tobacco,BGD_Growing tobacco,{}
+BGD_058_LeatherFootwear,BGD_Leather and footwear,{}
+BGD_057_Textiles,BGD_Textiles and clothing,{}
+BGR_079_BasicCopper,BGR_Basic copper,{}
+BGR_032_GoldOres,BGR_Gold ores,{}
+BGR_001_Wheat,BGR_Growing wheat,{}
+BHR_078_BasicAluminium,BHR_Basic aluminium,{}
+BHR_028_IronOres,BHR_Iron ores,{}
+BHR_026_Petroleum,BHR_Petroleum extraction,{}
+BHS_039_Salt,BHS_Extraction of salt,{}
+BHS_046_FishProducts,BHS_Fish products,{}
+BHS_027_Gas,BHS_Gas extraction,{}
+BIH_062_CokeOven,BIH_Coke oven products,{}
+BIH_033_LeadZincSilverOres,"BIH_Lead, zinc, silver ores",{}
+BIH_025_Lignite,BIH_Lignite and peat,{}
+BLR_041_BeefMeat,BLR_Beef meat,{}
+BLR_065_OtherFertilizers,BLR_Non-nitrogenous and mixed fertilizers,{}
+BLR_015_Seeds,BLR_Seeds and plant propagation,{}
+BLZ_008_Tobacco,BLZ_Growing tobacco,{}
+BLZ_001_Wheat,BLZ_Growing wheat,{}
+BLZ_051_SugarCocoa,"BLZ_Sugar refining; cocoa, chocolate and confectionery",{}
+BOL_083_BasicTin,BOL_Basic tin,{}
+BOL_033_LeadZincSilverOres,"BOL_Lead, zinc, silver ores",{}
+BOL_035_TinOres,BOL_Tin ores,{}
+BRA_030_AluminiumOre,BRA_Aluminium ore,{}
+BRA_080_BasicGold,BRA_Basic gold,{}
+BRA_083_BasicTin,BRA_Basic tin,{}
+BRA_041_BeefMeat,BRA_Beef meat,{}
+BRA_013_BeverageCrops,"BRA_Growing beverage crops (coffee, tea etc)",{}
+BRA_009_FibreCrops,BRA_Growing fibre crops,{}
+BRA_004_Oilseeds,BRA_Growing leguminous crops and oil seeds,{}
+BRA_002_Maize,BRA_Growing maize,{}
+BRA_008_Tobacco,BRA_Growing tobacco,{}
+BRA_028_IronOres,BRA_Iron ores,{}
+BRA_034_NickelOres,BRA_Nickel ores,{}
+BRA_045_MeatNec,BRA_Other meat products,{}
+BRA_026_Petroleum,BRA_Petroleum extraction,{}
+BRA_037_Quarrying,"BRA_Quarrying of stone, sand and clay",{}
+BRA_015_Seeds,BRA_Seeds and plant propagation,{}
+BRA_051_SugarCocoa,"BRA_Sugar refining; cocoa, chocolate and confectionery",{}
+BRA_035_TinOres,BRA_Tin ores,{}
+BRA_053_VegOils,BRA_Vegetable oils and fats,{}
+BRN_027_Gas,BRN_Gas extraction,{}
+BRN_026_Petroleum,BRN_Petroleum extraction,{}
+BRN_063_RefinedPetroleum,BRN_Refined petroleum products,{}
+BTN_090_Electronics,BTN_Computers; electronic products; optical and precision instruments,{}
+BTN_069_Pharma,BTN_Pharmaceuticals and medicinal products,{}
+BTN_057_Textiles,BTN_Textiles and clothing,{}
+BWA_082_BasicNickel,BWA_Basic nickel,{}
+BWA_031_CopperOres,BWA_Copper ores,{}
+BWA_040_MiningNec,BWA_Mining and quarrying n.e.c.; services to mining,{}
+CAF_013_BeverageCrops,"CAF_Growing beverage crops (coffee, tea etc)",{}
+CAF_009_FibreCrops,CAF_Growing fibre crops,{}
+CAF_065_OtherFertilizers,CAF_Non-nitrogenous and mixed fertilizers,{}
+CAN_078_BasicAluminium,CAN_Basic aluminium,{}
+CAN_079_BasicCopper,CAN_Basic copper,{}
+CAN_080_BasicGold,CAN_Basic gold,{}
+CAN_081_BasicLeadZincSilver,"CAN_Basic lead, zinc, silver",{}
+CAN_082_BasicNickel,CAN_Basic nickel,{}
+CAN_083_BasicTin,CAN_Basic tin,{}
+CAN_038_ChemMinerals,CAN_Chemical and fertilizer minerals,{}
+CAN_031_CopperOres,CAN_Copper ores,{}
+CAN_039_Salt,CAN_Extraction of salt,{}
+CAN_027_Gas,CAN_Gas extraction,{}
+CAN_032_GoldOres,CAN_Gold ores,{}
+CAN_004_Oilseeds,CAN_Growing leguminous crops and oil seeds,{}
+CAN_014_Spices,"CAN_Growing spices, aromatic, drug and pharmaceutical crops",{}
+CAN_001_Wheat,CAN_Growing wheat,{}
+CAN_028_IronOres,CAN_Iron ores,{}
+CAN_087_MotorVehicles,"CAN_Motor vehicles, trailers and semi-trailers",{}
+CAN_034_NickelOres,CAN_Nickel ores,{}
+CAN_065_OtherFertilizers,CAN_Non-nitrogenous and mixed fertilizers,{}
+CAN_088_OtherTransportEq,CAN_Other transport equipment,{}
+CAN_026_Petroleum,CAN_Petroleum extraction,{}
+CAN_060_PulpPaper,CAN_Pulp and paper,{}
+CAN_059_Sawmill,CAN_Sawmill products,{}
+CAN_035_TinOres,CAN_Tin ores,{}
+CAN_048_VegProducts,CAN_Vegetable products,{}
+CHE_080_BasicGold,CHE_Basic gold,{}
+CHE_068_OrganicChem,CHE_Basic organic chemicals,{}
+CHE_090_Electronics,CHE_Computers; electronic products; optical and precision instruments,{}
+CHE_069_Pharma,CHE_Pharmaceuticals and medicinal products,{}
+CHL_031_CopperOres,CHL_Copper ores,{}
+CHL_039_Salt,CHL_Extraction of salt,{}
+CHL_011_Grapes,CHL_Growing grapes,{}
+CHL_036_NonFerrOresNec,CHL_Other non-ferrous ores,{}
+CHN_052_AnimalFats,CHN_Animal oils and fats,{}
+CHN_078_BasicAluminium,CHN_Basic aluminium,{}
+CHN_079_BasicCopper,CHN_Basic copper,{}
+CHN_080_BasicGold,CHN_Basic gold,{}
+CHN_067_InorganicChem,CHN_Basic inorganic chemicals,{}
+CHN_081_BasicLeadZincSilver,"CHN_Basic lead, zinc, silver",{}
+CHN_082_BasicNickel,CHN_Basic nickel,{}
+CHN_084_BasicNonFerrNec,CHN_Basic non-ferrous metals n.e.c.,{}
+CHN_068_OrganicChem,CHN_Basic organic chemicals,{}
+CHN_083_BasicTin,CHN_Basic tin,{}
+CHN_090_Electronics,CHN_Computers; electronic products; optical and precision instruments,{}
+CHN_070_OtherChemicals,"CHN_Dyes, paints, glues, detergents and other chemical products",{}
+CHN_091_ElectricalEq,CHN_Electrical equipment,{}
+CHN_039_Salt,CHN_Extraction of salt,{}
+CHN_085_FabMetal,CHN_Fabricated metal products,{}
+CHN_046_FishProducts,CHN_Fish products,{}
+CHN_092_FurnitureNec,CHN_Furniture and other manufacturing n.e.c.,{}
+CHN_074_GlassCeramics,CHN_Glass and other ceramics n.e.c.,{}
+CHN_011_Grapes,CHN_Growing grapes,{}
+CHN_014_Spices,"CHN_Growing spices, aromatic, drug and pharmaceutical crops",{}
+CHN_058_LeatherFootwear,CHN_Leather and footwear,{}
+CHN_086_Machinery,CHN_Machinery and equipment,{}
+CHN_087_MotorVehicles,"CHN_Motor vehicles, trailers and semi-trailers",{}
+CHN_065_OtherFertilizers,CHN_Non-nitrogenous and mixed fertilizers,{}
+CHN_045_MeatNec,CHN_Other meat products,{}
+CHN_088_OtherTransportEq,CHN_Other transport equipment,{}
+CHN_069_Pharma,CHN_Pharmaceuticals and medicinal products,{}
+CHN_072_Plastics,CHN_Plastic products,{}
+CHN_060_PulpPaper,CHN_Pulp and paper,{}
+CHN_020_AnimalsNec,CHN_Raising of animals n.e.c.; services to agriculture,{}
+CHN_063_RefinedPetroleum,CHN_Refined petroleum products,{}
+CHN_071_Rubber,CHN_Rubber products,{}
+CHN_059_Sawmill,CHN_Sawmill products,{}
+CHN_057_Textiles,CHN_Textiles and clothing,{}
+CHN_048_VegProducts,CHN_Vegetable products,{}
+CIV_009_FibreCrops,CIV_Growing fibre crops,{}
+CIV_012_FruitsNuts,CIV_Growing fruits and nuts,{}
+CIV_051_SugarCocoa,"CIV_Sugar refining; cocoa, chocolate and confectionery",{}
+CMR_009_FibreCrops,CMR_Growing fibre crops,{}
+CMR_012_FruitsNuts,CMR_Growing fruits and nuts,{}
+CMR_045_MeatNec,CMR_Other meat products,{}
+COD_079_BasicCopper,COD_Basic copper,{}
+COD_084_BasicNonFerrNec,COD_Basic non-ferrous metals n.e.c.,{}
+COD_035_TinOres,COD_Tin ores,{}
+COG_079_BasicCopper,COG_Basic copper,{}
+COG_026_Petroleum,COG_Petroleum extraction,{}
+COG_035_TinOres,COG_Tin ores,{}
+COL_013_BeverageCrops,"COL_Growing beverage crops (coffee, tea etc)",{}
+COL_024_HardCoal,COL_Hard coal,{}
+COL_015_Seeds,COL_Seeds and plant propagation,{}
+CRI_049_FruitProducts,CRI_Fruit products,{}
+CRI_013_BeverageCrops,"CRI_Growing beverage crops (coffee, tea etc)",{}
+CRI_012_FruitsNuts,CRI_Growing fruits and nuts,{}
+CUB_082_BasicNickel,CUB_Basic nickel,{}
+CUB_051_SugarCocoa,"CUB_Sugar refining; cocoa, chocolate and confectionery",{}
+CUB_056_TobaccoProducts,CUB_Tobacco products,{}
+CYP_049_FruitProducts,CYP_Fruit products,{}
+CYP_015_Seeds,CYP_Seeds and plant propagation,{}
+CYP_056_TobaccoProducts,CYP_Tobacco products,{}
+CZE_074_GlassCeramics,CZE_Glass and other ceramics n.e.c.,{}
+CZE_087_MotorVehicles,"CZE_Motor vehicles, trailers and semi-trailers",{}
+CZE_071_Rubber,CZE_Rubber products,{}
+DEU_052_AnimalFats,DEU_Animal oils and fats,{}
+DEU_078_BasicAluminium,DEU_Basic aluminium,{}
+DEU_079_BasicCopper,DEU_Basic copper,{}
+DEU_080_BasicGold,DEU_Basic gold,{}
+DEU_067_InorganicChem,DEU_Basic inorganic chemicals,{}
+DEU_081_BasicLeadZincSilver,"DEU_Basic lead, zinc, silver",{}
+DEU_082_BasicNickel,DEU_Basic nickel,{}
+DEU_084_BasicNonFerrNec,DEU_Basic non-ferrous metals n.e.c.,{}
+DEU_068_OrganicChem,DEU_Basic organic chemicals,{}
+DEU_083_BasicTin,DEU_Basic tin,{}
+DEU_090_Electronics,DEU_Computers; electronic products; optical and precision instruments,{}
+DEU_070_OtherChemicals,"DEU_Dyes, paints, glues, detergents and other chemical products",{}
+DEU_091_ElectricalEq,DEU_Electrical equipment,{}
+DEU_039_Salt,DEU_Extraction of salt,{}
+DEU_085_FabMetal,DEU_Fabricated metal products,{}
+DEU_049_FruitProducts,DEU_Fruit products,{}
+DEU_092_FurnitureNec,DEU_Furniture and other manufacturing n.e.c.,{}
+DEU_074_GlassCeramics,DEU_Glass and other ceramics n.e.c.,{}
+DEU_086_Machinery,DEU_Machinery and equipment,{}
+DEU_087_MotorVehicles,"DEU_Motor vehicles, trailers and semi-trailers",{}
+DEU_065_OtherFertilizers,DEU_Non-nitrogenous and mixed fertilizers,{}
+DEU_045_MeatNec,DEU_Other meat products,{}
+DEU_088_OtherTransportEq,DEU_Other transport equipment,{}
+DEU_069_Pharma,DEU_Pharmaceuticals and medicinal products,{}
+DEU_072_Plastics,DEU_Plastic products,{}
+DEU_060_PulpPaper,DEU_Pulp and paper,{}
+DEU_071_Rubber,DEU_Rubber products,{}
+DEU_015_Seeds,DEU_Seeds and plant propagation,{}
+DEU_042_SheepMeat,DEU_Sheep meat,{}
+DEU_051_SugarCocoa,"DEU_Sugar refining; cocoa, chocolate and confectionery",{}
+DEU_048_VegProducts,DEU_Vegetable products,{}
+DJI_081_BasicLeadZincSilver,"DJI_Basic lead, zinc, silver",{}
+DJI_013_BeverageCrops,"DJI_Growing beverage crops (coffee, tea etc)",{}
+DJI_053_VegOils,DJI_Vegetable oils and fats,{}
+DNK_046_FishProducts,DNK_Fish products,{}
+DNK_069_Pharma,DNK_Pharmaceuticals and medicinal products,{}
+DNK_043_Pork,DNK_Pork,{}
+DOM_030_AluminiumOre,DOM_Aluminium ore,{}
+DOM_080_BasicGold,DOM_Basic gold,{}
+DOM_008_Tobacco,DOM_Growing tobacco,{}
+DZA_038_ChemMinerals,DZA_Chemical and fertilizer minerals,{}
+DZA_027_Gas,DZA_Gas extraction,{}
+DZA_026_Petroleum,DZA_Petroleum extraction,{}
+ECU_046_FishProducts,ECU_Fish products,{}
+ECU_032_GoldOres,ECU_Gold ores,{}
+ECU_012_FruitsNuts,ECU_Growing fruits and nuts,{}
+EGY_080_BasicGold,EGY_Basic gold,{}
+EGY_014_Spices,"EGY_Growing spices, aromatic, drug and pharmaceutical crops",{}
+EGY_048_VegProducts,EGY_Vegetable products,{}
+ERI_080_BasicGold,ERI_Basic gold,{}
+ERI_031_CopperOres,ERI_Copper ores,{}
+ERI_033_LeadZincSilverOres,"ERI_Lead, zinc, silver ores",{}
+ESP_078_BasicAluminium,ESP_Basic aluminium,{}
+ESP_080_BasicGold,ESP_Basic gold,{}
+ESP_068_OrganicChem,ESP_Basic organic chemicals,{}
+ESP_046_FishProducts,ESP_Fish products,{}
+ESP_012_FruitsNuts,ESP_Growing fruits and nuts,{}
+ESP_011_Grapes,ESP_Growing grapes,{}
+ESP_087_MotorVehicles,"ESP_Motor vehicles, trailers and semi-trailers",{}
+ESP_042_SheepMeat,ESP_Sheep meat,{}
+ESP_053_VegOils,ESP_Vegetable oils and fats,{}
+ESP_048_VegProducts,ESP_Vegetable products,{}
+EST_046_FishProducts,EST_Fish products,{}
+EST_021_Forestry,EST_Forestry and logging,{}
+EST_059_Sawmill,EST_Sawmill products,{}
+ETH_013_BeverageCrops,"ETH_Growing beverage crops (coffee, tea etc)",{}
+ETH_014_Spices,"ETH_Growing spices, aromatic, drug and pharmaceutical crops",{}
+ETH_015_Seeds,ETH_Seeds and plant propagation,{}
+FIN_082_BasicNickel,FIN_Basic nickel,{}
+FIN_034_NickelOres,FIN_Nickel ores,{}
+FIN_060_PulpPaper,FIN_Pulp and paper,{}
+FRA_078_BasicAluminium,FRA_Basic aluminium,{}
+FRA_068_OrganicChem,FRA_Basic organic chemicals,{}
+FRA_070_OtherChemicals,"FRA_Dyes, paints, glues, detergents and other chemical products",{}
+FRA_011_Grapes,FRA_Growing grapes,{}
+FRA_001_Wheat,FRA_Growing wheat,{}
+FRA_088_OtherTransportEq,FRA_Other transport equipment,{}
+FRA_069_Pharma,FRA_Pharmaceuticals and medicinal products,{}
+FRA_015_Seeds,FRA_Seeds and plant propagation,{}
+FRA_051_SugarCocoa,"FRA_Sugar refining; cocoa, chocolate and confectionery",{}
+GAB_021_Forestry,GAB_Forestry and logging,{}
+GAB_036_NonFerrOresNec,GAB_Other non-ferrous ores,{}
+GAB_026_Petroleum,GAB_Petroleum extraction,{}
+GBR_080_BasicGold,GBR_Basic gold,{}
+GBR_068_OrganicChem,GBR_Basic organic chemicals,{}
+GBR_088_OtherTransportEq,GBR_Other transport equipment,{}
+GBR_026_Petroleum,GBR_Petroleum extraction,{}
+GBR_051_SugarCocoa,"GBR_Sugar refining; cocoa, chocolate and confectionery",{}
+GEO_079_BasicCopper,GEO_Basic copper,{}
+GEO_031_CopperOres,GEO_Copper ores,{}
+GEO_032_GoldOres,GEO_Gold ores,{}
+GHA_030_AluminiumOre,GHA_Aluminium ore,{}
+GHA_080_BasicGold,GHA_Basic gold,{}
+GHA_012_FruitsNuts,GHA_Growing fruits and nuts,{}
+GIN_030_AluminiumOre,GIN_Aluminium ore,{}
+GIN_080_BasicGold,GIN_Basic gold,{}
+GIN_027_Gas,GIN_Gas extraction,{}
+GMB_052_AnimalFats,GMB_Animal oils and fats,{}
+GMB_009_FibreCrops,GMB_Growing fibre crops,{}
+GMB_048_VegProducts,GMB_Vegetable products,{}
+GNQ_021_Forestry,GNQ_Forestry and logging,{}
+GNQ_027_Gas,GNQ_Gas extraction,{}
+GNQ_026_Petroleum,GNQ_Petroleum extraction,{}
+GRC_078_BasicAluminium,GRC_Basic aluminium,{}
+GRC_009_FibreCrops,GRC_Growing fibre crops,{}
+GRC_048_VegProducts,GRC_Vegetable products,{}
+GTM_014_Spices,"GTM_Growing spices, aromatic, drug and pharmaceutical crops",{}
+GTM_033_LeadZincSilverOres,"GTM_Lead, zinc, silver ores",{}
+GTM_034_NickelOres,GTM_Nickel ores,{}
+HKG_074_GlassCeramics,HKG_Glass and other ceramics n.e.c.,{}
+HKG_086_Machinery,HKG_Machinery and equipment,{}
+HKG_056_TobaccoProducts,HKG_Tobacco products,{}
+HND_032_GoldOres,HND_Gold ores,{}
+HND_013_BeverageCrops,"HND_Growing beverage crops (coffee, tea etc)",{}
+HND_033_LeadZincSilverOres,"HND_Lead, zinc, silver ores",{}
+HRV_011_Grapes,HRV_Growing grapes,{}
+HRV_097_MaterialsRecovery,HRV_Materials recovery,{}
+HRV_015_Seeds,HRV_Seeds and plant propagation,{}
+HTI_013_BeverageCrops,"HTI_Growing beverage crops (coffee, tea etc)",{}
+HTI_057_Textiles,HTI_Textiles and clothing,{}
+HTI_048_VegProducts,HTI_Vegetable products,{}
+HUN_090_Electronics,HUN_Computers; electronic products; optical and precision instruments,{}
+HUN_087_MotorVehicles,"HUN_Motor vehicles, trailers and semi-trailers",{}
+HUN_071_Rubber,HUN_Rubber products,{}
+IDN_052_AnimalFats,IDN_Animal oils and fats,{}
+IDN_082_BasicNickel,IDN_Basic nickel,{}
+IDN_083_BasicTin,IDN_Basic tin,{}
+IDN_031_CopperOres,IDN_Copper ores,{}
+IDN_046_FishProducts,IDN_Fish products,{}
+IDN_027_Gas,IDN_Gas extraction,{}
+IDN_013_BeverageCrops,"IDN_Growing beverage crops (coffee, tea etc)",{}
+IDN_024_HardCoal,IDN_Hard coal,{}
+IDN_025_Lignite,IDN_Lignite and peat,{}
+IDN_045_MeatNec,IDN_Other meat products,{}
+IDN_056_TobaccoProducts,IDN_Tobacco products,{}
+IDN_053_VegOils,IDN_Vegetable oils and fats,{}
+IND_052_AnimalFats,IND_Animal oils and fats,{}
+IND_078_BasicAluminium,IND_Basic aluminium,{}
+IND_081_BasicLeadZincSilver,"IND_Basic lead, zinc, silver",{}
+IND_082_BasicNickel,IND_Basic nickel,{}
+IND_068_OrganicChem,IND_Basic organic chemicals,{}
+IND_083_BasicTin,IND_Basic tin,{}
+IND_041_BeefMeat,IND_Beef meat,{}
+IND_047_CerealProducts,IND_Cereal products,{}
+IND_046_FishProducts,IND_Fish products,{}
+IND_049_FruitProducts,IND_Fruit products,{}
+IND_092_FurnitureNec,IND_Furniture and other manufacturing n.e.c.,{}
+IND_009_FibreCrops,IND_Growing fibre crops,{}
+IND_014_Spices,"IND_Growing spices, aromatic, drug and pharmaceutical crops",{}
+IND_058_LeatherFootwear,IND_Leather and footwear,{}
+IND_045_MeatNec,IND_Other meat products,{}
+IND_063_RefinedPetroleum,IND_Refined petroleum products,{}
+IND_015_Seeds,IND_Seeds and plant propagation,{}
+IND_042_SheepMeat,IND_Sheep meat,{}
+IND_051_SugarCocoa,"IND_Sugar refining; cocoa, chocolate and confectionery",{}
+IND_057_Textiles,IND_Textiles and clothing,{}
+IND_053_VegOils,IND_Vegetable oils and fats,{}
+IND_048_VegProducts,IND_Vegetable products,{}
+IRL_068_OrganicChem,IRL_Basic organic chemicals,{}
+IRL_041_BeefMeat,IRL_Beef meat,{}
+IRL_092_FurnitureNec,IRL_Furniture and other manufacturing n.e.c.,{}
+IRL_033_LeadZincSilverOres,"IRL_Lead, zinc, silver ores",{}
+IRL_069_Pharma,IRL_Pharmaceuticals and medicinal products,{}
+IRL_020_AnimalsNec,IRL_Raising of animals n.e.c.; services to agriculture,{}
+IRN_068_OrganicChem,IRN_Basic organic chemicals,{}
+IRN_038_ChemMinerals,IRN_Chemical and fertilizer minerals,{}
+IRN_026_Petroleum,IRN_Petroleum extraction,{}
+IRQ_080_BasicGold,IRQ_Basic gold,{}
+IRQ_001_Wheat,IRQ_Growing wheat,{}
+IRQ_026_Petroleum,IRQ_Petroleum extraction,{}
+ISL_078_BasicAluminium,ISL_Basic aluminium,{}
+ISL_046_FishProducts,ISL_Fish products,{}
+ISL_022_Fishing,ISL_Fishing,{}
+ISR_038_ChemMinerals,ISR_Chemical and fertilizer minerals,{}
+ISR_039_Salt,ISR_Extraction of salt,{}
+ISR_065_OtherFertilizers,ISR_Non-nitrogenous and mixed fertilizers,{}
+ITA_078_BasicAluminium,ITA_Basic aluminium,{}
+ITA_080_BasicGold,ITA_Basic gold,{}
+ITA_084_BasicNonFerrNec,ITA_Basic non-ferrous metals n.e.c.,{}
+ITA_068_OrganicChem,ITA_Basic organic chemicals,{}
+ITA_083_BasicTin,ITA_Basic tin,{}
+ITA_047_CerealProducts,ITA_Cereal products,{}
+ITA_091_ElectricalEq,ITA_Electrical equipment,{}
+ITA_085_FabMetal,ITA_Fabricated metal products,{}
+ITA_092_FurnitureNec,ITA_Furniture and other manufacturing n.e.c.,{}
+ITA_011_Grapes,ITA_Growing grapes,{}
+ITA_058_LeatherFootwear,ITA_Leather and footwear,{}
+ITA_086_Machinery,ITA_Machinery and equipment,{}
+ITA_088_OtherTransportEq,ITA_Other transport equipment,{}
+ITA_015_Seeds,ITA_Seeds and plant propagation,{}
+ITA_048_VegProducts,ITA_Vegetable products,{}
+JAM_030_AluminiumOre,JAM_Aluminium ore,{}
+JAM_013_BeverageCrops,"JAM_Growing beverage crops (coffee, tea etc)",{}
+JAM_014_Spices,"JAM_Growing spices, aromatic, drug and pharmaceutical crops",{}
+JOR_038_ChemMinerals,JOR_Chemical and fertilizer minerals,{}
+JOR_065_OtherFertilizers,JOR_Non-nitrogenous and mixed fertilizers,{}
+JOR_015_Seeds,JOR_Seeds and plant propagation,{}
+JPN_079_BasicCopper,JPN_Basic copper,{}
+JPN_080_BasicGold,JPN_Basic gold,{}
+JPN_081_BasicLeadZincSilver,"JPN_Basic lead, zinc, silver",{}
+JPN_082_BasicNickel,JPN_Basic nickel,{}
+JPN_068_OrganicChem,JPN_Basic organic chemicals,{}
+JPN_090_Electronics,JPN_Computers; electronic products; optical and precision instruments,{}
+JPN_091_ElectricalEq,JPN_Electrical equipment,{}
+JPN_046_FishProducts,JPN_Fish products,{}
+JPN_074_GlassCeramics,JPN_Glass and other ceramics n.e.c.,{}
+JPN_086_Machinery,JPN_Machinery and equipment,{}
+JPN_087_MotorVehicles,"JPN_Motor vehicles, trailers and semi-trailers",{}
+JPN_088_OtherTransportEq,JPN_Other transport equipment,{}
+JPN_071_Rubber,JPN_Rubber products,{}
+KAZ_079_BasicCopper,KAZ_Basic copper,{}
+KAZ_001_Wheat,KAZ_Growing wheat,{}
+KAZ_026_Petroleum,KAZ_Petroleum extraction,{}
+KEN_013_BeverageCrops,"KEN_Growing beverage crops (coffee, tea etc)",{}
+KEN_014_Spices,"KEN_Growing spices, aromatic, drug and pharmaceutical crops",{}
+KEN_015_Seeds,KEN_Seeds and plant propagation,{}
+KGZ_080_BasicGold,KGZ_Basic gold,{}
+KGZ_032_GoldOres,KGZ_Gold ores,{}
+KGZ_009_FibreCrops,KGZ_Growing fibre crops,{}
+KHM_014_Spices,"KHM_Growing spices, aromatic, drug and pharmaceutical crops",{}
+KHM_058_LeatherFootwear,KHM_Leather and footwear,{}
+KHM_057_Textiles,KHM_Textiles and clothing,{}
+KOR_078_BasicAluminium,KOR_Basic aluminium,{}
+KOR_079_BasicCopper,KOR_Basic copper,{}
+KOR_067_InorganicChem,KOR_Basic inorganic chemicals,{}
+KOR_081_BasicLeadZincSilver,"KOR_Basic lead, zinc, silver",{}
+KOR_082_BasicNickel,KOR_Basic nickel,{}
+KOR_068_OrganicChem,KOR_Basic organic chemicals,{}
+KOR_083_BasicTin,KOR_Basic tin,{}
+KOR_090_Electronics,KOR_Computers; electronic products; optical and precision instruments,{}
+KOR_091_ElectricalEq,KOR_Electrical equipment,{}
+KOR_086_Machinery,KOR_Machinery and equipment,{}
+KOR_087_MotorVehicles,"KOR_Motor vehicles, trailers and semi-trailers",{}
+KOR_088_OtherTransportEq,KOR_Other transport equipment,{}
+KOR_063_RefinedPetroleum,KOR_Refined petroleum products,{}
+KWT_068_OrganicChem,KWT_Basic organic chemicals,{}
+KWT_038_ChemMinerals,KWT_Chemical and fertilizer minerals,{}
+KWT_026_Petroleum,KWT_Petroleum extraction,{}
+LAO_031_CopperOres,LAO_Copper ores,{}
+LAO_014_Spices,"LAO_Growing spices, aromatic, drug and pharmaceutical crops",{}
+LAO_015_Seeds,LAO_Seeds and plant propagation,{}
+LBN_011_Grapes,LBN_Growing grapes,{}
+LBN_014_Spices,"LBN_Growing spices, aromatic, drug and pharmaceutical crops",{}
+LBN_008_Tobacco,LBN_Growing tobacco,{}
+LBR_027_Gas,LBR_Gas extraction,{}
+LBR_009_FibreCrops,LBR_Growing fibre crops,{}
+LBR_028_IronOres,LBR_Iron ores,{}
+LBY_080_BasicGold,LBY_Basic gold,{}
+LBY_027_Gas,LBY_Gas extraction,{}
+LBY_026_Petroleum,LBY_Petroleum extraction,{}
+LKA_014_Spices,"LKA_Growing spices, aromatic, drug and pharmaceutical crops",{}
+LKA_025_Lignite,LKA_Lignite and peat,{}
+LKA_071_Rubber,LKA_Rubber products,{}
+LTU_001_Wheat,LTU_Growing wheat,{}
+LTU_064_NitroFertilizers,LTU_Nitrogenous fertilizers,{}
+LTU_065_OtherFertilizers,LTU_Non-nitrogenous and mixed fertilizers,{}
+LUX_078_BasicAluminium,LUX_Basic aluminium,{}
+LUX_083_BasicTin,LUX_Basic tin,{}
+LUX_072_Plastics,LUX_Plastic products,{}
+LVA_001_Wheat,LVA_Growing wheat,{}
+LVA_059_Sawmill,LVA_Sawmill products,{}
+LVA_015_Seeds,LVA_Seeds and plant propagation,{}
+MAR_046_FishProducts,MAR_Fish products,{}
+MAR_033_LeadZincSilverOres,"MAR_Lead, zinc, silver ores",{}
+MAR_065_OtherFertilizers,MAR_Non-nitrogenous and mixed fertilizers,{}
+MDA_049_FruitProducts,MDA_Fruit products,{}
+MDA_001_Wheat,MDA_Growing wheat,{}
+MDA_053_VegOils,MDA_Vegetable oils and fats,{}
+MDG_082_BasicNickel,MDG_Basic nickel,{}
+MDG_014_Spices,"MDG_Growing spices, aromatic, drug and pharmaceutical crops",{}
+MDG_036_NonFerrOresNec,MDG_Other non-ferrous ores,{}
+MEX_080_BasicGold,MEX_Basic gold,{}
+MEX_081_BasicLeadZincSilver,"MEX_Basic lead, zinc, silver",{}
+MEX_090_Electronics,MEX_Computers; electronic products; optical and precision instruments,{}
+MEX_031_CopperOres,MEX_Copper ores,{}
+MEX_091_ElectricalEq,MEX_Electrical equipment,{}
+MEX_024_HardCoal,MEX_Hard coal,{}
+MEX_033_LeadZincSilverOres,"MEX_Lead, zinc, silver ores",{}
+MEX_087_MotorVehicles,"MEX_Motor vehicles, trailers and semi-trailers",{}
+MKD_008_Tobacco,MKD_Growing tobacco,{}
+MKD_033_LeadZincSilverOres,"MKD_Lead, zinc, silver ores",{}
+MKD_040_MiningNec,MKD_Mining and quarrying n.e.c.; services to mining,{}
+MLI_080_BasicGold,MLI_Basic gold,{}
+MLI_009_FibreCrops,MLI_Growing fibre crops,{}
+MLI_065_OtherFertilizers,MLI_Non-nitrogenous and mixed fertilizers,{}
+MLT_023_Crustaceans,MLT_Crustaceans and molluscs,{}
+MLT_046_FishProducts,MLT_Fish products,{}
+MLT_022_Fishing,MLT_Fishing,{}
+MMR_027_Gas,MMR_Gas extraction,{}
+MMR_014_Spices,"MMR_Growing spices, aromatic, drug and pharmaceutical crops",{}
+MMR_015_Seeds,MMR_Seeds and plant propagation,{}
+MNG_031_CopperOres,MNG_Copper ores,{}
+MNG_024_HardCoal,MNG_Hard coal,{}
+MNG_033_LeadZincSilverOres,"MNG_Lead, zinc, silver ores",{}
+MOZ_008_Tobacco,MOZ_Growing tobacco,{}
+MOZ_024_HardCoal,MOZ_Hard coal,{}
+MOZ_036_NonFerrOresNec,MOZ_Other non-ferrous ores,{}
+MRT_080_BasicGold,MRT_Basic gold,{}
+MRT_046_FishProducts,MRT_Fish products,{}
+MRT_028_IronOres,MRT_Iron ores,{}
+MWI_009_FibreCrops,MWI_Growing fibre crops,{}
+MWI_008_Tobacco,MWI_Growing tobacco,{}
+MWI_029_Uranium,MWI_Uranium ores,{}
+MYS_083_BasicTin,MYS_Basic tin,{}
+MYS_090_Electronics,MYS_Computers; electronic products; optical and precision instruments,{}
+MYS_053_VegOils,MYS_Vegetable oils and fats,{}
+NAM_033_LeadZincSilverOres,"NAM_Lead, zinc, silver ores",{}
+NAM_040_MiningNec,NAM_Mining and quarrying n.e.c.; services to mining,{}
+NAM_029_Uranium,NAM_Uranium ores,{}
+NER_027_Gas,NER_Gas extraction,{}
+NER_014_Spices,"NER_Growing spices, aromatic, drug and pharmaceutical crops",{}
+NER_029_Uranium,NER_Uranium ores,{}
+NGA_027_Gas,NGA_Gas extraction,{}
+NGA_026_Petroleum,NGA_Petroleum extraction,{}
+NGA_048_VegProducts,NGA_Vegetable products,{}
+NIC_080_BasicGold,NIC_Basic gold,{}
+NIC_013_BeverageCrops,"NIC_Growing beverage crops (coffee, tea etc)",{}
+NIC_051_SugarCocoa,"NIC_Sugar refining; cocoa, chocolate and confectionery",{}
+NLD_052_AnimalFats,NLD_Animal oils and fats,{}
+NLD_082_BasicNickel,NLD_Basic nickel,{}
+NLD_068_OrganicChem,NLD_Basic organic chemicals,{}
+NLD_070_OtherChemicals,"NLD_Dyes, paints, glues, detergents and other chemical products",{}
+NLD_049_FruitProducts,NLD_Fruit products,{}
+NLD_086_Machinery,NLD_Machinery and equipment,{}
+NLD_020_AnimalsNec,NLD_Raising of animals n.e.c.; services to agriculture,{}
+NLD_063_RefinedPetroleum,NLD_Refined petroleum products,{}
+NLD_015_Seeds,NLD_Seeds and plant propagation,{}
+NLD_051_SugarCocoa,"NLD_Sugar refining; cocoa, chocolate and confectionery",{}
+NLD_053_VegOils,NLD_Vegetable oils and fats,{}
+NLD_048_VegProducts,NLD_Vegetable products,{}
+NOR_078_BasicAluminium,NOR_Basic aluminium,{}
+NOR_082_BasicNickel,NOR_Basic nickel,{}
+NOR_046_FishProducts,NOR_Fish products,{}
+NOR_027_Gas,NOR_Gas extraction,{}
+NOR_026_Petroleum,NOR_Petroleum extraction,{}
+NPL_049_FruitProducts,NPL_Fruit products,{}
+NPL_013_BeverageCrops,"NPL_Growing beverage crops (coffee, tea etc)",{}
+NPL_014_Spices,"NPL_Growing spices, aromatic, drug and pharmaceutical crops",{}
+NZL_054_Dairy,NZL_Dairy products,{}
+NZL_015_Seeds,NZL_Seeds and plant propagation,{}
+NZL_042_SheepMeat,NZL_Sheep meat,{}
+OMN_027_Gas,OMN_Gas extraction,{}
+OMN_028_IronOres,OMN_Iron ores,{}
+OMN_026_Petroleum,OMN_Petroleum extraction,{}
+PAK_047_CerealProducts,PAK_Cereal products,{}
+PAK_014_Spices,"PAK_Growing spices, aromatic, drug and pharmaceutical crops",{}
+PAK_057_Textiles,PAK_Textiles and clothing,{}
+PAN_052_AnimalFats,PAN_Animal oils and fats,{}
+PAN_031_CopperOres,PAN_Copper ores,{}
+PAN_046_FishProducts,PAN_Fish products,{}
+PER_031_CopperOres,PER_Copper ores,{}
+PER_032_GoldOres,PER_Gold ores,{}
+PER_028_IronOres,PER_Iron ores,{}
+PER_033_LeadZincSilverOres,"PER_Lead, zinc, silver ores",{}
+PER_035_TinOres,PER_Tin ores,{}
+PHL_046_FishProducts,PHL_Fish products,{}
+PHL_034_NickelOres,PHL_Nickel ores,{}
+PHL_053_VegOils,PHL_Vegetable oils and fats,{}
+PNG_031_CopperOres,PNG_Copper ores,{}
+PNG_027_Gas,PNG_Gas extraction,{}
+PNG_032_GoldOres,PNG_Gold ores,{}
+POL_079_BasicCopper,POL_Basic copper,{}
+POL_074_GlassCeramics,POL_Glass and other ceramics n.e.c.,{}
+POL_071_Rubber,POL_Rubber products,{}
+POL_051_SugarCocoa,"POL_Sugar refining; cocoa, chocolate and confectionery",{}
+PRK_062_CokeOven,PRK_Coke oven products,{}
+PRK_090_Electronics,PRK_Computers; electronic products; optical and precision instruments,{}
+PRK_024_HardCoal,PRK_Hard coal,{}
+PRT_074_GlassCeramics,PRT_Glass and other ceramics n.e.c.,{}
+PRT_033_LeadZincSilverOres,"PRT_Lead, zinc, silver ores",{}
+PRT_048_VegProducts,PRT_Vegetable products,{}
+PRY_041_BeefMeat,PRY_Beef meat,{}
+PRY_004_Oilseeds,PRY_Growing leguminous crops and oil seeds,{}
+PRY_002_Maize,PRY_Growing maize,{}
+PSE_030_AluminiumOre,PSE_Aluminium ore,{}
+PSE_037_Quarrying,"PSE_Quarrying of stone, sand and clay",{}
+PSE_048_VegProducts,PSE_Vegetable products,{}
+QAT_038_ChemMinerals,QAT_Chemical and fertilizer minerals,{}
+QAT_027_Gas,QAT_Gas extraction,{}
+QAT_026_Petroleum,QAT_Petroleum extraction,{}
+ROU_002_Maize,ROU_Growing maize,{}
+ROU_001_Wheat,ROU_Growing wheat,{}
+ROU_071_Rubber,ROU_Rubber products,{}
+RUS_078_BasicAluminium,RUS_Basic aluminium,{}
+RUS_079_BasicCopper,RUS_Basic copper,{}
+RUS_080_BasicGold,RUS_Basic gold,{}
+RUS_082_BasicNickel,RUS_Basic nickel,{}
+RUS_084_BasicNonFerrNec,RUS_Basic non-ferrous metals n.e.c.,{}
+RUS_083_BasicTin,RUS_Basic tin,{}
+RUS_038_ChemMinerals,RUS_Chemical and fertilizer minerals,{}
+RUS_027_Gas,RUS_Gas extraction,{}
+RUS_032_GoldOres,RUS_Gold ores,{}
+RUS_014_Spices,"RUS_Growing spices, aromatic, drug and pharmaceutical crops",{}
+RUS_001_Wheat,RUS_Growing wheat,{}
+RUS_024_HardCoal,RUS_Hard coal,{}
+RUS_033_LeadZincSilverOres,"RUS_Lead, zinc, silver ores",{}
+RUS_025_Lignite,RUS_Lignite and peat,{}
+RUS_065_OtherFertilizers,RUS_Non-nitrogenous and mixed fertilizers,{}
+RUS_026_Petroleum,RUS_Petroleum extraction,{}
+RUS_063_RefinedPetroleum,RUS_Refined petroleum products,{}
+RUS_035_TinOres,RUS_Tin ores,{}
+RWA_014_Spices,"RWA_Growing spices, aromatic, drug and pharmaceutical crops",{}
+RWA_036_NonFerrOresNec,RWA_Other non-ferrous ores,{}
+RWA_035_TinOres,RWA_Tin ores,{}
+SAU_068_OrganicChem,SAU_Basic organic chemicals,{}
+SAU_027_Gas,SAU_Gas extraction,{}
+SAU_025_Lignite,SAU_Lignite and peat,{}
+SAU_026_Petroleum,SAU_Petroleum extraction,{}
+SDN_080_BasicGold,SDN_Basic gold,{}
+SDN_038_ChemMinerals,SDN_Chemical and fertilizer minerals,{}
+SDN_037_Quarrying,"SDN_Quarrying of stone, sand and clay",{}
+SDS_062_CokeOven,SDS_Coke oven products,{}
+SDS_027_Gas,SDS_Gas extraction,{}
+SDS_025_Lignite,SDS_Lignite and peat,{}
+SEN_038_ChemMinerals,SEN_Chemical and fertilizer minerals,{}
+SEN_039_Salt,SEN_Extraction of salt,{}
+SEN_036_NonFerrOresNec,SEN_Other non-ferrous ores,{}
+SGP_080_BasicGold,SGP_Basic gold,{}
+SGP_068_OrganicChem,SGP_Basic organic chemicals,{}
+SGP_083_BasicTin,SGP_Basic tin,{}
+SGP_090_Electronics,SGP_Computers; electronic products; optical and precision instruments,{}
+SGP_088_OtherTransportEq,SGP_Other transport equipment,{}
+SGP_063_RefinedPetroleum,SGP_Refined petroleum products,{}
+SLE_030_AluminiumOre,SLE_Aluminium ore,{}
+SLE_021_Forestry,SLE_Forestry and logging,{}
+SLE_036_NonFerrOresNec,SLE_Other non-ferrous ores,{}
+SLV_047_CerealProducts,SLV_Cereal products,{}
+SLV_013_BeverageCrops,"SLV_Growing beverage crops (coffee, tea etc)",{}
+SLV_051_SugarCocoa,"SLV_Sugar refining; cocoa, chocolate and confectionery",{}
+SOM_046_FishProducts,SOM_Fish products,{}
+SOM_021_Forestry,SOM_Forestry and logging,{}
+SOM_017_SheepGoats,SOM_Raising of sheep and goats,{}
+SRB_030_AluminiumOre,SRB_Aluminium ore,{}
+SRB_079_BasicCopper,SRB_Basic copper,{}
+SRB_056_TobaccoProducts,SRB_Tobacco products,{}
+SVK_085_FabMetal,SVK_Fabricated metal products,{}
+SVK_087_MotorVehicles,"SVK_Motor vehicles, trailers and semi-trailers",{}
+SVK_071_Rubber,SVK_Rubber products,{}
+SVN_078_BasicAluminium,SVN_Basic aluminium,{}
+SVN_091_ElectricalEq,SVN_Electrical equipment,{}
+SVN_069_Pharma,SVN_Pharmaceuticals and medicinal products,{}
+SWE_069_Pharma,SWE_Pharmaceuticals and medicinal products,{}
+SWE_060_PulpPaper,SWE_Pulp and paper,{}
+SWE_059_Sawmill,SWE_Sawmill products,{}
+SYR_038_ChemMinerals,SYR_Chemical and fertilizer minerals,{}
+SYR_009_FibreCrops,SYR_Growing fibre crops,{}
+SYR_001_Wheat,SYR_Growing wheat,{}
+TCD_080_BasicGold,TCD_Basic gold,{}
+TCD_009_FibreCrops,TCD_Growing fibre crops,{}
+TCD_026_Petroleum,TCD_Petroleum extraction,{}
+TGO_038_ChemMinerals,TGO_Chemical and fertilizer minerals,{}
+TGO_009_FibreCrops,TGO_Growing fibre crops,{}
+TGO_065_OtherFertilizers,TGO_Non-nitrogenous and mixed fertilizers,{}
+THA_080_BasicGold,THA_Basic gold,{}
+THA_068_OrganicChem,THA_Basic organic chemicals,{}
+THA_046_FishProducts,THA_Fish products,{}
+THA_071_Rubber,THA_Rubber products,{}
+THA_051_SugarCocoa,"THA_Sugar refining; cocoa, chocolate and confectionery",{}
+TJK_009_FibreCrops,TJK_Growing fibre crops,{}
+TJK_001_Wheat,TJK_Growing wheat,{}
+TJK_033_LeadZincSilverOres,"TJK_Lead, zinc, silver ores",{}
+TKM_038_ChemMinerals,TKM_Chemical and fertilizer minerals,{}
+TKM_027_Gas,TKM_Gas extraction,{}
+TKM_009_FibreCrops,TKM_Growing fibre crops,{}
+TUN_058_LeatherFootwear,TUN_Leather and footwear,{}
+TUN_065_OtherFertilizers,TUN_Non-nitrogenous and mixed fertilizers,{}
+TUN_053_VegOils,TUN_Vegetable oils and fats,{}
+TUR_080_BasicGold,TUR_Basic gold,{}
+TUR_012_FruitsNuts,TUR_Growing fruits and nuts,{}
+TUR_011_Grapes,TUR_Growing grapes,{}
+TUR_058_LeatherFootwear,TUR_Leather and footwear,{}
+TUR_057_Textiles,TUR_Textiles and clothing,{}
+TZA_080_BasicGold,TZA_Basic gold,{}
+TZA_032_GoldOres,TZA_Gold ores,{}
+TZA_035_TinOres,TZA_Tin ores,{}
+UGA_080_BasicGold,UGA_Basic gold,{}
+UGA_013_BeverageCrops,"UGA_Growing beverage crops (coffee, tea etc)",{}
+UGA_008_Tobacco,UGA_Growing tobacco,{}
+UKR_002_Maize,UKR_Growing maize,{}
+UKR_001_Wheat,UKR_Growing wheat,{}
+UKR_028_IronOres,UKR_Iron ores,{}
+URY_041_BeefMeat,URY_Beef meat,{}
+URY_004_Oilseeds,URY_Growing leguminous crops and oil seeds,{}
+URY_033_LeadZincSilverOres,"URY_Lead, zinc, silver ores",{}
+USA_052_AnimalFats,USA_Animal oils and fats,{}
+USA_078_BasicAluminium,USA_Basic aluminium,{}
+USA_079_BasicCopper,USA_Basic copper,{}
+USA_080_BasicGold,USA_Basic gold,{}
+USA_067_InorganicChem,USA_Basic inorganic chemicals,{}
+USA_081_BasicLeadZincSilver,"USA_Basic lead, zinc, silver",{}
+USA_082_BasicNickel,USA_Basic nickel,{}
+USA_084_BasicNonFerrNec,USA_Basic non-ferrous metals n.e.c.,{}
+USA_068_OrganicChem,USA_Basic organic chemicals,{}
+USA_083_BasicTin,USA_Basic tin,{}
+USA_041_BeefMeat,USA_Beef meat,{}
+USA_090_Electronics,USA_Computers; electronic products; optical and precision instruments,{}
+USA_031_CopperOres,USA_Copper ores,{}
+USA_070_OtherChemicals,"USA_Dyes, paints, glues, detergents and other chemical products",{}
+USA_039_Salt,USA_Extraction of salt,{}
+USA_085_FabMetal,USA_Fabricated metal products,{}
+USA_046_FishProducts,USA_Fish products,{}
+USA_049_FruitProducts,USA_Fruit products,{}
+USA_092_FurnitureNec,USA_Furniture and other manufacturing n.e.c.,{}
+USA_027_Gas,USA_Gas extraction,{}
+USA_074_GlassCeramics,USA_Glass and other ceramics n.e.c.,{}
+USA_032_GoldOres,USA_Gold ores,{}
+USA_009_FibreCrops,USA_Growing fibre crops,{}
+USA_012_FruitsNuts,USA_Growing fruits and nuts,{}
+USA_011_Grapes,USA_Growing grapes,{}
+USA_004_Oilseeds,USA_Growing leguminous crops and oil seeds,{}
+USA_002_Maize,USA_Growing maize,{}
+USA_014_Spices,"USA_Growing spices, aromatic, drug and pharmaceutical crops",{}
+USA_001_Wheat,USA_Growing wheat,{}
+USA_024_HardCoal,USA_Hard coal,{}
+USA_033_LeadZincSilverOres,"USA_Lead, zinc, silver ores",{}
+USA_086_Machinery,USA_Machinery and equipment,{}
+USA_087_MotorVehicles,"USA_Motor vehicles, trailers and semi-trailers",{}
+USA_034_NickelOres,USA_Nickel ores,{}
+USA_065_OtherFertilizers,USA_Non-nitrogenous and mixed fertilizers,{}
+USA_036_NonFerrOresNec,USA_Other non-ferrous ores,{}
+USA_088_OtherTransportEq,USA_Other transport equipment,{}
+USA_026_Petroleum,USA_Petroleum extraction,{}
+USA_069_Pharma,USA_Pharmaceuticals and medicinal products,{}
+USA_072_Plastics,USA_Plastic products,{}
+USA_060_PulpPaper,USA_Pulp and paper,{}
+USA_037_Quarrying,"USA_Quarrying of stone, sand and clay",{}
+USA_020_AnimalsNec,USA_Raising of animals n.e.c.; services to agriculture,{}
+USA_063_RefinedPetroleum,USA_Refined petroleum products,{}
+USA_071_Rubber,USA_Rubber products,{}
+USA_015_Seeds,USA_Seeds and plant propagation,{}
+USA_053_VegOils,USA_Vegetable oils and fats,{}
+USA_048_VegProducts,USA_Vegetable products,{}
+UZB_080_BasicGold,UZB_Basic gold,{}
+UZB_027_Gas,UZB_Gas extraction,{}
+UZB_009_FibreCrops,UZB_Growing fibre crops,{}
+VEN_024_HardCoal,VEN_Hard coal,{}
+VEN_028_IronOres,VEN_Iron ores,{}
+VEN_026_Petroleum,VEN_Petroleum extraction,{}
+VNM_047_CerealProducts,VNM_Cereal products,{}
+VNM_090_Electronics,VNM_Computers; electronic products; optical and precision instruments,{}
+VNM_046_FishProducts,VNM_Fish products,{}
+VNM_092_FurnitureNec,VNM_Furniture and other manufacturing n.e.c.,{}
+VNM_013_BeverageCrops,"VNM_Growing beverage crops (coffee, tea etc)",{}
+VNM_012_FruitsNuts,VNM_Growing fruits and nuts,{}
+VNM_014_Spices,"VNM_Growing spices, aromatic, drug and pharmaceutical crops",{}
+VNM_024_HardCoal,VNM_Hard coal,{}
+VNM_058_LeatherFootwear,VNM_Leather and footwear,{}
+VNM_057_Textiles,VNM_Textiles and clothing,{}
+YEM_052_AnimalFats,YEM_Animal oils and fats,{}
+YEM_008_Tobacco,YEM_Growing tobacco,{}
+YEM_048_VegProducts,YEM_Vegetable products,{}
+ZAF_032_GoldOres,ZAF_Gold ores,{}
+ZAF_028_IronOres,ZAF_Iron ores,{}
+ZAF_033_LeadZincSilverOres,"ZAF_Lead, zinc, silver ores",{}
+ZAF_034_NickelOres,ZAF_Nickel ores,{}
+ZAF_036_NonFerrOresNec,ZAF_Other non-ferrous ores,{}
+ZMB_079_BasicCopper,ZMB_Basic copper,{}
+ZMB_009_FibreCrops,ZMB_Growing fibre crops,{}
+ZMB_008_Tobacco,ZMB_Growing tobacco,{}
+ZWE_080_BasicGold,ZWE_Basic gold,{}
+ZWE_008_Tobacco,ZWE_Growing tobacco,{}
+ZWE_034_NickelOres,ZWE_Nickel ores,{}
+sens_ironAUS_dur6,AUS_Iron ores,"{""disruption_duration"": 6}"
+sens_ironAUS_dur9,AUS_Iron ores,"{""disruption_duration"": 9}"
+sens_ironAUS_dur15,AUS_Iron ores,"{""disruption_duration"": 15}"
+sens_ironAUS_dur18,AUS_Iron ores,"{""disruption_duration"": 18}"
+sens_ironAUS_io0.0001,AUS_Iron ores,"{""io_cutoff"": 0.0001}"
+sens_ironAUS_io0.01,AUS_Iron ores,"{""io_cutoff"": 0.01}"
+sens_ironAUS_inv50,AUS_Iron ores,"{""inventory_duration_targets"": {""definition"": ""per_input_type"", ""values"": {""default"": 2, ""food"": 2, ""mining"": 2, ""utilities"": 1, ""agriculture"": 2, ""manufacturing"": 3, ""services"": 2, ""trade"": 3, ""transport"": 1, ""construction"": 3}, ""unit"": ""week""}}"
+sens_ironAUS_inv75,AUS_Iron ores,"{""inventory_duration_targets"": {""definition"": ""per_input_type"", ""values"": {""default"": 3, ""food"": 2, ""mining"": 3, ""utilities"": 2, ""agriculture"": 2, ""manufacturing"": 5, ""services"": 3, ""trade"": 5, ""transport"": 2, ""construction"": 5}, ""unit"": ""week""}}"
+sens_ironAUS_inv125,AUS_Iron ores,"{""inventory_duration_targets"": {""definition"": ""per_input_type"", ""values"": {""default"": 5, ""food"": 4, ""mining"": 5, ""utilities"": 3, ""agriculture"": 4, ""manufacturing"": 8, ""services"": 5, ""trade"": 8, ""transport"": 3, ""construction"": 8}, ""unit"": ""week""}}"
+sens_ironAUS_inv150,AUS_Iron ores,"{""inventory_duration_targets"": {""definition"": ""per_input_type"", ""values"": {""default"": 6, ""food"": 5, ""mining"": 6, ""utilities"": 3, ""agriculture"": 5, ""manufacturing"": 9, ""services"": 6, ""trade"": 9, ""transport"": 3, ""construction"": 9}, ""unit"": ""week""}}"
+sens_ironAUS_rest2,AUS_Iron ores,"{""inventory_restoration_time"": 2}"
+sens_ironAUS_rest3,AUS_Iron ores,"{""inventory_restoration_time"": 3}"
+sens_ironAUS_rest5,AUS_Iron ores,"{""inventory_restoration_time"": 5}"
+sens_ironAUS_rest6,AUS_Iron ores,"{""inventory_restoration_time"": 6}"
+sens_machCHN_dur6,CHN_Machinery and equipment,"{""disruption_duration"": 6}"
+sens_machCHN_dur9,CHN_Machinery and equipment,"{""disruption_duration"": 9}"
+sens_machCHN_dur15,CHN_Machinery and equipment,"{""disruption_duration"": 15}"
+sens_machCHN_dur18,CHN_Machinery and equipment,"{""disruption_duration"": 18}"
+sens_machCHN_io0.0001,CHN_Machinery and equipment,"{""io_cutoff"": 0.0001}"
+sens_machCHN_io0.01,CHN_Machinery and equipment,"{""io_cutoff"": 0.01}"
+sens_machCHN_inv50,CHN_Machinery and equipment,"{""inventory_duration_targets"": {""definition"": ""per_input_type"", ""values"": {""default"": 2, ""food"": 2, ""mining"": 2, ""utilities"": 1, ""agriculture"": 2, ""manufacturing"": 3, ""services"": 2, ""trade"": 3, ""transport"": 1, ""construction"": 3}, ""unit"": ""week""}}"
+sens_machCHN_inv75,CHN_Machinery and equipment,"{""inventory_duration_targets"": {""definition"": ""per_input_type"", ""values"": {""default"": 3, ""food"": 2, ""mining"": 3, ""utilities"": 2, ""agriculture"": 2, ""manufacturing"": 5, ""services"": 3, ""trade"": 5, ""transport"": 2, ""construction"": 5}, ""unit"": ""week""}}"
+sens_machCHN_inv125,CHN_Machinery and equipment,"{""inventory_duration_targets"": {""definition"": ""per_input_type"", ""values"": {""default"": 5, ""food"": 4, ""mining"": 5, ""utilities"": 3, ""agriculture"": 4, ""manufacturing"": 8, ""services"": 5, ""trade"": 8, ""transport"": 3, ""construction"": 8}, ""unit"": ""week""}}"
+sens_machCHN_inv150,CHN_Machinery and equipment,"{""inventory_duration_targets"": {""definition"": ""per_input_type"", ""values"": {""default"": 6, ""food"": 5, ""mining"": 6, ""utilities"": 3, ""agriculture"": 5, ""manufacturing"": 9, ""services"": 6, ""trade"": 9, ""transport"": 3, ""construction"": 9}, ""unit"": ""week""}}"
+sens_machCHN_rest2,CHN_Machinery and equipment,"{""inventory_restoration_time"": 2}"
+sens_machCHN_rest3,CHN_Machinery and equipment,"{""inventory_restoration_time"": 3}"
+sens_machCHN_rest5,CHN_Machinery and equipment,"{""inventory_restoration_time"": 5}"
+sens_machCHN_rest6,CHN_Machinery and equipment,"{""inventory_restoration_time"": 6}"
+sens_petrSAU_dur6,SAU_Petroleum extraction,"{""disruption_duration"": 6}"
+sens_petrSAU_dur9,SAU_Petroleum extraction,"{""disruption_duration"": 9}"
+sens_petrSAU_dur15,SAU_Petroleum extraction,"{""disruption_duration"": 15}"
+sens_petrSAU_dur18,SAU_Petroleum extraction,"{""disruption_duration"": 18}"
+sens_petrSAU_io0.0001,SAU_Petroleum extraction,"{""io_cutoff"": 0.0001}"
+sens_petrSAU_io0.01,SAU_Petroleum extraction,"{""io_cutoff"": 0.01}"
+sens_petrSAU_inv50,SAU_Petroleum extraction,"{""inventory_duration_targets"": {""definition"": ""per_input_type"", ""values"": {""default"": 2, ""food"": 2, ""mining"": 2, ""utilities"": 1, ""agriculture"": 2, ""manufacturing"": 3, ""services"": 2, ""trade"": 3, ""transport"": 1, ""construction"": 3}, ""unit"": ""week""}}"
+sens_petrSAU_inv75,SAU_Petroleum extraction,"{""inventory_duration_targets"": {""definition"": ""per_input_type"", ""values"": {""default"": 3, ""food"": 2, ""mining"": 3, ""utilities"": 2, ""agriculture"": 2, ""manufacturing"": 5, ""services"": 3, ""trade"": 5, ""transport"": 2, ""construction"": 5}, ""unit"": ""week""}}"
+sens_petrSAU_inv125,SAU_Petroleum extraction,"{""inventory_duration_targets"": {""definition"": ""per_input_type"", ""values"": {""default"": 5, ""food"": 4, ""mining"": 5, ""utilities"": 3, ""agriculture"": 4, ""manufacturing"": 8, ""services"": 5, ""trade"": 8, ""transport"": 3, ""construction"": 8}, ""unit"": ""week""}}"
+sens_petrSAU_inv150,SAU_Petroleum extraction,"{""inventory_duration_targets"": {""definition"": ""per_input_type"", ""values"": {""default"": 6, ""food"": 5, ""mining"": 6, ""utilities"": 3, ""agriculture"": 5, ""manufacturing"": 9, ""services"": 6, ""trade"": 9, ""transport"": 3, ""construction"": 9}, ""unit"": ""week""}}"
+sens_petrSAU_rest2,SAU_Petroleum extraction,"{""inventory_restoration_time"": 2}"
+sens_petrSAU_rest3,SAU_Petroleum extraction,"{""inventory_restoration_time"": 3}"
+sens_petrSAU_rest5,SAU_Petroleum extraction,"{""inventory_restoration_time"": 5}"
+sens_petrSAU_rest6,SAU_Petroleum extraction,"{""inventory_restoration_time"": 6}"
+sens_maizUSA_dur6,USA_Growing maize,"{""disruption_duration"": 6}"
+sens_maizUSA_dur9,USA_Growing maize,"{""disruption_duration"": 9}"
+sens_maizUSA_dur15,USA_Growing maize,"{""disruption_duration"": 15}"
+sens_maizUSA_dur18,USA_Growing maize,"{""disruption_duration"": 18}"
+sens_maizUSA_io0.0001,USA_Growing maize,"{""io_cutoff"": 0.0001}"
+sens_maizUSA_io0.01,USA_Growing maize,"{""io_cutoff"": 0.01}"
+sens_maizUSA_inv50,USA_Growing maize,"{""inventory_duration_targets"": {""definition"": ""per_input_type"", ""values"": {""default"": 2, ""food"": 2, ""mining"": 2, ""utilities"": 1, ""agriculture"": 2, ""manufacturing"": 3, ""services"": 2, ""trade"": 3, ""transport"": 1, ""construction"": 3}, ""unit"": ""week""}}"
+sens_maizUSA_inv75,USA_Growing maize,"{""inventory_duration_targets"": {""definition"": ""per_input_type"", ""values"": {""default"": 3, ""food"": 2, ""mining"": 3, ""utilities"": 2, ""agriculture"": 2, ""manufacturing"": 5, ""services"": 3, ""trade"": 5, ""transport"": 2, ""construction"": 5}, ""unit"": ""week""}}"
+sens_maizUSA_inv125,USA_Growing maize,"{""inventory_duration_targets"": {""definition"": ""per_input_type"", ""values"": {""default"": 5, ""food"": 4, ""mining"": 5, ""utilities"": 3, ""agriculture"": 4, ""manufacturing"": 8, ""services"": 5, ""trade"": 8, ""transport"": 3, ""construction"": 8}, ""unit"": ""week""}}"
+sens_maizUSA_inv150,USA_Growing maize,"{""inventory_duration_targets"": {""definition"": ""per_input_type"", ""values"": {""default"": 6, ""food"": 5, ""mining"": 6, ""utilities"": 3, ""agriculture"": 5, ""manufacturing"": 9, ""services"": 6, ""trade"": 9, ""transport"": 3, ""construction"": 9}, ""unit"": ""week""}}"
+sens_maizUSA_rest2,USA_Growing maize,"{""inventory_restoration_time"": 2}"
+sens_maizUSA_rest3,USA_Growing maize,"{""inventory_restoration_time"": 3}"
+sens_maizUSA_rest5,USA_Growing maize,"{""inventory_restoration_time"": 5}"
+sens_maizUSA_rest6,USA_Growing maize,"{""inventory_restoration_time"": 6}"
