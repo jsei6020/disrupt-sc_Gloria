@@ -882,17 +882,26 @@ class Model(object):
         rel = self.parameters.epsilon_stop_relative
         last_disrupted_step = max(d.start_time + (d.recovery.duration if d.recovery else 0) - 1
                                   for d in self.disruption_list)
-        peak_loss, steps_below = 0.0, 0
+        peak_loss, steps_below, trough_loss = 0.0, 0, None
         for t in range(1, t_final + 1):
             self.run_one_time_step(time_step=t, current_simulation=simulation)
             current_loss = self.current_weekly_loss
             peak_loss = max(peak_loss, current_loss)
 
-            if (t > max([disruption.start_time for disruption in
-                         self.disruption_list])) and self.parameters.epsilon_stop_condition:
+            # Absolute rule: only after the last disruption has ended (it used to apply from the step after
+            # the start, so a ban whose buyers live off stocks at first could end the run during the ban).
+            if (t > last_disrupted_step) and self.parameters.epsilon_stop_condition:
                 if self.is_back_to_equilibrium:
                     logging.info("Simulation stops")
                     break
+            # Warn when the weekly loss rises again after it had fallen well below its peak.
+            if t > last_disrupted_step and peak_loss > 0:
+                if trough_loss is not None and current_loss > 2 * trough_loss and current_loss > 1e-3 * peak_loss:
+                    logging.warning(f"Rising loss after the disruption at step {t}: {current_loss:.6g} "
+                                    f"(low since the peak {trough_loss:.6g}, peak {peak_loss:.6g})")
+                    trough_loss = current_loss
+                elif current_loss < 0.5 * peak_loss:
+                    trough_loss = current_loss if trough_loss is None else min(trough_loss, current_loss)
             steps_below = relative_stop_counter(steps_below, current_loss, peak_loss, rel, t > last_disrupted_step)
             if rel and steps_below >= self.parameters.epsilon_stop_consecutive:
                 logging.info(f"Simulation stops at step {t}: weekly loss {current_loss:.6g} below "

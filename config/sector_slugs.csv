@@ -1,0 +1,121 @@
+number,sector,slug
+1,Growing wheat,Wheat
+2,Growing maize,Maize
+3,Growing cereals n.e.c.,CerealsNec
+4,Growing leguminous crops and oil seeds,Oilseeds
+5,Growing rice,Rice
+6,"Growing vegetables, roots, tubers",Vegetables
+7,Growing sugar beet and cane,SugarCrops
+8,Growing tobacco,Tobacco
+9,Growing fibre crops,FibreCrops
+10,Growing crops n.e.c.,CropsNec
+11,Growing grapes,Grapes
+12,Growing fruits and nuts,FruitsNuts
+13,"Growing beverage crops (coffee, tea etc)",BeverageCrops
+14,"Growing spices, aromatic, drug and pharmaceutical crops",Spices
+15,Seeds and plant propagation,Seeds
+16,Raising of cattle,Cattle
+17,Raising of sheep and goats,SheepGoats
+18,Raising of swine/pigs,Pigs
+19,Raising of poultry,Poultry
+20,Raising of animals n.e.c.; services to agriculture,AnimalsNec
+21,Forestry and logging,Forestry
+22,Fishing,Fishing
+23,Crustaceans and molluscs,Crustaceans
+24,Hard coal,HardCoal
+25,Lignite and peat,Lignite
+26,Petroleum extraction,Petroleum
+27,Gas extraction,Gas
+28,Iron ores,IronOres
+29,Uranium ores,Uranium
+30,Aluminium ore,AluminiumOre
+31,Copper ores,CopperOres
+32,Gold ores,GoldOres
+33,"Lead, zinc, silver ores",LeadZincSilverOres
+34,Nickel ores,NickelOres
+35,Tin ores,TinOres
+36,Other non-ferrous ores,NonFerrOresNec
+37,"Quarrying of stone, sand and clay",Quarrying
+38,Chemical and fertilizer minerals,ChemMinerals
+39,Extraction of salt,Salt
+40,Mining and quarrying n.e.c.; services to mining,MiningNec
+41,Beef meat,BeefMeat
+42,Sheep meat,SheepMeat
+43,Pork,Pork
+44,Poultry meat,PoultryMeat
+45,Other meat products,MeatNec
+46,Fish products,FishProducts
+47,Cereal products,CerealProducts
+48,Vegetable products,VegProducts
+49,Fruit products,FruitProducts
+50,Food products and feeds n.e.c.,FoodNec
+51,"Sugar refining; cocoa, chocolate and confectionery",SugarCocoa
+52,Animal oils and fats,AnimalFats
+53,Vegetable oils and fats,VegOils
+54,Dairy products,Dairy
+55,Alcoholic and other beverages,Beverages
+56,Tobacco products,TobaccoProducts
+57,Textiles and clothing,Textiles
+58,Leather and footwear,LeatherFootwear
+59,Sawmill products,Sawmill
+60,Pulp and paper,PulpPaper
+61,Printing,Printing
+62,Coke oven products,CokeOven
+63,Refined petroleum products,RefinedPetroleum
+64,Nitrogenous fertilizers,NitroFertilizers
+65,Non-nitrogenous and mixed fertilizers,OtherFertilizers
+66,Basic petrochemical products,Petrochemicals
+67,Basic inorganic chemicals,InorganicChem
+68,Basic organic chemicals,OrganicChem
+69,Pharmaceuticals and medicinal products,Pharma
+70,"Dyes, paints, glues, detergents and other chemical products",OtherChemicals
+71,Rubber products,Rubber
+72,Plastic products,Plastics
+73,Clay building materials,ClayBuilding
+74,Glass and other ceramics n.e.c.,GlassCeramics
+75,"Cement, lime and plaster products",Cement
+76,Other non-metallic mineral products n.e.c.,NonMetMineralsNec
+77,Basic iron and steel,IronSteel
+78,Basic aluminium,BasicAluminium
+79,Basic copper,BasicCopper
+80,Basic gold,BasicGold
+81,"Basic lead, zinc, silver",BasicLeadZincSilver
+82,Basic nickel,BasicNickel
+83,Basic tin,BasicTin
+84,Basic non-ferrous metals n.e.c.,BasicNonFerrNec
+85,Fabricated metal products,FabMetal
+86,Machinery and equipment,Machinery
+87,"Motor vehicles, trailers and semi-trailers",MotorVehicles
+88,Other transport equipment,OtherTransportEq
+89,Repair and installation of machinery and equipment (service),RepairMachinery
+90,Computers; electronic products; optical and precision instruments,Electronics
+91,Electrical equipment,ElectricalEq
+92,Furniture and other manufacturing n.e.c.,FurnitureNec
+93,"Electric power generation, transmission and distribution",Electricity
+94,Distribution of gaseous fuels through mains,GasDistribution
+95,"Water collection, treatment and supply; sewerage",Water
+96,"Waste collection, treatment, and disposal",Waste
+97,Materials recovery,MaterialsRecovery
+98,Building construction,BuildingConstr
+99,Civil engineering construction,CivilEngineering
+100,Wholesale and retail trade; repair of motor vehicles and motorcycles,Trade
+101,Road transport,RoadTransport
+102,Rail transport,RailTransport
+103,Transport via pipeline,Pipeline
+104,Water transport,WaterTransport
+105,Air transport,AirTransport
+106,Services to transport,TransportServices
+107,Postal and courier services,PostalCourier
+108,Hospitality,Hospitality
+109,Publishing,Publishing
+110,Telecommunications,Telecom
+111,Information services,InfoServices
+112,Finance and insurance,FinanceInsurance
+113,Property and real estate,RealEstate
+114,"Professional, scientific and technical services",ProfServices
+115,Administrative services,AdminServices
+116,Government; social security; defence; public order,Government
+117,Education,Education
+118,Human health and social work activities,Health
+119,"Arts, entertainment and recreation",Arts
+120,Other services,OtherServices

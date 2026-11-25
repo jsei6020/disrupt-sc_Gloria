@@ -184,16 +184,28 @@ class Parameters:
         base = paths.OUTPUT_FOLDER / base_scope
         base.mkdir(parents=True, exist_ok=True)
 
-        # get region_sector from first disruption (adapt if needed)
-        disruption = self.disruptions[0]
-        region_sector_str = disruption["filter"]["region_sector"][0]
-
-        # folder name: up to first 12 characters of region_sector
+        # Folder name: {ISO3}_{GLORIA number:03d}_{slug}_{timestamp} (slugs in config/sector_slugs.csv);
+        # falls back to the first 12 characters of the region-sector if it is not in the table.
+        # A run_info.json with the full region-sector, scope and code version is written into the folder.
+        region_sector_str = "run"
+        try:
+            region_sector_str = self.disruptions[0]["filter"]["region_sector"][0]
+        except (IndexError, KeyError, TypeError):
+            pass
         timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-        folder_name = f"{region_sector_str[:12]}_{timestamp}"
+        name = _slugged_folder_name(region_sector_str)
+        folder_name = f"{name}_{timestamp}"
         self.export_folder = base / folder_name
-        self.export_folder.mkdir(exist_ok=True) #this creates the scope folder along with it
-        
+        suffix = 1
+        while True:  # never share a folder with a parallel run that started in the same second
+            try:
+                self.export_folder.mkdir()
+                break
+            except FileExistsError:
+                suffix += 1
+                self.export_folder = base / f"{folder_name}_{suffix}"
+        _write_run_info(self.export_folder, self.scope, region_sector_str)
+
         #Old version
         #if not os.path.isdir(paths.OUTPUT_FOLDER / self.scope):
         #    os.mkdir(paths.OUTPUT_FOLDER / self.scope)
@@ -285,3 +297,36 @@ class Parameters:
                 mode: drawn_cost[i]
                 for mode, drawn_cost in drawn_costs.items()
             }
+
+
+def _slugged_folder_name(region_sector: str) -> str:
+    """ISO3_NNN_Slug for a GLORIA region-sector, or its first 12 characters if the sector is unknown."""
+    import csv
+    region, _, sector = region_sector.partition("_")
+    table = paths.ROOT_FOLDER / "config" / "sector_slugs.csv"
+    if table.exists():
+        with open(table, newline="") as f:
+            for row in csv.DictReader(f):
+                if row["sector"] == sector:
+                    return f"{region}_{int(row['number']):03d}_{row['slug']}"
+    return region_sector[:12]
+
+
+def _write_run_info(folder: Path, scope: str, region_sector: str):
+    """run_info.json: scope, full region-sector, code commit (or 'unknown'), host and start time."""
+    import json
+    import socket
+    import subprocess
+    try:
+        commit = subprocess.run(["git", "-C", str(paths.ROOT_FOLDER), "rev-parse", "HEAD"],
+                                capture_output=True, text=True, timeout=10).stdout.strip() or "unknown"
+        dirty = subprocess.run(["git", "-C", str(paths.ROOT_FOLDER), "status", "--porcelain", "src"],
+                               capture_output=True, text=True, timeout=10).stdout.strip() != ""
+    except (OSError, subprocess.SubprocessError):
+        commit, dirty = os.environ.get("DSC_COMMIT", "unknown"), None
+    if commit == "unknown":
+        commit = os.environ.get("DSC_COMMIT", "unknown")
+    info = {"scope": scope, "region_sector": region_sector, "commit": commit, "src_modified": dirty,
+            "host": socket.gethostname(), "started": datetime.now().isoformat(timespec="seconds")}
+    with open(folder / "run_info.json", "w") as f:
+        json.dump(info, f, indent=1)
