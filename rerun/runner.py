@@ -2,7 +2,8 @@
 
     python rerun/runner.py rerun/runs.csv [--maxpar 10] [--min-free-gb 20] [--shutdown]
 
-runs.csv columns: tag, region_sector, overrides (JSON; keys: disruption_duration or any top-level parameter).
+runs.csv columns: tag, region_sector, overrides (JSON; keys: disruption_duration, any top-level parameter,
+or a nested one with dots, e.g. "sectors.pichler_grouping": "none" for the upper-bound runs).
 Per run: config/parameters/user_defined_Global4_run_r_<tag>.yaml is built from the base config
 (user_defined_Global4_rerun.yaml) with the region-sector and the overrides; data/<scope> links to the data.
 A run is done when its output folder (found through run_info.json) has loss_summary.csv and the
@@ -65,6 +66,14 @@ def write_config(tag, region_sector, overrides):
     for key, value in overrides.items():
         if key == "disruption_duration":
             dis["duration"] = int(value)
+        elif "." in key:  # nested parameter, e.g. sectors.pichler_grouping
+            node = cfg
+            *parents, leaf = key.split(".")
+            for k in parents:
+                node = node[k]
+            if leaf not in node:
+                raise KeyError(f"{tag}: override {key} does not exist in the base config")
+            node[leaf] = value
         elif key not in cfg:
             raise KeyError(f"{tag}: override {key} is not a top-level parameter of the base config")
         else:
