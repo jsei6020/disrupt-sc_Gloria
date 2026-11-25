@@ -876,14 +876,28 @@ class Model(object):
         logging.info(f"{len(self.disruption_list)} disruption(s) will occur")
         self.disruption_list.log_info()
         logging.info("Starting time loop")
+        # Relative stop rule (epsilon_stop_relative): after the last disruption has ended, stop once the
+        # weekly loss has been below epsilon_stop_relative times the highest weekly loss so far for
+        # epsilon_stop_consecutive steps in a row. The absolute rule (epsilon_stop_condition) still applies.
+        rel = self.parameters.epsilon_stop_relative
+        last_disrupted_step = max(d.start_time + (d.recovery.duration if d.recovery else 0) - 1
+                                  for d in self.disruption_list)
+        peak_loss, steps_below = 0.0, 0
         for t in range(1, t_final + 1):
             self.run_one_time_step(time_step=t, current_simulation=simulation)
+            current_loss = self.current_weekly_loss
+            peak_loss = max(peak_loss, current_loss)
 
             if (t > max([disruption.start_time for disruption in
                          self.disruption_list])) and self.parameters.epsilon_stop_condition:
                 if self.is_back_to_equilibrium:
                     logging.info("Simulation stops")
                     break
+            steps_below = relative_stop_counter(steps_below, current_loss, peak_loss, rel, t > last_disrupted_step)
+            if rel and steps_below >= self.parameters.epsilon_stop_consecutive:
+                logging.info(f"Simulation stops at step {t}: weekly loss {current_loss:.6g} below "
+                             f"{rel:g} x peak {peak_loss:.6g} for {steps_below} steps")
+                break
         # simulation.calculate_and_export_summary_result(self.sc_network, self.household_table,
         #                                                self.parameters.monetary_units_in_model,
         #                                                None)
@@ -1034,6 +1048,12 @@ class Model(object):
         # node disruption not implemented
 
     @property
+    def current_weekly_loss(self) -> float:
+        """Household and country consumption loss plus extra spending in the current step."""
+        return (sum(h.extra_spending + h.consumption_loss for h in self.households.values())
+                + sum(c.extra_spending + c.consumption_loss for c in self.countries.values()))
+
+    @property
     def is_back_to_equilibrium(self):
         household_extra_spending = sum([household.extra_spending for household in self.households.values()])
         household_consumption_loss = sum([household.consumption_loss for household in self.households.values()])
@@ -1081,3 +1101,10 @@ class Model(object):
         if 'tuple' in self.household_table.columns:
             household_table_to_export = household_table_to_export.drop(columns=['tuple'])
         household_table_to_export.to_file(self.parameters.export_folder / 'household_table.geojson', index="GeoJSON")
+
+
+def relative_stop_counter(steps_below: int, current_loss: float, peak_loss: float, rel, active: bool) -> int:
+    """Number of consecutive steps with weekly loss below rel x peak weekly loss so far (0 while inactive)."""
+    if not rel or not active or peak_loss <= 0:
+        return 0
+    return steps_below + 1 if current_loss < rel * peak_loss else 0

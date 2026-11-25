@@ -349,6 +349,11 @@ criticality:
 # Value of the household extra spending and consumption loss under which we stop the simulation
 # Units is the monetary_units_in_model
 epsilon_stop_condition: 1e-3
+# Relative stop rule: after the last disruption has ended, stop once the weekly loss has been below
+# epsilon_stop_relative x the highest weekly loss so far for epsilon_stop_consecutive steps in a row.
+# null disables it (only the absolute rule applies).
+epsilon_stop_relative: null
+epsilon_stop_consecutive: 2
 
 # Characteristic of the transport edges that the path chosen by firms to
 # deliver to their to clients should minimized

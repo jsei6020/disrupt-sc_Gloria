@@ -95,6 +95,8 @@ class Parameters:
     export_folder: Path | str = ""
     is_monte_carlo: bool = False
     with_output_folder: bool = True
+    epsilon_stop_relative: float | None = None  # stop when weekly loss < this share of the peak weekly loss
+    epsilon_stop_consecutive: int = 2  # ... for this many consecutive steps after the last disruption ended
 
     @classmethod
     def load_default_parameters(cls, parameter_folder: Path, scope: str = "default"):
@@ -133,6 +135,9 @@ class Parameters:
 
         # Cast datatype
         parameters.epsilon_stop_condition = float(parameters.epsilon_stop_condition)
+        if parameters.epsilon_stop_relative is not None:  # YAML reads 1e-3 as a string
+            parameters.epsilon_stop_relative = float(parameters.epsilon_stop_relative)
+        parameters.epsilon_stop_consecutive = int(parameters.epsilon_stop_consecutive)
 
         # Check whether MC
         parameters.is_monte_carlo = parameters.mc_repetitions and parameters.mc_repetitions >= 1
