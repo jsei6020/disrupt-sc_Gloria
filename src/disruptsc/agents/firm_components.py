@@ -109,15 +109,19 @@ def input_ratings(buyer_sector: str, input_mix: Dict) -> Dict[str, float]:
     return {key: 0.0 if _input_sector(key) in _LINEAR_SUPPLIER_SECTORS else 1.0 for key in input_mix}
 
 
-def pool_inputs(inventory: Dict, input_mix: Dict, ratings: Dict[str, float], production_target: float):
+def pool_inputs(inventory: Dict, input_mix: Dict, ratings: Dict[str, float], production_target: float,
+                eq_production: float):
     """Pool inputs of the same group and rating, without substitution between members.
 
     Group key: GLORIA sector ("sector"), or WIOD group with ("region") or without ("all") the
-    supplier region. A group's availability is the share of its requirement at the production
-    target that is in stock, f = sum_k min(S_k, a_k T) / (a_g T): each member counts at most
-    with its normal requirement, so a surplus of one member never covers the shortfall of another.
-    Returns pooled (inventory, input_mix, ratings) such that stock / coefficient = f * T, plus
-    the member keys and f per group (used to draw down stocks consistently).
+    supplier region. The group stands for plants that each use one member k (share
+    w_k = a_k / a_g of output) at the group's full recipe. Each member's plants are bounded as in
+    Pichler et al. (2022): c_k = min(T, S_k / a_k) if critical, min(T, 0.5 (S_k / a_k + x0)) if
+    important. The group bound is B_g = sum_k w_k c_k, so a surplus of one member never covers the
+    shortfall of another; for critical groups B_g = f T with f = sum_k min(S_k, a_k T) / (a_g T).
+    Returns pooled (inventory, input_mix) such that stock / coefficient = B_g, production-function
+    ratings (1 for every binding group: B_g already contains the rating), the original group
+    ratings, the member keys, B_g per group and c_k per member (used to draw down stocks).
     """
     members: Dict[tuple, list] = {}
     pooled_ratings: Dict[tuple, float] = {}
@@ -135,18 +139,27 @@ def pool_inputs(inventory: Dict, input_mix: Dict, ratings: Dict[str, float], pro
         pooled_ratings[pool_key] = rating
     pooled_inv: Dict[tuple, float] = {}
     pooled_mix: Dict[tuple, float] = {}
-    availability: Dict[tuple, float] = {}
+    pf_ratings: Dict[tuple, float] = {}
+    bounds: Dict[tuple, float] = {}
+    member_caps: Dict[str, float] = {}
     for pool_key, keys in members.items():
+        rating = pooled_ratings[pool_key]
         coeff = sum(input_mix[k] for k in keys)
-        if production_target <= 0 or coeff <= 0:
-            f = 1.0
-        else:
-            f = sum(min(inventory.get(k, 0.0), input_mix[k] * production_target) for k in keys) \
-                / (coeff * production_target)
-        availability[pool_key] = f
         pooled_mix[pool_key] = coeff
-        pooled_inv[pool_key] = f * production_target * coeff
-    return pooled_inv, pooled_mix, pooled_ratings, members, availability
+        pf_ratings[pool_key] = 1.0 if rating > 0 else 0.0
+        if rating == 0 or coeff <= 0 or production_target <= 0:
+            bounds[pool_key] = max(production_target, 0.0)
+            pooled_inv[pool_key] = bounds[pool_key] * coeff
+            continue
+        b = 0.0
+        for k in keys:
+            ratio = inventory.get(k, 0.0) / input_mix[k] if input_mix[k] > 0 else production_target
+            c = ratio if rating == 1.0 else 0.5 * (ratio + eq_production)
+            member_caps[k] = min(production_target, c)
+            b += input_mix[k] / coeff * member_caps[k]
+        bounds[pool_key] = b
+        pooled_inv[pool_key] = b * coeff
+    return pooled_inv, pooled_mix, pf_ratings, pooled_ratings, members, bounds, member_caps
 
 
 def is_linear_client(buyer_sector: str) -> bool:
@@ -231,8 +244,8 @@ class ProductionManager:
             self.production = min(self.production_target * share, self.current_production_capacity)
         else:
             if _INPUT_CRITICALITY == "pichler" and _PICHLER_GROUPING != "none":
-                pf_inventory, pf_mix, pf_ratings, members, availability = pool_inputs(
-                    inventory, input_mix, ratings, self.production_target)
+                pf_inventory, pf_mix, pf_ratings, group_ratings, members, bounds, member_caps = pool_inputs(
+                    inventory, input_mix, ratings, self.production_target, self.eq_production)
             else:
                 pf_inventory, pf_mix, pf_ratings = inventory, input_mix, ratings
             max_from_inputs = production_function(
@@ -250,20 +263,20 @@ class ProductionManager:
         # should be zero up to float error.
         pooled = _INPUT_CRITICALITY == "pichler" and _PICHLER_GROUPING != "none"
         self.product_stock += self.production
-        # In pooled groups, member k is drawn at min(S_k, a_k T) * x / (f T): the group as a whole
-        # supplies a_g * x, and no member is drawn faster than its normal rate a_k T, so stocks of
-        # other origins are not used up to replace a missing one (no implicit supplier switching).
+        # In pooled groups, member k is drawn at a_k c_k x / B_g: the group as a whole supplies
+        # a_g * x, each member in proportion to what its plants can produce, and no member is drawn
+        # faster than its normal rate a_k T, so stocks of other origins are not used up to replace
+        # a missing one (no implicit supplier switching). For critical groups a_k c_k = min(S_k, a_k T).
         pooled_need = {}
         if (effective_mode != "Linear" and len(input_mix) > 0 and _INPUT_CRITICALITY == "pichler"
                 and _PICHLER_GROUPING != "none"):
             for pool_key, keys in members.items():
-                f = availability[pool_key]
-                if pf_ratings[pool_key] == 0 or self.production_target <= 0:
+                b = bounds[pool_key]
+                if group_ratings[pool_key] == 0 or self.production_target <= 0:
                     continue
                 for k in keys:
-                    if f > 0:
-                        pooled_need[k] = min(inventory.get(k, 0.0), input_mix[k] * self.production_target) \
-                            * self.production / (f * self.production_target)
+                    if b > 0:
+                        pooled_need[k] = input_mix[k] * member_caps[k] * self.production / b
                     else:
                         pooled_need[k] = input_mix[k] * self.production
         updated_inventory = {}
